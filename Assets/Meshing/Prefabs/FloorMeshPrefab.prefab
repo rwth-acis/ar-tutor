@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1461448870524360583}
   - component: {fileID: -3890256015346069243}
   - component: {fileID: -1659042253272821110}
+  - component: {fileID: -3907165166067291933}
   m_Layer: 3
   m_Name: FloorMeshPrefab
   m_TagString: Untagged
@@ -116,7 +117,7 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 8
-  m_UseGeometry: 1
+  m_UseGeometry: 0
   m_DefaultArea: 0
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
@@ -126,3 +127,15 @@ MonoBehaviour:
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &-3907165166067291933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5878046666323563558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18229e38d6b474dea8eaab3f69deea75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

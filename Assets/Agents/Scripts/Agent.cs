@@ -57,6 +57,8 @@ namespace VirtualAgentsFramework
         {
             // Get the agent's NavMeshAgent component
             agent = GetComponent<NavMeshAgent>();
+            // Signal to all components that an agent was instantiated
+            EventManager.AgentInstantiated(this, agent);
             // Disable NavMeshAgent's rotation updates, since rotation is handled by ThirdPersonCharacter
             agent.updateRotation = false;
             // Make the agent start in the idle state in order to enable requesting new tasks
