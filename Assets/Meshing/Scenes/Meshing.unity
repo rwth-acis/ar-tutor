@@ -2817,7 +2817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_FloorPrefabs:
-  - {fileID: 6201204722317507342, guid: e8fa30f6d43ab1b4c81f7796186bff2c, type: 3}
+  - {fileID: 6693285494046654391, guid: 5ad42cb6ec243450ea0c9487c474e2bc, type: 3}
   - {fileID: 3832190420887735438, guid: e1c50fac07beb724eaf63903c6ec03b2, type: 3}
   - {fileID: 2478988261813409779, guid: e6fc96769fc10f2469c8a92e004c9b97, type: 3}
   m_TablePrefabs:
