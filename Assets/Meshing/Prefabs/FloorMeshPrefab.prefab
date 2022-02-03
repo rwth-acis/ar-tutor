@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1461448870524360583}
   - component: {fileID: -3890256015346069243}
   - component: {fileID: -1659042253272821110}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FloorMeshPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,8 +115,8 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
+    m_Bits: 8
+  m_UseGeometry: 1
   m_DefaultArea: 0
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1

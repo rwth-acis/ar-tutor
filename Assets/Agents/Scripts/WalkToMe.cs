@@ -14,6 +14,8 @@ public class WalkToMe : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        agent = GameObject.Find("RPM_Agent").GetComponent<Agent>();
+        surface = GameObject.Find("DestinationObject").GetComponent<NavMeshSurface>();
         // Update the NavMesh
         surface.BuildNavMesh();
         // Schedule a task for the assigned agent to walk to this game object
