@@ -10,7 +10,7 @@ public class Floor : MonoBehaviour
     void Start()
     {
         // Signal to all components that a walk label was instantiated
-        EventManager.FloorInstantiated(GetComponent<NavMeshSurface>());
+        EventManager.FloorInstantiated();
     }
 
     // Update is called once per frame

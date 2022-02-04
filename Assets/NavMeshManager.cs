@@ -10,8 +10,9 @@ using VirtualAgentsFramework.AgentTasks;
 public class NavMeshManager : MonoBehaviour
 {
     Agent agent;
-    NavMeshSurface floor;
-    NavMeshAgent navmesh;
+    [SerializeField] NavMeshSurface navMeshSurface;
+    NavMeshAgent navMeshAgent;
+    bool floorTracking;
 
     private void OnEnable()
     {
@@ -29,20 +30,25 @@ public class NavMeshManager : MonoBehaviour
         EventManager.OnWalkLabelInstantiated -= WalkLabelInstantiated;
     }
 
-    // Called from event manager
-    private void FloorInstantiated(NavMeshSurface floor)
+    private void Start()
     {
-        // Start tracking the agent
-        this.floor = floor;
+        floorTracking = false;
+    }
+
+    // Called from event manager
+    private void FloorInstantiated()
+    {
+        // Start tracking the floor
+        floorTracking = true;
         Debug.Log("Floor got instantiated.");
     }
 
     // Called from event manager
-    private void AgentInstantiated(Agent agent, NavMeshAgent navmesh)
+    private void AgentInstantiated(Agent agent, NavMeshAgent navMeshAgent)
     {
         // Start tracking the agent
         this.agent = agent;
-        this.navmesh = navmesh;
+        this.navMeshAgent = navMeshAgent;
         Debug.Log("Agent got instantiated.");
     }
 
@@ -52,8 +58,8 @@ public class NavMeshManager : MonoBehaviour
         // Queue walking to the destination for the agent
         if (agent != null)
         {
-            agent.WalkTo(gameObject);
-            navmesh.SetDestination(gameObject.transform.position);
+            agent.WalkTo(destination);
+            //navMeshAgent.SetDestination(destination.transform.position);
             Debug.Log("WalkLabel got instantiated.");
         }
     }
@@ -61,10 +67,10 @@ public class NavMeshManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Update the NavMesh in every frame (might be an overkill)
-        if (floor != null)
+        // Update the NavMesh in every frame after the floor got instantiated (might be an overkill)
+        if (floorTracking == true)
         {
-            floor.BuildNavMesh();
+            navMeshSurface.BuildNavMesh();
             Debug.Log("NavMesh got rebuilt.");
         }
     }

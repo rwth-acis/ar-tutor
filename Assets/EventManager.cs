@@ -8,24 +8,24 @@ using VirtualAgentsFramework;
 
 public class EventManager : MonoBehaviour
 {
-    public delegate void FloorInstantiatedDelegate(NavMeshSurface floor);
+    public delegate void FloorInstantiatedDelegate();
 
     public static event FloorInstantiatedDelegate OnFloorInstantiated;
 
     // Tells all the components when the floor got instantiated
-    public static void FloorInstantiated(NavMeshSurface floor)
+    public static void FloorInstantiated()
     {
-        OnFloorInstantiated?.Invoke(floor);
+        OnFloorInstantiated?.Invoke();
     }
 
-    public delegate void AgentInstantiatedDelegate(Agent agent, NavMeshAgent navmesh);
+    public delegate void AgentInstantiatedDelegate(Agent agent, NavMeshAgent navMeshAgent);
 
     public static event AgentInstantiatedDelegate OnAgentInstantiated;
 
     // Tells all the components when the agent got instantiated
-    public static void AgentInstantiated(Agent agent, NavMeshAgent navmesh)
+    public static void AgentInstantiated(Agent agent, NavMeshAgent navMeshAgent)
     {
-        OnAgentInstantiated?.Invoke(agent, navmesh);
+        OnAgentInstantiated?.Invoke(agent, navMeshAgent);
     }
 
     public delegate void WalkLabelInstantiatedDelegate(GameObject walkLabel);
