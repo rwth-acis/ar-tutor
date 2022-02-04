@@ -39,8 +39,10 @@ public class NavMeshManager : MonoBehaviour
     private void FloorInstantiated()
     {
         // Start tracking the floor
-        floorTracking = true;
-        Debug.Log("Floor got instantiated.");
+        /*floorTracking = true;
+        Debug.Log("Floor got instantiated.");*/
+        navMeshSurface.BuildNavMesh();
+        Debug.Log("NavMesh got rebuilt.");
     }
 
     // Called from event manager
@@ -68,10 +70,10 @@ public class NavMeshManager : MonoBehaviour
     void Update()
     {
         // Update the NavMesh in every frame after the floor got instantiated (might be an overkill)
-        if (floorTracking == true)
+        /*if (floorTracking == true)
         {
             navMeshSurface.BuildNavMesh();
             Debug.Log("NavMesh got rebuilt.");
-        }
+        }*/
     }
 }
