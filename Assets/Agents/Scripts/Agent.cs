@@ -21,9 +21,13 @@ namespace VirtualAgentsFramework
     /// </summary>
     [RequireComponent(typeof(NavMeshAgent))] // Responsible for the proxy object's movement
     [RequireComponent(typeof(ThirdPersonCharacter))] // Responsible for the avatar's movement
+    [RequireComponent(typeof(AgentAbilities))] //BA Stores the list of agent's abilities
     public class Agent : MonoBehaviour
     {
         private NavMeshAgent agent;
+
+        //BA List of the agent's abilities
+        private AgentAbilities abilities;
 
         /// <summary>
         /// Agent's personal task queue
@@ -57,8 +61,10 @@ namespace VirtualAgentsFramework
         {
             // Get the agent's NavMeshAgent component
             agent = GetComponent<NavMeshAgent>();
-            // Signal to all components that an agent was instantiated
-            EventManager.AgentInstantiated(this, agent);
+            //BA Fetch the agent's abilities
+            abilities = GetComponent<AgentAbilities>();
+            //BA Signal to all components that an agent with certain abilities has been instantiated
+            EventManager.AgentInstantiated(this, abilities);
             // Disable NavMeshAgent's rotation updates, since rotation is handled by ThirdPersonCharacter
             agent.updateRotation = false;
             // Make the agent start in the idle state in order to enable requesting new tasks

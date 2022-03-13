@@ -18,23 +18,23 @@ public class EventManager : MonoBehaviour
         OnFloorInstantiated?.Invoke();
     }
 
-    public delegate void AgentInstantiatedDelegate(Agent agent, NavMeshAgent navMeshAgent);
+    public delegate void AgentInstantiatedDelegate(Agent agent, AgentAbilities abilities);
 
     public static event AgentInstantiatedDelegate OnAgentInstantiated;
 
     // Tells all the components when the agent got instantiated
-    public static void AgentInstantiated(Agent agent, NavMeshAgent navMeshAgent)
+    public static void AgentInstantiated(Agent agent, AgentAbilities abilities)
     {
-        OnAgentInstantiated?.Invoke(agent, navMeshAgent);
+        OnAgentInstantiated?.Invoke(agent, abilities);
     }
 
-    public delegate void WalkLabelInstantiatedDelegate(GameObject walkLabel);
+    public delegate void WalkLabelInstantiatedDelegate(SmartObject smartDestinationObject);
 
     public static event WalkLabelInstantiatedDelegate OnWalkLabelInstantiated;
 
     // Tells all the components when the walk label got instantiated
-    public static void WalkLabelInstantiated(GameObject walkLabel)
+    public static void WalkLabelInstantiated(SmartObject smartDestinationObject)
     {
-        OnWalkLabelInstantiated?.Invoke(walkLabel);
+        OnWalkLabelInstantiated?.Invoke(smartDestinationObject);
     }
 }

@@ -3624,7 +3624,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6693285493076025797
 Transform:
   m_ObjectHideFlags: 0
@@ -3957,6 +3957,7 @@ GameObject:
   - component: {fileID: 6693285494046654386}
   - component: {fileID: 6693285494046653519}
   - component: {fileID: 6693285494046653518}
+  - component: {fileID: 4766819869742466100}
   m_Layer: 0
   m_Name: RPM_Agent
   m_TagString: Untagged
@@ -4244,6 +4245,20 @@ MonoBehaviour:
   AudioClip: {fileID: 0}
   AudioSource: {fileID: 0}
   AudioProvider: 0
+--- !u!114 &4766819869742466100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6693285494046654391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ef1f10611ebf40a4b3ac97642f17c2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilities:
+  - {fileID: 11400000, guid: 121db93c7bfe24970be8d038364bfd27, type: 2}
 --- !u!1 &6693285494231894766
 GameObject:
   m_ObjectHideFlags: 0
@@ -4555,7 +4570,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6693285494928850869
 Transform:
   m_ObjectHideFlags: 0

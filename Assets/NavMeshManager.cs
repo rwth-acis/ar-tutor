@@ -11,7 +11,8 @@ public class NavMeshManager : MonoBehaviour
 {
     Agent agent;
     [SerializeField] NavMeshSurface navMeshSurface;
-    NavMeshAgent navMeshAgent;
+    [SerializeField] Interaction walkingInteraction;
+    AgentAbilities abilities;
     bool floorTracking;
 
     private void OnEnable()
@@ -46,17 +47,22 @@ public class NavMeshManager : MonoBehaviour
     }
 
     // Called from event manager
-    private void AgentInstantiated(Agent agent, NavMeshAgent navMeshAgent)
+    private void AgentInstantiated(Agent agent, AgentAbilities abilities)
     {
         // Start tracking the agent
         this.agent = agent;
-        this.navMeshAgent = navMeshAgent;
+        this.abilities = abilities;
         Debug.Log("Agent got instantiated.");
     }
 
     // Called from event manager
-    private void WalkLabelInstantiated(GameObject destination)
+    private void WalkLabelInstantiated(SmartObject smartDestinationObject)
     {
+        // WITH ABILITY SYSTEM
+        // Try to perform a walk interaction
+        InteractionManager.AttemptInteraction(agent, abilities, walkingInteraction, smartDestinationObject);
+
+        /*  WITHOUT ABILITY SYSTEM
         // Queue walking to the destination for the agent
         if (agent != null)
         {
@@ -64,6 +70,7 @@ public class NavMeshManager : MonoBehaviour
             //navMeshAgent.SetDestination(destination.transform.position);
             Debug.Log("WalkLabel got instantiated.");
         }
+        */
     }
 
     // Update is called once per frame
