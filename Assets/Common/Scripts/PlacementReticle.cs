@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using UnityEngine.UI;
 
 public class PlacementReticle : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class PlacementReticle : MonoBehaviour
 
     [SerializeField]
     ARRaycastManager m_RaycastManager;
-    
+
     public ARRaycastManager raycastManager
     {
         get => m_RaycastManager;
@@ -32,6 +33,21 @@ public class PlacementReticle : MonoBehaviour
     {
         get => m_ReticlePrefab;
         set => m_ReticlePrefab = value;
+    }
+
+    [SerializeField]
+    Slider widthSlider;
+
+    [SerializeField]
+    Slider lengthSlider;
+
+    [SerializeField]
+    GameObject m_InteractableAreaLabelPrefab;
+
+    public GameObject interactableAreaLabelPrefab
+    {
+        get => m_InteractableAreaLabelPrefab;
+        set => m_InteractableAreaLabelPrefab = value;
     }
 
     [SerializeField]
@@ -53,6 +69,7 @@ public class PlacementReticle : MonoBehaviour
     }
 
     GameObject m_SpawnedReticle;
+    GameObject m_SpawnedInteractiveAreaLabel;
     CenterScreenHelper m_CenterScreen;
     TrackableType m_RaycastMask;
     float m_CurrentDistance;
@@ -62,7 +79,7 @@ public class PlacementReticle : MonoBehaviour
     const float k_MinScaleDistance = 0.0f;
     const float k_MaxScaleDistance = 1.0f;
     const float k_ScaleMod = 1.0f;
-    
+
     void Start()
     {
         m_CenterScreen = CenterScreenHelper.Instance;
@@ -77,6 +94,9 @@ public class PlacementReticle : MonoBehaviour
 
         m_SpawnedReticle = Instantiate(m_ReticlePrefab);
         m_SpawnedReticle.SetActive(false);
+
+        m_SpawnedInteractiveAreaLabel = Instantiate(m_InteractableAreaLabelPrefab);
+        m_SpawnedInteractiveAreaLabel.SetActive(false);
     }
 
     void Update()
@@ -86,6 +106,9 @@ public class PlacementReticle : MonoBehaviour
             Pose hitPose = s_Hits[0].pose;
             m_SpawnedReticle.transform.SetPositionAndRotation(hitPose.position, hitPose.rotation);
             m_SpawnedReticle.SetActive(true);
+
+            m_SpawnedInteractiveAreaLabel.transform.SetPositionAndRotation(hitPose.position, hitPose.rotation);
+            m_SpawnedInteractiveAreaLabel.SetActive(true);
         }
 
         if (m_DistanceScale)
@@ -99,5 +122,20 @@ public class PlacementReticle : MonoBehaviour
     public Transform GetReticlePosition()
     {
         return m_SpawnedReticle.transform;
+    }
+
+    public Vector3 GetSmartAreaScale()
+    {
+        return m_SpawnedInteractiveAreaLabel.transform.localScale;
+    }
+
+    public void ChangeInteractableAreaLabelWidth()
+    {
+        m_SpawnedInteractiveAreaLabel.transform.localScale = new Vector3(m_SpawnedInteractiveAreaLabel.transform.localScale.x, m_SpawnedInteractiveAreaLabel.transform.localScale.y, 0.01f * widthSlider.value);
+    }
+
+    public void ChangeInteractableAreaLabelLength()
+    {
+        m_SpawnedInteractiveAreaLabel.transform.localScale = new Vector3(0.01f * lengthSlider.value, m_SpawnedInteractiveAreaLabel.transform.localScale.y, m_SpawnedInteractiveAreaLabel.transform.localScale.z);
     }
 }
