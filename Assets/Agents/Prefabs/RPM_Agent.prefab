@@ -3624,7 +3624,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6693285493076025797
 Transform:
   m_ObjectHideFlags: 0
@@ -4217,6 +4217,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f151a7d0f4f64490ad39294933e49e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  twist: {fileID: 6693285494351003101}
+  leftArmStretch: {fileID: 6693285494928850870}
+  stretchTarget: {fileID: 6693285494947212405}
 --- !u!114 &6693285494046653519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4259,6 +4262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilities:
   - {fileID: 11400000, guid: 121db93c7bfe24970be8d038364bfd27, type: 2}
+  - {fileID: 11400000, guid: 10404af39a23b45869531d40a8d954bc, type: 2}
 --- !u!1 &6693285494231894766
 GameObject:
   m_ObjectHideFlags: 0
@@ -4570,7 +4574,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6693285494928850869
 Transform:
   m_ObjectHideFlags: 0
