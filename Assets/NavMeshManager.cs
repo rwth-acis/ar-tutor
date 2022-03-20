@@ -12,6 +12,7 @@ public class NavMeshManager : MonoBehaviour
     Agent agent;
     [SerializeField] NavMeshSurface navMeshSurface;
     [SerializeField] Interaction walkingInteraction;
+    [SerializeField] GameObject camera;
     AgentAbilities abilities;
     bool floorTracking;
 
@@ -52,9 +53,13 @@ public class NavMeshManager : MonoBehaviour
     private void AgentInstantiated(Agent agent, AgentAbilities abilities)
     {
         // Start tracking the agent
-        this.agent = agent;
+        this.agent = agent.GetComponent<Agent>();
         this.abilities = abilities;
         Debug.Log("Agent got instantiated.");
+
+        //Animation test
+        //agent.PlayAnimation("Dancing");
+        //Debug.Log("Performed dancing animation.");
     }
 
     // Called from event manager
@@ -82,12 +87,12 @@ public class NavMeshManager : MonoBehaviour
         navMeshSurface.BuildNavMesh();
         if (agent == null)
             return;
-        //agent.WalkTo(pointableSmartObject.affectedArea);
+        agent.WalkTo(pointableSmartObject.affectedArea);
         // Rotate towards the camera
-        // agent.RotateTowards(camera.transform.position);
+        agent.RotateTowards(camera.transform.position);
         Debug.Log("Current interactive area: " + pointableSmartObject.interactiveArea);
         agent.PointTo(pointableSmartObject.interactiveArea);
-        agent.PlayAnimation("Pointing");
+        //agent.PlayAnimation("Pointing");
     }
 
     // Update is called once per frame

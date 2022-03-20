@@ -64,12 +64,19 @@ namespace VirtualAgentsFramework
             //BA Fetch the agent's abilities
             abilities = GetComponent<AgentAbilities>();
             //BA Signal to all components that an agent with certain abilities has been instantiated
-            EventManager.AgentInstantiated(this, abilities);
+            StartCoroutine(SignalAgentInstantiation(1f)); 
             // Disable NavMeshAgent's rotation updates, since rotation is handled by ThirdPersonCharacter
             agent.updateRotation = false;
             // Make the agent start in the idle state in order to enable requesting new tasks
             // CHANGE_ME to inactive in order to disable requesting new tasks
             currentState = State.idle;
+        }
+
+        // BA cotoutine test
+        private IEnumerator SignalAgentInstantiation(float waitingTime)
+        {
+            yield return new WaitForSeconds(waitingTime);
+            EventManager.AgentInstantiated(this, abilities);
         }
 
         /// <summary>

@@ -10,6 +10,13 @@ public class Floor : MonoBehaviour
     void Start()
     {
         // Signal to all components that a walk label was instantiated
+        StartCoroutine(SignalFloorInstantiation(1f));
+    }
+
+    // Coroutine test
+    private IEnumerator SignalFloorInstantiation(float waitingTime)
+    {
+        yield return new WaitForSeconds(waitingTime);
         EventManager.FloorInstantiated();
     }
 

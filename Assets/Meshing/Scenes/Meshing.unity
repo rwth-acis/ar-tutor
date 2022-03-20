@@ -1362,6 +1362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navMeshSurface: {fileID: 213690177}
   walkingInteraction: {fileID: 11400000, guid: 6a5203c3db190498b818ed2178a9d2eb, type: 2}
+  camera: {fileID: 1823173796}
 --- !u!4 &303121994
 Transform:
   m_ObjectHideFlags: 0
