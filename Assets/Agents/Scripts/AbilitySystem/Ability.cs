@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Ability : ScriptableObject
+[CreateAssetMenu(fileName = "Generic", menuName = "Abilities/Generic")]
+public class Ability : ScriptableObject
 {
     public string flag;
 }
