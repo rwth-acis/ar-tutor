@@ -58,7 +58,7 @@ namespace VirtualAgentsFramework
             private void ChangeAnimationState(string newState)
             {
                 if(currentState == newState) return; // Same animation is already playing
-                animator.Play(newState);
+                //animator.Play(newState);
                 animator.SetBool("CustomAnimation", true);
                 currentState = newState;
             }

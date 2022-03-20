@@ -61,6 +61,7 @@ namespace VirtualAgentsFramework
                 subTaskQueue.AddTask(new AgentWaitingTask(1f));
                 subTaskQueue.AddTask(new ChangeRigWeightSubTask(twistChain, 0f));
                 subTaskQueue.AddTask(new ChangeRigWeightSubTask(leftArmStretch, 0f));
+                Debug.Log("Executed a pointing task.");
                 ScheduleTaskTermination();
             }
         }

@@ -1,4 +1,8 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using XRMeshSubsystem = ARFoundationRemote.Runtime.IXRMeshSubsystem;
+#endif
+using ARFoundationRemote.Runtime;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;

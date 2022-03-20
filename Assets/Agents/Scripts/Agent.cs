@@ -256,7 +256,6 @@ namespace VirtualAgentsFramework
             {*/
                 //AgentPointingTask pointingTask = new AgentPointingTask(destinationObject, twist, leftArmStretch, stretchTarget);
                 AgentPointingComplexTask pointingTask = new AgentPointingComplexTask(destinationObject, twist, leftArmStretch, stretchTarget);
-                Debug.Log("Created a pointing interaction.");
             /*}
             else
             {

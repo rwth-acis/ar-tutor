@@ -56,10 +56,6 @@ public class NavMeshManager : MonoBehaviour
         this.agent = agent.GetComponent<Agent>();
         this.abilities = abilities;
         Debug.Log("Agent got instantiated.");
-
-        //Animation test
-        //agent.PlayAnimation("Dancing");
-        //Debug.Log("Performed dancing animation.");
     }
 
     // Called from event manager
@@ -92,7 +88,7 @@ public class NavMeshManager : MonoBehaviour
         agent.RotateTowards(camera.transform.position);
         Debug.Log("Current interactive area: " + pointableSmartObject.interactiveArea);
         agent.PointTo(pointableSmartObject.interactiveArea);
-        //agent.PlayAnimation("Pointing");
+        agent.PlayAnimation("Pointing");
     }
 
     // Update is called once per frame
