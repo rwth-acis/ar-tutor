@@ -233,22 +233,23 @@ namespace VirtualAgentsFramework
             //ScheduleOrForce(pressingTask, asap);
         }
 
+        [SerializeField] Rig twist;
+        [SerializeField] Rig leftArmStretch;
+        [SerializeField] GameObject stretchTarget;
         /// <summary>
         /// Creates an AgentPointingComplexTask and schedules it or forces its execution.
         /// Shortcut queue management function
         /// </summary>
         /// <param name="destinationObject">Object to be pointed to</param>
-        /// <param name="twistChain">Rig controlling head and body twist</param>
-        /// <param name="leftArmStretch">Rig controlling arm stretching</param>
-        /// <param name="target">Helper target object for the rigs</param>
         /// <param name="procedural">true if the animation should be computed, false if the animation should be played</param>
         /// <param name="asap">true if the task should be executed as soon as possible, false if the task should be scheduled</param>
-        public void PointTo(GameObject destinationObject, Rig twistChain, Rig leftArmStretch, GameObject target, bool procedural = true, bool asap = false)
+        public void PointTo(GameObject destinationObject, bool procedural = true, bool asap = false)
         {
             /*if(procedural)
             {*/
-                //AgentPointingTask pointingTask = new AgentPointingTask(destinationObject, twistChain, leftArmStretch, target);
-                AgentPointingComplexTask pointingTask = new AgentPointingComplexTask(destinationObject, twistChain, leftArmStretch, target);
+                //AgentPointingTask pointingTask = new AgentPointingTask(destinationObject, twist, leftArmStretch, stretchTarget);
+                AgentPointingComplexTask pointingTask = new AgentPointingComplexTask(destinationObject, twist, leftArmStretch, stretchTarget);
+                Debug.Log("Created a pointing interaction.");
             /*}
             else
             {
