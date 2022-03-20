@@ -66,6 +66,15 @@ public class ClassificationPlacementManager : MonoBehaviour
     }
 
     [SerializeField]
+    GameObject m_FloorScrollableUI;
+
+    public GameObject floorScrollableUI
+    {
+        get => m_FloorScrollableUI;
+        set => m_FloorScrollableUI = value;
+    }
+
+    [SerializeField]
     GameObject m_WallUI;
 
     public GameObject wallUI
@@ -90,6 +99,15 @@ public class ClassificationPlacementManager : MonoBehaviour
     {
         get => m_WallSubmenu;
         set => m_WallSubmenu = value;
+    }
+
+    [SerializeField]
+    GameObject m_WallScrollableUI;
+
+    public GameObject wallScrollableUI
+    {
+        get => m_WallScrollableUI;
+        set => m_WallScrollableUI = value;
     }
 
     [SerializeField]
@@ -127,20 +145,27 @@ public class ClassificationPlacementManager : MonoBehaviour
             switch (m_ClassificationManager.currentClassification)
             {
                 case ARMeshClassification.Floor:
+                m_FloorScrollableUI.SetActive(true);
                 m_FloorUI.SetActive(true);
+                m_WallScrollableUI.SetActive(false);
                 m_WallUI.SetActive(false);
                 m_TableUI.SetActive(false);
                 break;
 
                 case ARMeshClassification.Wall:
+
+                m_WallScrollableUI.SetActive(true);
                 m_WallUI.SetActive(true);
+                m_FloorScrollableUI.SetActive(false);
                 m_FloorUI.SetActive(false);
                 m_TableUI.SetActive(false);
                 break;
 
                 case ARMeshClassification.Table:
                 m_TableUI.SetActive(true);
+                m_FloorScrollableUI.SetActive(false);
                 m_FloorUI.SetActive(false);
+                m_WallScrollableUI.SetActive(false);
                 m_WallUI.SetActive(false);
                 break;
             }
@@ -153,7 +178,9 @@ public class ClassificationPlacementManager : MonoBehaviour
             else {
                 m_WallSubmenu.SetActive(false);
             }
+            m_FloorScrollableUI.SetActive(false);
             m_FloorUI.SetActive(false);
+            m_WallScrollableUI.SetActive(false);
             m_WallUI.SetActive(false);
             m_TableUI.SetActive(false);
         }
@@ -175,6 +202,23 @@ public class ClassificationPlacementManager : MonoBehaviour
             m_SpawnedObject.transform.DOScale(m_Reticle.GetSmartAreaScale(), k_TweenTime).SetEase(m_TweenEase);
     }
 
+    // The Agent won't instantiate with this method for some reason, that's why it's a duplicate 
+    public GameObject PlaceFloorObject2(int indexToPlace)
+    {
+        m_SpawnedObject = Instantiate(m_FloorPrefabs[indexToPlace], m_Reticle.GetReticlePosition().position, m_Reticle.GetReticlePosition().rotation);
+        m_SpawnedObject.transform.localScale = Vector3.zero;
+        // look at device but stay 'flat'
+        m_SpawnedObject.transform.LookAt(m_ARCameraTransform, Vector3.up);
+        m_SpawnedObject.transform.rotation = Quaternion.Euler(0, m_SpawnedObject.transform.eulerAngles.y, 0);
+
+        if(indexToPlace != 3)
+            m_SpawnedObject.transform.DOScale(Vector3.one, k_TweenTime).SetEase(m_TweenEase);
+        else
+            // Scale the prefab according to the slider input
+            m_SpawnedObject.transform.DOScale(m_Reticle.GetSmartAreaScale(), k_TweenTime).SetEase(m_TweenEase);
+        return m_SpawnedObject;
+    }
+
     public void PlaceWallObject(int indexToPlace)
     {
         m_SpawnedObject = Instantiate(m_WallPrefabs[indexToPlace], m_Reticle.GetReticlePosition().position, m_Reticle.GetReticlePosition().rotation);
@@ -185,6 +229,26 @@ public class ClassificationPlacementManager : MonoBehaviour
         else
             // Scale the prefab according to the slider input
             m_SpawnedObject.transform.DOScale(m_Reticle.GetSmartAreaScale(), k_TweenTime).SetEase(m_TweenEase);
+    }
+
+    public GameObject PlaceWallObject2(int indexToPlace)
+    {
+        m_SpawnedObject = Instantiate(m_WallPrefabs[indexToPlace], m_Reticle.GetReticlePosition().position, m_Reticle.GetReticlePosition().rotation);
+        m_SpawnedObject.transform.localScale = Vector3.zero;
+
+        if(indexToPlace != 3)
+            m_SpawnedObject.transform.DOScale(Vector3.one, k_TweenTime).SetEase(m_TweenEase);
+        else
+            // Scale the prefab according to the slider input
+            m_SpawnedObject.transform.DOScale(m_Reticle.GetSmartAreaScale(), k_TweenTime).SetEase(m_TweenEase);
+        return m_SpawnedObject;
+    }
+
+    public void PlaceWallObject(GameObject prefab)
+    {
+        m_SpawnedObject = Instantiate(prefab, m_Reticle.GetReticlePosition().position, m_Reticle.GetReticlePosition().rotation);
+        m_SpawnedObject.transform.localScale = Vector3.zero;
+        m_SpawnedObject.transform.DOScale(Vector3.one, k_TweenTime).SetEase(m_TweenEase);
     }
 
     public void PlaceTableObject(int indexToPlace)
