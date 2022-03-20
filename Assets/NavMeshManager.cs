@@ -21,6 +21,7 @@ public class NavMeshManager : MonoBehaviour
         EventManager.OnFloorInstantiated += FloorInstantiated;
         EventManager.OnAgentInstantiated += AgentInstantiated;
         EventManager.OnWalkLabelInstantiated += WalkLabelInstantiated;
+        EventManager.OnPointableSOInstantiated += PointableSOInstantiated;
     }
 
     private void OnDisable()
@@ -29,6 +30,7 @@ public class NavMeshManager : MonoBehaviour
         EventManager.OnFloorInstantiated -= FloorInstantiated;
         EventManager.OnAgentInstantiated -= AgentInstantiated;
         EventManager.OnWalkLabelInstantiated -= WalkLabelInstantiated;
+        EventManager.OnPointableSOInstantiated -= PointableSOInstantiated;
     }
 
     private void Start()
@@ -71,6 +73,21 @@ public class NavMeshManager : MonoBehaviour
             Debug.Log("WalkLabel got instantiated.");
         }
         */
+    }
+
+    // Called from event manager
+    private void PointableSOInstantiated(SmartObject pointableSmartObject)
+    {
+        //TODO implement this in terms of Interactions
+        navMeshSurface.BuildNavMesh();
+        if (agent == null)
+            return;
+        //agent.WalkTo(pointableSmartObject.affectedArea);
+        // Rotate towards the camera
+        // agent.RotateTowards(camera.transform.position);
+        Debug.Log("Current interactive area: " + pointableSmartObject.interactiveArea);
+        agent.PointTo(pointableSmartObject.interactiveArea);
+        agent.PlayAnimation("Pointing");
     }
 
     // Update is called once per frame

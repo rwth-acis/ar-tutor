@@ -37,4 +37,28 @@ public class EventManager : MonoBehaviour
     {
         OnWalkLabelInstantiated?.Invoke(smartDestinationObject);
     }
+
+    // ***SmartObject events***
+
+    public delegate void SmartObjectParsedDelegate(SmartObject smartObject);
+
+    public static event SmartObjectParsedDelegate OnSmartObjectParsed;
+
+    // Tells all the components that a SmartObject has been parsed and can be instantiated
+    public static void SmartObjectParsed(SmartObject smartObject)
+    {
+        OnSmartObjectParsed?.Invoke(smartObject);
+    }
+
+    //TODO make this method universal
+    public delegate void PointableSOInstantiatedDelegate(SmartObject pointableSO);
+
+    public static event PointableSOInstantiatedDelegate OnPointableSOInstantiated;
+
+    // Tells all the components when a pointable Smart Object got instantiated
+    public static void PointableSOInstantiated(SmartObject pointableSO)
+    {
+        OnPointableSOInstantiated?.Invoke(pointableSO);
+    }
+
 }
