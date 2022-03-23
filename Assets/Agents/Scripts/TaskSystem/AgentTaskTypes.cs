@@ -43,12 +43,36 @@ namespace VirtualAgentsFramework
             public virtual void Update() { } // !!! Use the override keyword if you implement this function
             // Fire when the task is finished to let the agent know
             public event Action OnTaskFinished;
-
+            // !!! OVERRIDE THIS METHOD for proper functioning
             protected virtual void FinishTask() // The event itself cannot be called
                                                 // in derived classes (https://stackoverflow.com/a/31661451)
             {
                 OnTaskFinished();
             }
+
+            /*
+            // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/events/how-to-raise-base-class-events-in-derived-classes
+            // The event. Note that by using the generic EventHandler<T> event type
+            // we do not need to declare a separate delegate type.
+            public event EventHandler<ShapeEventArgs> OnTaskFinished;
+
+            //The event-invoking method that derived classes can override.
+            protected virtual void OnShapeChanged(ShapeEventArgs e)
+            {
+                // Safely raise the event for all subscribers
+                ShapeChanged?.Invoke(this, e);
+            }*/
+
+            /*public delegate void ProgressStartedType(string title, int total);
+
+            // Raised when progress on a potentially long running process is started.
+            public event ProgressStartedType ProgressStarted;
+
+            // Used from derived classes to raise ProgressStarted.
+            protected void RaiseProgressStarted(string title, int total)
+            {
+                if (ProgressStarted != null) ProgressStarted(title, total);
+            }*/
         }
 
         /// <summary>

@@ -81,6 +81,8 @@ namespace VirtualAgentsFramework
         private IEnumerator SignalAgentInstantiation(float waitingTime)
         {
             yield return new WaitForSeconds(waitingTime);
+            //BA Communication test
+            Communicate("I am alive!");
             EventManager.AgentInstantiated(this, abilities);
         }
 
