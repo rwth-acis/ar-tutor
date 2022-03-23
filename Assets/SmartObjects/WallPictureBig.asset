@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deb3543a0e2b54e67af2a33dd205081d, type: 3}
   m_Name: WallPictureBig
   m_EditorClassIdentifier: 
-  nameSource: on maal
-  nameTarget: a painting
+  nameSource: a painting
+  nameTarget: on maal
   physicalManifestation: {fileID: 6628677466659711502, guid: 6858dc9dbd949ee40819eda756452574,
     type: 3}
   canBePlacedOn: 0

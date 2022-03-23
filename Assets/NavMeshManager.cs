@@ -12,7 +12,7 @@ public class NavMeshManager : MonoBehaviour
     Agent agent;
     [SerializeField] NavMeshSurface navMeshSurface;
     [SerializeField] Interaction walkingInteraction;
-    [SerializeField] GameObject camera;
+    [SerializeField] Interaction pointingInteraction;
     AgentAbilities abilities;
     bool floorTracking;
 
@@ -62,6 +62,8 @@ public class NavMeshManager : MonoBehaviour
     private void WalkLabelInstantiated(SmartObject smartDestinationObject)
     {
         // WITH ABILITY SYSTEM
+        // Make sure the NavMesh is built
+        navMeshSurface.BuildNavMesh();
         // Try to perform a walk interaction
         InteractionManager.AttemptInteraction(agent, abilities, walkingInteraction, smartDestinationObject);
 
@@ -79,16 +81,10 @@ public class NavMeshManager : MonoBehaviour
     // Called from event manager
     private void PointableSOInstantiated(SmartObject pointableSmartObject)
     {
-        //TODO implement this in terms of Interactions
+        // Make sure the NavMesh is built
         navMeshSurface.BuildNavMesh();
-        if (agent == null)
-            return;
-        agent.WalkTo(pointableSmartObject.affectedArea);
-        // Rotate towards the camera
-        agent.RotateTowards(camera.transform.position);
-        Debug.Log("Current interactive area: " + pointableSmartObject.interactiveArea);
-        agent.PointTo(pointableSmartObject.interactiveArea);
-        agent.PlayAnimation("Pointing");
+        // Try to perform a point interaction
+        InteractionManager.AttemptInteraction(agent, abilities, pointingInteraction, pointableSmartObject);
     }
 
     // Update is called once per frame

@@ -15,13 +15,26 @@ public class PointingInteraction : Interaction
         base.sentenceTarget = "See ***.";
     }
 
-    public override void Perform (Agent agent, SmartObject smartObject)
+    public override void Perform (Agent agent, SmartObject pointableSmartObject)
     {
-        string temp1 = sentenceSource.Replace("***", smartObject.nameSource);
-        string temp2 = sentenceTarget.Replace("***", smartObject.nameTarget);
+        //TODO Implement these as subinteractions or something or at least check the list of required affordances and abilities
+        string temp1 = sentenceSource.Replace("***", pointableSmartObject.nameSource);
+        string temp2 = sentenceTarget.Replace("***", pointableSmartObject.nameTarget);
         string sentence = temp2 + "\n" + "(" + temp1 + ")";
         agent.Communicate(sentence);
-        agent.PointTo(smartObject.interactiveArea);
+
+        //TODO Implement these as subinteractions or something or at least check the list of required affordances and abilities
+        // Walk to the marker
+        agent.WalkTo(pointableSmartObject.affectedArea);
+        // Rotate towards the camera
+        GameObject camera = GameObject.FindGameObjectsWithTag("MainCamera")[0];
+        agent.RotateTowards(camera.transform.position);
+        // Point
+        Debug.Log("Current interactive area: " + pointableSmartObject.interactiveArea);
+        agent.PointTo(pointableSmartObject.interactiveArea);
+        //agent.PlayAnimation("Pointing");
+
         Debug.Log("Performed pointing interaction.");
+
     }
 }
