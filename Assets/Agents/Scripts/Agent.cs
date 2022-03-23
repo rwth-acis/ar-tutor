@@ -29,6 +29,9 @@ namespace VirtualAgentsFramework
         //BA List of the agent's abilities
         private AgentAbilities abilities;
 
+        //BA Communication ability
+        private GameObject communicationTableau;
+
         /// <summary>
         /// Agent's personal task queue
         /// </summary>
@@ -63,13 +66,15 @@ namespace VirtualAgentsFramework
             agent = GetComponent<NavMeshAgent>();
             //BA Fetch the agent's abilities
             abilities = GetComponent<AgentAbilities>();
-            //BA Signal to all components that an agent with certain abilities has been instantiated
-            StartCoroutine(SignalAgentInstantiation(1f)); 
+            //BA Get communication tableau
+            communicationTableau = GameObject.Find("CommunicationTableau");
             // Disable NavMeshAgent's rotation updates, since rotation is handled by ThirdPersonCharacter
             agent.updateRotation = false;
             // Make the agent start in the idle state in order to enable requesting new tasks
             // CHANGE_ME to inactive in order to disable requesting new tasks
             currentState = State.idle;
+            //BA Signal to all components that an agent with certain abilities has been instantiated
+            StartCoroutine(SignalAgentInstantiation(1f));
         }
 
         // BA cotoutine test
@@ -231,6 +236,19 @@ namespace VirtualAgentsFramework
         {
             AgentWaitingTask waitingTask = new AgentWaitingTask(secondsWaiting);
             ScheduleOrForce(waitingTask, asap);
+        }
+
+        /// <summary>
+        /// Creates an AgentCommunicationTask and schedules it or forces its execution.
+        /// Shortcut queue management function
+        /// </summary>
+        /// <param name="message">Message that should be communicated</param>
+        /// <param name="asap">true if the task should be executed as soon as possible, false if the task should be scheduled</param>
+        public void Communicate(string message, bool asap = false)
+        {
+            AgentCommunicationTask task = new AgentCommunicationTask(communicationTableau, message);
+            Debug.Log("Scheduled a communication task on " + communicationTableau.ToString() + ", with message: " + message);
+            ScheduleOrForce(task, asap);
         }
 
         //TODO

@@ -32,14 +32,15 @@ namespace VirtualAgentsFramework
 
         /// <summary>
         /// Makes it possible to avoid implementing Update()
-        /// and Execute() functions when they are not needed
+        /// and Execute() functions when they are not needed.
+        /// Use the override keyword if you decide to implement these functions
         /// </summary>
         public abstract class AgentLazyTask : IAgentTask
         {
             // Get the agent's data, prepare for and start task execution
-            public virtual void Execute(Agent agent) {}
+            public virtual void Execute(Agent agent) { } // !!! Use the override keyword if you implement this function
             // Perform frame-to-frame task execution
-            public virtual void Update() {}
+            public virtual void Update() { } // !!! Use the override keyword if you implement this function
             // Fire when the task is finished to let the agent know
             public event Action OnTaskFinished;
 

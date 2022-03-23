@@ -7,6 +7,9 @@ public abstract class Interaction : ScriptableObject
 {
     public string flag;
 
+    public string sentenceSource;
+    public string sentenceTarget;
+
     // Agent's ability requirement
     public Ability requiredAbility;
 

@@ -6,7 +6,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Generic", menuName = "Smart Objects/Generic")]
 public class SmartObject : ScriptableObject
 {
-    public string objectName;
+    public string nameSource;
+    public string nameTarget;
+
     public GameObject physicalManifestation;
     public enum Placing { //TODO What is with vitual objects, etc? Maybe have one menu and just grey out objects that can not be placed upon certain classification at all.
         Wall, Floor, Table
