@@ -27,6 +27,8 @@ namespace VirtualAgentsFramework
             // Perform frame-to-frame task execution
             void Update();
             // Fire when the task is finished to let the agent know
+            // !!! This event cannot be triggered inside Execute().
+            // Recommendation: trigger it from a coroutine or Update()
             event Action OnTaskFinished;
         }
 
@@ -43,8 +45,8 @@ namespace VirtualAgentsFramework
             public virtual void Update() { } // !!! Use the override keyword if you implement this function
             // Fire when the task is finished to let the agent know
             public event Action OnTaskFinished;
-            // !!! OVERRIDE THIS METHOD for proper functioning
-            protected virtual void FinishTask() // The event itself cannot be called
+            // !!! This function cannot be called inside Execute(). Recommendation: use a coroutine
+            protected virtual void FinishTask() // Helper function since the event itself cannot be called
                                                 // in derived classes (https://stackoverflow.com/a/31661451)
             {
                 OnTaskFinished();
