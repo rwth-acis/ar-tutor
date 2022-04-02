@@ -12,7 +12,7 @@ public class PointingInteraction : Interaction
 
         // "***" are placeholders for the smart object's name
         base.sentenceSource = "This is ***."; 
-        base.sentenceTarget = "See ***.";
+        base.sentenceTarget = "See on ***.";
     }
 
     public override void Perform (Agent agent, SmartObject pointableSmartObject)
