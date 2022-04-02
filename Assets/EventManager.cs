@@ -44,7 +44,7 @@ public class EventManager : MonoBehaviour
 
     public static event SmartEnvironmentParsedDelegate OnSmartEnvironmentParsed;
 
-    // Tells all the components that a SmartObject has been parsed and can be instantiated
+    // Tells all the components that a SmartEnvironment has been parsed and can be instantiated
     public static void SmartEnvironmentParsed(SmartObject[] smartObjects)
     {
         OnSmartEnvironmentParsed?.Invoke(smartObjects);

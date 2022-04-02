@@ -46,6 +46,8 @@ public class SmartObjectList : MonoBehaviour
             TextMeshProUGUI TMP_Text2 = panel.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
             TMP_Text1.text = smartObject.nameSource;
             TMP_Text2.text = smartObject.nameTarget;
+            // Adjust the instantiation button
+            panel.transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate { EventManager.SmartObjectParsed(smartObject); });
             // Place the panel
             panel.transform.SetParent(gameObject.transform, false);
             Debug.Log("UI: Smart object panel got placed!");

@@ -16,9 +16,12 @@ public class SmartObjectInstantiator : MonoBehaviour
     [SerializeField] Sprite interactiveAreaSprite;
     [SerializeField] Sprite affectedAreaSprite;
 
+    SmartObject[] smartObjects;
+
     void OnEnable()
     {
-        EventManager.OnSmartEnvironmentParsed += CreateObjectButtons;
+        EventManager.OnSmartEnvironmentParsed += SmartEnvironmentParsed;
+        EventManager.OnSmartObjectParsed += CreateObjectButton;
     }
 
     // Start is called before the first frame update
@@ -29,7 +32,8 @@ public class SmartObjectInstantiator : MonoBehaviour
 
     void OnDisable()
     {
-        EventManager.OnSmartEnvironmentParsed -= CreateObjectButtons;
+        EventManager.OnSmartEnvironmentParsed -= SmartEnvironmentParsed;
+        EventManager.OnSmartObjectParsed -= CreateObjectButton;
     }
 
     // Update is called once per frame
@@ -38,34 +42,45 @@ public class SmartObjectInstantiator : MonoBehaviour
 
     }
 
+    // Move this to a more persistent data model
+    void SmartEnvironmentParsed(SmartObject[] smartObjects)
+    {
+        this.smartObjects = smartObjects;
+    }
+
     void CreateObjectButtons(SmartObject[] smartObjects)
     {
         Debug.Log("Entered wall button creation!");
         foreach(SmartObject smartObject in smartObjects)
         {
-            // Create a button for the object
-            Button button = Instantiate(buttonPrefab); //, new Vector3(350,350,0), Quaternion.identity
-            // Add delegates with parameters to the button
-            button.GetComponent<Button>().onClick.AddListener(delegate {InstantiatePhysicalManifestation(smartObject, button); });
-            // Adjust the button's image
-            smartObjectSprite = button.transform.GetChild(0).GetComponent<Image>().sprite;
-            button.transform.GetChild(0).GetComponent<Image>().sprite = smartObject.objectIconUI;
-            // Place the button on the right panel according to the classification
-            switch(smartObject.canBePlacedOn)
-            {
-                case SmartObject.Placing.Wall:
-                    button.transform.SetParent(wallObjectsUI.transform, false);
-                    Debug.Log("Wall button got placed!");
-                    break;
-                case SmartObject.Placing.Floor:
-                    button.transform.SetParent(floorObjectsUI.transform, false);
-                    break;
-                case SmartObject.Placing.Table:
-                    button.transform.SetParent(tableObjectsUI.transform, false);
-                    break;
-                default:
-                    break;
-            }
+            CreateObjectButton(smartObject);
+        }
+    }
+
+    void CreateObjectButton(SmartObject smartObject)
+    {
+        // Create a button for the object
+        Button button = Instantiate(buttonPrefab); //, new Vector3(350,350,0), Quaternion.identity
+                                                   // Add delegates with parameters to the button
+        button.GetComponent<Button>().onClick.AddListener(delegate { InstantiatePhysicalManifestation(smartObject, button); });
+        // Adjust the button's image
+        smartObjectSprite = button.transform.GetChild(0).GetComponent<Image>().sprite;
+        button.transform.GetChild(0).GetComponent<Image>().sprite = smartObject.objectIconUI;
+        // Place the button on the right panel according to the classification
+        switch (smartObject.canBePlacedOn)
+        {
+            case SmartObject.Placing.Wall:
+                button.transform.SetParent(wallObjectsUI.transform, false);
+                Debug.Log("Wall button got placed!");
+                break;
+            case SmartObject.Placing.Floor:
+                button.transform.SetParent(floorObjectsUI.transform, false);
+                break;
+            case SmartObject.Placing.Table:
+                button.transform.SetParent(tableObjectsUI.transform, false);
+                break;
+            default:
+                break;
         }
     }
 
