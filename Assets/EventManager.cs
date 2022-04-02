@@ -38,6 +38,18 @@ public class EventManager : MonoBehaviour
         OnWalkLabelInstantiated?.Invoke(smartDestinationObject);
     }
 
+    // ***SmartEnvironment events***
+
+    public delegate void SmartEnvironmentParsedDelegate(SmartObject[] smartObjects);
+
+    public static event SmartEnvironmentParsedDelegate OnSmartEnvironmentParsed;
+
+    // Tells all the components that a SmartObject has been parsed and can be instantiated
+    public static void SmartEnvironmentParsed(SmartObject[] smartObjects)
+    {
+        OnSmartEnvironmentParsed?.Invoke(smartObjects);
+    }
+
     // ***SmartObject events***
 
     public delegate void SmartObjectParsedDelegate(SmartObject smartObject);

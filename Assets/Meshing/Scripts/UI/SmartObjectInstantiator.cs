@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class SmartObjectInstantiator : MonoBehaviour
 {
-    [SerializeField] SmartObject[] smartObjects; // Would later be fetched from parser
     [SerializeField] Button buttonPrefab;
     [SerializeField] GameObject wallObjectsUI;
     [SerializeField] GameObject floorObjectsUI;
@@ -17,10 +16,20 @@ public class SmartObjectInstantiator : MonoBehaviour
     [SerializeField] Sprite interactiveAreaSprite;
     [SerializeField] Sprite affectedAreaSprite;
 
+    void OnEnable()
+    {
+        EventManager.OnSmartEnvironmentParsed += CreateObjectButtons;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        CreateObjectButtons();
+        
+    }
+
+    void OnDisable()
+    {
+        EventManager.OnSmartEnvironmentParsed -= CreateObjectButtons;
     }
 
     // Update is called once per frame
@@ -29,7 +38,7 @@ public class SmartObjectInstantiator : MonoBehaviour
 
     }
 
-    void CreateObjectButtons()
+    void CreateObjectButtons(SmartObject[] smartObjects)
     {
         Debug.Log("Entered wall button creation!");
         foreach(SmartObject smartObject in smartObjects)
