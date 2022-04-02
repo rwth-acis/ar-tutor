@@ -8651,6 +8651,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smartObjects:
   - {fileID: 11400000, guid: dd382e687895d4c7f88d9b75af407a8e, type: 2}
+  - {fileID: 11400000, guid: 32a33084826bf430aae373bbbf921fca, type: 2}
 --- !u!4 &1698386874
 Transform:
   m_ObjectHideFlags: 0
