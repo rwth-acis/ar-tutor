@@ -34,6 +34,8 @@ public class PointingInteraction : Interaction
         agent.PointTo(pointableSmartObject.interactiveArea);
         //agent.PlayAnimation("Pointing");
 
+        agent.Communicate("");
+
         Debug.Log("Performed pointing interaction.");
 
     }
