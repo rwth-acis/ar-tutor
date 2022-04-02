@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flag: Pointing
   sentenceSource: This is ***.
-  sentenceTarget: See ***.
+  sentenceTarget: See on ***.
   requiredAbility: {fileID: 11400000, guid: 10404af39a23b45869531d40a8d954bc, type: 2}
   requiredAffordance: Pointing
