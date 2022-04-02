@@ -121,6 +121,7 @@ public class SmartObjectInstantiator : MonoBehaviour
         smartObject.SetAffectedArea(affectedArea);
         // Schedule the tasks, TODO improve
         EventManager.PointableSOInstantiated(smartObject);
+        EventManager.SmartObjectInstantiated(smartObject);
         Debug.Log("Smart object placement is finished!");
         // Disable the button
         button.gameObject.SetActive(false);

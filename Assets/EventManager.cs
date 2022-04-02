@@ -73,4 +73,15 @@ public class EventManager : MonoBehaviour
         OnPointableSOInstantiated?.Invoke(pointableSO);
     }
 
+
+    public delegate void SmartObjectInstantiatedDelegate(SmartObject smartObject);
+
+    public static event SmartObjectInstantiatedDelegate OnSmartObjectInstantiated;
+
+    // Tells all the components that a SmartObject has been instantiated and is now placed in the scene
+    public static void SmartObjectInstantiated(SmartObject smartObject)
+    {
+        OnSmartObjectInstantiated?.Invoke(smartObject);
+    }
+
 }
