@@ -39,6 +39,8 @@ public class SmartObjectList : MonoBehaviour
         {
             // Create a panel for the object
             GameObject panel = Instantiate(panelPrefab);
+            // Attach the corresponding smart object (#TODO improve?)
+            panel.GetComponent<SmartObjectListItem>().SetSmartObject(smartObject);
             // Adjust the icon on the panel
             panel.transform.GetChild(0).GetComponent<Image>().sprite = smartObject.objectIconUI;
             // Asjust the text label on the panel

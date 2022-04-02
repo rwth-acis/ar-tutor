@@ -36,6 +36,11 @@ public class SmartObjectListItem : MonoBehaviour
         
     }
 
+    public void SetSmartObject(SmartObject smartObject)
+    {
+        this.smartObject = smartObject;
+    }
+
     void SmartObjectInstantiated(SmartObject smartObject)
     {
         if (this.smartObject != smartObject)
