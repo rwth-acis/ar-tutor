@@ -27,8 +27,10 @@ public class PointingInteraction : Interaction
         // Walk to the marker
         agent.WalkTo(pointableSmartObject.affectedArea);
         // Rotate towards the camera
-        GameObject camera = GameObject.FindGameObjectsWithTag("MainCamera")[0];
-        agent.RotateTowards(camera.transform.position);
+        //GameObject camera = GameObject.FindGameObjectsWithTag("MainCamera")[0];
+        //agent.RotateTowards(camera.transform.position);
+        // Rotate to be right from interactive area
+        agent.RotateRelative(pointableSmartObject.interactiveArea.transform.position, true);
         // Point
         Debug.Log("Current interactive area: " + pointableSmartObject.interactiveArea);
         agent.PointTo(pointableSmartObject.interactiveArea);

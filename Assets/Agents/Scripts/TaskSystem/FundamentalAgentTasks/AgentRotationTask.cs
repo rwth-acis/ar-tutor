@@ -41,9 +41,22 @@ namespace VirtualAgentsFramework
 
             public event Action OnTaskFinished;
 
-            public AgentRotationTask(Vector3 rotation)
+            // For checking where the target position is relative to the agent
+            bool checkLeftRight = false;
+            Vector3 from;
+            bool left;
+
+
+            public AgentRotationTask(Vector3 rotation, Vector3? from = null, bool? left = null)
             {
                 this.rotation = rotation;
+                if (from != null)
+                {
+                    this.checkLeftRight = true;
+                    this.from = from ?? Vector3.zero;
+                    Debug.Log("From: " + from.ToString());
+                    this.left = left ?? false;
+                }
             }
 
             public void Execute(Agent agent)
@@ -52,6 +65,39 @@ namespace VirtualAgentsFramework
                 navMeshAgent = agent.GetComponent<NavMeshAgent>();
                 thirdPersonCharacter = agent.GetComponent<ThirdPersonCharacter>();
                 animator = agent.GetComponent<Animator>();
+
+                if (this.checkLeftRight == true)
+                {
+                    Vector3 delta = (from - agent.gameObject.transform.position).normalized;
+                    Vector3 cross = -Vector3.Cross(delta, agent.gameObject.transform.forward); // - because of the Unity's left-handed coordinate system
+
+                    if (cross == Vector3.zero)
+                    {
+                        Debug.Log("Target is straight ahead");
+                    }
+                    else if (cross.y > 0)
+                    {
+                        Debug.Log("Target is to the right");
+                    }
+                    else
+                    {
+                        Debug.Log("Target is to the left");
+                    }
+                    Debug.Log("cross: " + cross.ToString());
+
+                    if (left == true)
+                    {
+                        cross = -Vector3.Cross(delta, -agent.gameObject.transform.right);
+                        Debug.Log("cross left: " + cross.ToString());
+                    }
+                    else
+                    {
+                        cross = -Vector3.Cross(delta, agent.gameObject.transform.right);
+                        Debug.Log("cross right: " + cross.ToString());
+                    }
+
+                    this.rotation = cross * 5; // Magnification needed for the current rotation task implementation to function properly
+                }
             }
 
             public void Update()

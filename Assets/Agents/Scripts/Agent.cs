@@ -303,6 +303,70 @@ namespace VirtualAgentsFramework
             ScheduleOrForce(rotationTask, asap);
         }
 
+        public void RotateRelative(Vector3 to, bool left = true, bool asap = false)
+        {
+            AgentRotationTask rotationTask = new AgentRotationTask(Vector3.zero, to, left);
+            ScheduleOrForce(rotationTask, asap);
+        }
+
+
+        public void RotateToBeRight(Vector3 from, bool asap = false)
+        {
+            Vector3 delta = (from - gameObject.transform.position).normalized;
+            Vector3 cross = Vector3.Cross(delta, gameObject.transform.forward);
+
+            if (cross == Vector3.zero)
+            {
+                Debug.Log("Target is straight ahead");
+            }
+            else if (cross.y > 0)
+            {
+                Debug.Log("Target is to the right");
+            }
+            else
+            {
+                Debug.Log("Target is to the left");
+            }
+
+            /*if (cross == Vector3.zero)
+            {
+                Debug.Log("Target is to the right");
+            }
+            else if (cross.y > 0)
+            {
+                Debug.Log("Target is behind");
+            }
+            else
+            {
+                Debug.Log("Target is in front");
+            }*/
+
+            Vector3 rightCross = Vector3.Cross(delta, gameObject.transform.right);
+
+            AgentRotationTask rotationTask = new AgentRotationTask(rightCross);
+        }
+
+        public void RotateToBeLeft(Vector3 from, bool asap = false)
+        {
+            Vector3 delta = (from - gameObject.transform.position).normalized;
+            Vector3 cross = Vector3.Cross(delta, -gameObject.transform.right);
+
+            /*if (cross == Vector3.zero)
+            {
+                Debug.Log("Target is to the left");
+            }
+            else if (cross.y > 0)
+            {
+                Debug.Log("Target is in front");
+            }
+            else
+            {
+                Debug.Log("Target is behind");
+            }*/
+
+            AgentRotationTask rotationTask = new AgentRotationTask(cross);
+        }
+
         /// <summary>
         /// Helper function for shortcut queue management functions.
         /// Schedule a task or force its execution depending on the flag
