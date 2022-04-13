@@ -16,6 +16,9 @@ public class NavMeshManager : MonoBehaviour
     AgentAbilities abilities;
     bool floorTracking;
 
+    AgentTaskManager tempQueue;
+    Transform tempAgentTransform;
+
     private void OnEnable()
     {
         // Register to event manager events
@@ -23,6 +26,7 @@ public class NavMeshManager : MonoBehaviour
         EventManager.OnAgentInstantiated += AgentInstantiated;
         EventManager.OnWalkLabelInstantiated += WalkLabelInstantiated;
         EventManager.OnPointableSOInstantiated += PointableSOInstantiated;
+        EventManager.OnSmartObjectInstantiated += SmartObjectInstantiated;
     }
 
     private void OnDisable()
@@ -32,6 +36,7 @@ public class NavMeshManager : MonoBehaviour
         EventManager.OnAgentInstantiated -= AgentInstantiated;
         EventManager.OnWalkLabelInstantiated -= WalkLabelInstantiated;
         EventManager.OnPointableSOInstantiated -= PointableSOInstantiated;
+        EventManager.OnSmartObjectInstantiated -= SmartObjectInstantiated;
     }
 
     private void Start()
@@ -85,6 +90,29 @@ public class NavMeshManager : MonoBehaviour
         navMeshSurface.BuildNavMesh();
         // Try to perform a point interaction
         InteractionManager.AttemptInteraction(agent, abilities, pointingInteraction, pointableSmartObject);
+    }
+
+    // Called from event manager
+    private void SmartObjectInstantiated(SmartObject smartObject)
+    {
+
+    }
+
+    public void PlayAgentTasks()
+    {
+        tempQueue = agent.GetQueue();
+        tempAgentTransform = agent.gameObject.transform;
+        agent.SetAgentState(Agent.State.idle);
+    }
+
+    public void StopAgentTasks()
+    {
+        agent.SetAgentState(Agent.State.inactive);
+        // Reset agent
+        agent.SetQueue(tempQueue);
+        agent.gameObject.transform.position = tempAgentTransform.position;
+        agent.gameObject.transform.rotation = tempAgentTransform.rotation;
+        //agent.gameObject.transform.scale = tempAgentTransform.scale;
     }
 
     // Update is called once per frame

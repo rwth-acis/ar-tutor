@@ -40,7 +40,7 @@ namespace VirtualAgentsFramework
         /// <summary>
         /// States an agent can be in
         /// </summary>
-        private enum State
+        public enum State
         {
             inactive, // i.e. requesting new tasks is disabled
             idle, // i.e. requesting new tasks is enabled
@@ -72,7 +72,7 @@ namespace VirtualAgentsFramework
             agent.updateRotation = false;
             // Make the agent start in the idle state in order to enable requesting new tasks
             // CHANGE_ME to inactive in order to disable requesting new tasks
-            currentState = State.idle;
+            currentState = State.inactive;
             //BA Signal to all components that an agent with certain abilities has been instantiated
             StartCoroutine(SignalAgentInstantiation(1f));
         }
@@ -166,6 +166,27 @@ namespace VirtualAgentsFramework
             currentState = State.idle;
             // Unsubscribe from the event
             currentTask.OnTaskFinished -= SetAgentStateToIdle;
+        }
+
+        /// <summary>
+        /// Set agent's state
+        /// </summary>
+        public void SetAgentState(State newState)
+        {
+            currentState = newState;
+        }
+
+        /// <summary>
+        /// Returns agent's queue
+        /// </summary>
+        public AgentTaskManager GetQueue()
+        {
+            return queue;
+        }
+
+        public void SetQueue(AgentTaskManager queue)
+        {
+            this.queue = queue;
         }
 
         /// <summary>
