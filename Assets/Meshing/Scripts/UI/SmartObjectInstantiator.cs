@@ -62,10 +62,21 @@ public class SmartObjectInstantiator : MonoBehaviour
         // Create a button for the object
         Button button = Instantiate(buttonPrefab); //, new Vector3(350,350,0), Quaternion.identity
                                                    // Add delegates with parameters to the button
-        button.GetComponent<Button>().onClick.AddListener(delegate { InstantiatePhysicalManifestation(smartObject, button); });
-        // Adjust the button's image
-        smartObjectSprite = button.transform.GetChild(0).GetComponent<Image>().sprite;
-        button.transform.GetChild(0).GetComponent<Image>().sprite = smartObject.objectIconUI;
+        if (smartObject.physicalManifestation != null) // Only instantiate the physical manifestation for virtual objects
+        {
+            // Instantiate the physical manifestation
+            button.GetComponent<Button>().onClick.AddListener(delegate { InstantiatePhysicalManifestation(smartObject, button); });
+            // Adjust the button's image
+            smartObjectSprite = button.transform.GetChild(0).GetComponent<Image>().sprite;
+            button.transform.GetChild(0).GetComponent<Image>().sprite = smartObject.objectIconUI;
+        }
+        else
+        {
+            // Instantiate the interactive area
+            button.GetComponent<Button>().onClick.AddListener(delegate { InstantiateInteractiveArea(smartObject, button.GetComponent<Button>()); });
+            // Adjust the button's image
+            button.transform.GetChild(0).GetComponent<Image>().sprite = interactiveAreaSprite;
+        }
         // Place the button on the right panel according to the classification
         switch (smartObject.canBePlacedOn)
         {
@@ -80,6 +91,7 @@ public class SmartObjectInstantiator : MonoBehaviour
                 button.transform.SetParent(tableObjectsUI.transform, false);
                 break;
             default:
+                //TODO place on none/all in case of a physical object
                 break;
         }
     }
