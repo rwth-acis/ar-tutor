@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SmartEnvironmentParser : MonoBehaviour
 {
+    [SerializeField] string despription;
+
     [SerializeField] SmartObject[] smartObjects;
 
     // Start is called before the first frame update
