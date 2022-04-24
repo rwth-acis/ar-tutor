@@ -479,7 +479,7 @@ RectTransform:
   m_Children:
   - {fileID: 1584566899}
   m_Father: {fileID: 1907129900}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -530,9 +530,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: InstantiateNew3DTagAndPersistAndSaveWorldMap
+      - m_Target: {fileID: 2050515281}
+        m_TargetAssemblyTypeName: UnityEngine.XR.ARFoundation.Samples.ARWorldMapControllerFixed,
+          ARFoundationRemote.Runtime
+        m_MethodName: OnSaveButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3075,7 +3076,7 @@ RectTransform:
   m_Children:
   - {fileID: 115333351}
   m_Father: {fileID: 1907129900}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3126,9 +3127,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: DeleteAllPersisted3DTags
+      - m_Target: {fileID: 2050515281}
+        m_TargetAssemblyTypeName: UnityEngine.XR.ARFoundation.Samples.ARWorldMapControllerFixed,
+          ARFoundationRemote.Runtime
+        m_MethodName: OnResetButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4263,7 +4265,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1907129900}
-  m_RootOrder: 8
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6892,9 +6894,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: LoadWorldMapAndInstiatePersisted3DTags
+      - m_Target: {fileID: 2050515281}
+        m_TargetAssemblyTypeName: UnityEngine.XR.ARFoundation.Samples.ARWorldMapControllerFixed,
+          ARFoundationRemote.Runtime
+        m_MethodName: OnLoadButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7149,7 +7152,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1907129900}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -10804,11 +10807,11 @@ RectTransform:
   - {fileID: 626583311}
   - {fileID: 297186963}
   - {fileID: 1193701503}
+  - {fileID: 775145426}
   - {fileID: 1224379721}
   - {fileID: 2065032358}
   - {fileID: 78422096}
   - {fileID: 497144542}
-  - {fileID: 775145426}
   m_Father: {fileID: 1484189350}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11505,6 +11508,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2048825553}
   m_CullTransparentMesh: 0
+--- !u!1 &2050515280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2050515282}
+  - component: {fileID: 2050515281}
+  m_Layer: 0
+  m_Name: ARWorldMapController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2050515281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050515280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 910afe04a041f45678bbc9fa5b2fc896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ARSession: {fileID: 592971999}
+  m_ErrorText: {fileID: 775145427}
+  m_LogText: {fileID: 1224379722}
+  m_MappingStatusText: {fileID: 2065032359}
+  m_SaveButton: {fileID: 78422097}
+  m_LoadButton: {fileID: 1193701504}
+--- !u!4 &2050515282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050515280}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2032, y: 180, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2057559439
 GameObject:
   m_ObjectHideFlags: 0
@@ -11749,7 +11801,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1907129900}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
