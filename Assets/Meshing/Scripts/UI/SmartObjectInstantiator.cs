@@ -21,6 +21,8 @@ public class SmartObjectInstantiator : MonoBehaviour
     void OnEnable()
     {
         EventManager.OnSmartEnvironmentParsed += SmartEnvironmentParsed;
+
+        EventManager.OnSmartObjectParsed += CreateSmartObjectInstance;
         EventManager.OnSmartObjectParsed += CreateObjectButton;
     }
 
@@ -33,6 +35,8 @@ public class SmartObjectInstantiator : MonoBehaviour
     void OnDisable()
     {
         EventManager.OnSmartEnvironmentParsed -= SmartEnvironmentParsed;
+
+        EventManager.OnSmartObjectParsed -= CreateSmartObjectInstance;
         EventManager.OnSmartObjectParsed -= CreateObjectButton;
     }
 
@@ -57,6 +61,7 @@ public class SmartObjectInstantiator : MonoBehaviour
         }
     }
 
+    //TODO separate this to a UI script
     void CreateObjectButton(SmartObject smartObject)
     {
         // Create a button for the object
@@ -96,6 +101,13 @@ public class SmartObjectInstantiator : MonoBehaviour
         }
     }
 
+    //TODO separate this to a logic script
+    void CreateSmartObjectInstance(SmartObject smartObject)
+    {
+        int smartObjectIndex = SmartEnvironment.Instance.InsertSmartObject(new SmartObjectInstance(smartObject: smartObject, physicalManifestation: null, interactiveArea: null, affectedArea: null));
+        EventManager.InstantiateSmartObject(smartObjectIndex);
+    }
+
     void InstantiatePhysicalManifestation(SmartObject smartObject, Button button)
     {
         Button buttonComponent = button.GetComponent<Button>();
@@ -133,7 +145,7 @@ public class SmartObjectInstantiator : MonoBehaviour
         smartObject.SetAffectedArea(affectedArea);
         // Schedule the tasks, TODO improve
         EventManager.PointableSOInstantiated(smartObject);
-        EventManager.SmartObjectInstantiated(smartObject);
+        //TODO EventManager.SmartObjectInstantiated(smartObject);
         Debug.Log("Smart object placement is finished!");
         // Disable the button
         button.gameObject.SetActive(false);

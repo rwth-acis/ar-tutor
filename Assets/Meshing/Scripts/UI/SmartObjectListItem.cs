@@ -9,12 +9,12 @@ public class SmartObjectListItem : MonoBehaviour
     public GameObject placementButton;
     public GameObject instructionLabel;
 
-    // Smart object attacted to the button
-    private SmartObject smartObject;
+    // Instance ID (index) of a smart object attached to the button
+    private int smartObjectInstanceIndex;
 
     void OnEnable()
     {
-        //EventManager.OnSmartObjectParsed += SmartObjectParsed;
+        EventManager.OnInstantiateSmartObject += InstantiateSmartObject;
         EventManager.OnSmartObjectInstantiated += SmartObjectInstantiated;
     }
 
@@ -26,7 +26,7 @@ public class SmartObjectListItem : MonoBehaviour
 
     void OnDisable()
     {
-        //EventManager.OnSmartObjectParsed -= SmartObjectParsed;
+        EventManager.OnInstantiateSmartObject -= InstantiateSmartObject;
         EventManager.OnSmartObjectInstantiated -= SmartObjectInstantiated;
     }
 
@@ -36,14 +36,15 @@ public class SmartObjectListItem : MonoBehaviour
         
     }
 
-    public void SetSmartObject(SmartObject smartObject)
+    void InstantiateSmartObject(int index)
     {
-        this.smartObject = smartObject;
+        // Attach the corresponding smart object's instance to the panel
+        smartObjectInstanceIndex = index;
     }
 
-    void SmartObjectInstantiated(SmartObject smartObject)
+    void SmartObjectInstantiated(int index)
     {
-        if (this.smartObject != smartObject)
+        if (this.smartObjectInstanceIndex != index)
             return;
         // Remove the instruction
         instructionLabel.SetActive(false);

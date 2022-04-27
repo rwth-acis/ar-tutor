@@ -26,7 +26,7 @@ public class NavMeshManager : MonoBehaviour
         EventManager.OnAgentInstantiated += AgentInstantiated;
         EventManager.OnWalkLabelInstantiated += WalkLabelInstantiated;
         EventManager.OnPointableSOInstantiated += PointableSOInstantiated;
-        EventManager.OnSmartObjectInstantiated += SmartObjectInstantiated;
+        //EventManager.OnSmartObjectInstantiated += SmartObjectInstantiated;
     }
 
     private void OnDisable()
@@ -36,7 +36,7 @@ public class NavMeshManager : MonoBehaviour
         EventManager.OnAgentInstantiated -= AgentInstantiated;
         EventManager.OnWalkLabelInstantiated -= WalkLabelInstantiated;
         EventManager.OnPointableSOInstantiated -= PointableSOInstantiated;
-        EventManager.OnSmartObjectInstantiated -= SmartObjectInstantiated;
+        //EventManager.OnSmartObjectInstantiated -= SmartObjectInstantiated;
     }
 
     private void Start()
@@ -90,12 +90,6 @@ public class NavMeshManager : MonoBehaviour
         navMeshSurface.BuildNavMesh();
         // Try to perform a point interaction
         InteractionManager.AttemptInteraction(agent, abilities, pointingInteraction, pointableSmartObject);
-    }
-
-    // Called from event manager
-    private void SmartObjectInstantiated(SmartObject smartObject)
-    {
-
     }
 
     public void PlayAgentTasks()

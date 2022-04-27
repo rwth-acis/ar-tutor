@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SmartEnvironmentParser : MonoBehaviour
 {
-    [SerializeField] string despription;
+    [TextArea] [SerializeField] string despription;
 
     [SerializeField] SmartObject[] smartObjects;
 

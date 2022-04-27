@@ -74,14 +74,25 @@ public class EventManager : MonoBehaviour
     }
 
 
-    public delegate void SmartObjectInstantiatedDelegate(SmartObject smartObject);
+    public delegate void InstantiateSmartObjectDelegate(int index);
+
+    public static event InstantiateSmartObjectDelegate OnInstantiateSmartObject;
+
+    // Tells all the relevant components that a SmartObject instance with index "index" has started the instantiation process
+    public static void InstantiateSmartObject(int index)
+    {
+        OnInstantiateSmartObject?.Invoke(index);
+    }
+
+
+    public delegate void SmartObjectInstantiatedDelegate(int index);
 
     public static event SmartObjectInstantiatedDelegate OnSmartObjectInstantiated;
 
-    // Tells all the components that a SmartObject has been instantiated and is now placed in the scene
-    public static void SmartObjectInstantiated(SmartObject smartObject)
+    // Tells all the components that a SmartObject with index "index" has been completely instantiated and is now placed in the scene
+    public static void SmartObjectInstantiated(int index)
     {
-        OnSmartObjectInstantiated?.Invoke(smartObject);
+        OnSmartObjectInstantiated?.Invoke(index);
     }
 
 }
