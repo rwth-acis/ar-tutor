@@ -460,7 +460,7 @@ GameObject:
   - component: {fileID: 78422098}
   - component: {fileID: 78422097}
   m_Layer: 5
-  m_Name: AddTagBtn
+  m_Name: SaveBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -802,7 +802,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Delete Previous Tags
+  m_Text: Reset SE and WorldMap
 --- !u!222 &115333353
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1829,12 +1829,12 @@ GameObject:
   - component: {fileID: 297186965}
   - component: {fileID: 297186964}
   m_Layer: 5
-  m_Name: TagNameInputField
+  m_Name: InputField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &297186963
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3069,7 +3069,7 @@ GameObject:
   - component: {fileID: 497144544}
   - component: {fileID: 497144543}
   m_Layer: 5
-  m_Name: RemoveTagsBtn
+  m_Name: ResetBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3143,6 +3143,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.XR.ARFoundation.Samples.ARWorldMapControllerFixed,
           ARFoundationRemote.Runtime
         m_MethodName: OnResetButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: d6fba6891307243a7bb1f4bc8d0da319, type: 2}
+        m_TargetAssemblyTypeName: SmartEnvironment, Assembly-CSharp
+        m_MethodName: Reset
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4317,7 +4329,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Loading Tags
+  m_Text: Loading SE and WorldMap
 --- !u!222 &775145428
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6836,7 +6848,7 @@ GameObject:
   - component: {fileID: 1193701505}
   - component: {fileID: 1193701504}
   m_Layer: 5
-  m_Name: LoadTagsBtn
+  m_Name: LoadBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7205,7 +7217,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 42
+    m_FontSize: 22
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
@@ -7216,7 +7228,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Loading Tags
+  m_Text: Reason Loading SE and WorldMap
 --- !u!222 &1224379723
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8664,7 +8676,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Load Previous Tags
+  m_Text: Load SE and WorldMap
 --- !u!222 &1567541631
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8894,7 +8906,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Add Tag Here
+  m_Text: Save SE and WorldMap
 --- !u!222 &1584566901
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11866,7 +11878,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Ready!
+  m_Text: Loaded SE and WorldMap!
 --- !u!222 &2065032360
 CanvasRenderer:
   m_ObjectHideFlags: 0

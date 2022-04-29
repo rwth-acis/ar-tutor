@@ -244,11 +244,12 @@ public class ClassificationPlacementManager : MonoBehaviour
         return m_SpawnedObject;
     }
 
-    public void PlaceWallObject(GameObject prefab)
+    public GameObject PlaceWallObject(GameObject prefab)
     {
         m_SpawnedObject = Instantiate(prefab, m_Reticle.GetReticlePosition().position, m_Reticle.GetReticlePosition().rotation);
         m_SpawnedObject.transform.localScale = Vector3.zero;
         m_SpawnedObject.transform.DOScale(Vector3.one, k_TweenTime).SetEase(m_TweenEase);
+        return m_SpawnedObject;
     }
 
     public void PlaceTableObject(int indexToPlace)
@@ -260,5 +261,17 @@ public class ClassificationPlacementManager : MonoBehaviour
         m_SpawnedObject.transform.rotation = Quaternion.Euler(0, m_SpawnedObject.transform.eulerAngles.y, 0);
 
         m_SpawnedObject.transform.DOScale(Vector3.one, k_TweenTime).SetEase(m_TweenEase);
+    }
+
+    public GameObject PlaceTableObject2(int indexToPlace)
+    {
+        m_SpawnedObject = Instantiate(m_TablePrefabs[indexToPlace], m_Reticle.GetReticlePosition().position, m_Reticle.GetReticlePosition().rotation);
+        m_SpawnedObject.transform.localScale = Vector3.zero;
+        // look at device but stay 'flat'
+        m_SpawnedObject.transform.LookAt(m_ARCameraTransform, Vector3.up);
+        m_SpawnedObject.transform.rotation = Quaternion.Euler(0, m_SpawnedObject.transform.eulerAngles.y, 0);
+
+        m_SpawnedObject.transform.DOScale(Vector3.one, k_TweenTime).SetEase(m_TweenEase);
+        return m_SpawnedObject;
     }
 }

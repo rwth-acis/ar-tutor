@@ -126,15 +126,21 @@ public class SmartEnvironment : ScriptableObject
         return smartEnvironment[index];
     }
 
-    // Simply save.
+    // Save the state of smart environment.
     public void Save()
     {
         SaveLoadManager.SaveSmartEnvironment();
     }
 
-    // Simply load.
+    // Load smart environment from the saved state or template.
     public void Load()
     {
         SaveLoadManager.LoadOrInitializeSmartEnvironment();
+    }
+
+    // Reset smart environment from the template.
+    public void Reset()
+    {
+        SaveLoadManager.LoadFromTemplate();
     }
 }
