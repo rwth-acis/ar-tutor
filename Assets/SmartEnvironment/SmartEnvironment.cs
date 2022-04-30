@@ -55,58 +55,6 @@ public class SmartEnvironment : ScriptableObject
     /* Inventory START */
     public List<SmartObjectInstance> smartEnvironment;
 
-    /*public bool SlotEmpty(int index)
-    {
-        if (smartEnvironment[index] == null || smartEnvironment[index].smartObject == null)
-            return true;
-
-        return false;
-    }
-
-    // Get a smart object instance if it exists.
-    public bool GetSmartObjectInstance(int index, out SmartObjectInstance smartObjectInstance)
-    {
-        // smartEnvironment[index] doesn't return null, so check item instead.
-        if (SlotEmpty(index))
-        {
-            item = null;
-            return false;
-        }
-
-        item = inventory[index];
-        return true;
-    }
-
-    // Remove an item at an index if one exists at that index.
-    public bool RemoveItem(int index)
-    {
-        if (SlotEmpty(index))
-        {
-            // Nothing existed at the specified slot.
-            return false;
-        }
-
-        inventory[index] = null;
-
-        return true;
-    }
-
-    // Insert an item, return the index where it was inserted.  -1 if error.
-    public int InsertItem(ItemInstance item)
-    {
-        for (int i = 0; i < inventory.Length; i++)
-        {
-            if (SlotEmpty(i))
-            {
-                inventory[i] = item;
-                return i;
-            }
-        }
-
-        // Couldn't find a free slot.
-        return -1;
-    }*/
-
     // Remove an item at an index
     public void RemoveSmartObject(int index)
     {
@@ -142,5 +90,10 @@ public class SmartEnvironment : ScriptableObject
     public void Reset()
     {
         SaveLoadManager.LoadFromTemplate();
+    }
+
+    public List<SmartObjectInstance> GetSmartObjectInstances()
+    {
+        return smartEnvironment;
     }
 }

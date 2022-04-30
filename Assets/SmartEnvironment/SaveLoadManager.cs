@@ -19,14 +19,16 @@ public static class SaveLoadManager
             Debug.Log("Couldn't find SmartEnvironment.json, loading from template.");
             SmartEnvironment.InitializeFromDefault();
         }
+        Debug.Log("Loaded:\n" + JsonUtility.ToJson(SmartEnvironment.Instance));
+        Debug.Log("Loaded:\n" + JsonUtility.ToJson(SmartEnvironment.Instance.GetSmartObjectInstances()));
     }
 
     public static void SaveSmartEnvironment()
     {
         SmartEnvironment.Instance.SaveToJSON(Path.Combine(
             Application.persistentDataPath, "SmartEnvironment.json"));
-
         Debug.Log("Saved:\n" + JsonUtility.ToJson(SmartEnvironment.Instance));
+        Debug.Log("Saved:\n" + JsonUtility.ToJson(SmartEnvironment.Instance.smartEnvironment));
     }
 
 

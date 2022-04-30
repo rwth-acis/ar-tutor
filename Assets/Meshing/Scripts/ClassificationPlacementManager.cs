@@ -134,6 +134,15 @@ public class ClassificationPlacementManager : MonoBehaviour
         set => m_SubmenuActive = value;
     }
 
+    [SerializeField]
+    Transform m_SmartEnvironmentTransform;
+
+    public Transform smartEnvironmentTransform
+    {
+        get => m_SmartEnvironmentTransform;
+        set => m_SmartEnvironmentTransform = value;
+    }
+
     void Update()
     {
 #if UNITY_IOS
@@ -205,7 +214,9 @@ public class ClassificationPlacementManager : MonoBehaviour
     // The Agent won't instantiate with this method for some reason, that's why it's a duplicate 
     public GameObject PlaceFloorObject2(int indexToPlace)
     {
-        m_SpawnedObject = Instantiate(m_FloorPrefabs[indexToPlace], m_Reticle.GetReticlePosition().position, m_Reticle.GetReticlePosition().rotation);
+        m_SpawnedObject = Instantiate(m_FloorPrefabs[indexToPlace], smartEnvironmentTransform);
+        m_SpawnedObject.transform.position = m_Reticle.GetReticlePosition().position;
+        m_SpawnedObject.transform.rotation = m_Reticle.GetReticlePosition().rotation;
         m_SpawnedObject.transform.localScale = Vector3.zero;
         // look at device but stay 'flat'
         m_SpawnedObject.transform.LookAt(m_ARCameraTransform, Vector3.up);
@@ -221,7 +232,9 @@ public class ClassificationPlacementManager : MonoBehaviour
 
     public void PlaceWallObject(int indexToPlace)
     {
-        m_SpawnedObject = Instantiate(m_WallPrefabs[indexToPlace], m_Reticle.GetReticlePosition().position, m_Reticle.GetReticlePosition().rotation);
+        m_SpawnedObject = Instantiate(m_WallPrefabs[indexToPlace], smartEnvironmentTransform);
+        m_SpawnedObject.transform.position = m_Reticle.GetReticlePosition().position;
+        m_SpawnedObject.transform.rotation = m_Reticle.GetReticlePosition().rotation;
         m_SpawnedObject.transform.localScale = Vector3.zero;
 
         if(indexToPlace != 3)
@@ -233,7 +246,9 @@ public class ClassificationPlacementManager : MonoBehaviour
 
     public GameObject PlaceWallObject2(int indexToPlace)
     {
-        m_SpawnedObject = Instantiate(m_WallPrefabs[indexToPlace], m_Reticle.GetReticlePosition().position, m_Reticle.GetReticlePosition().rotation);
+        m_SpawnedObject = Instantiate(m_WallPrefabs[indexToPlace], smartEnvironmentTransform);
+        m_SpawnedObject.transform.position = m_Reticle.GetReticlePosition().position;
+        m_SpawnedObject.transform.rotation = m_Reticle.GetReticlePosition().rotation;
         m_SpawnedObject.transform.localScale = Vector3.zero;
 
         if(indexToPlace != 3)
@@ -246,7 +261,10 @@ public class ClassificationPlacementManager : MonoBehaviour
 
     public GameObject PlaceWallObject(GameObject prefab)
     {
-        m_SpawnedObject = Instantiate(prefab, m_Reticle.GetReticlePosition().position, m_Reticle.GetReticlePosition().rotation);
+        m_SpawnedObject = Instantiate(prefab, smartEnvironmentTransform);
+        m_SpawnedObject.transform.position = m_Reticle.GetReticlePosition().position;
+        m_SpawnedObject.transform.rotation = m_Reticle.GetReticlePosition().rotation;
+
         m_SpawnedObject.transform.localScale = Vector3.zero;
         m_SpawnedObject.transform.DOScale(Vector3.one, k_TweenTime).SetEase(m_TweenEase);
         return m_SpawnedObject;
