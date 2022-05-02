@@ -131,8 +131,9 @@ public class SmartObjectInstantiator : MonoBehaviour
         // Instantiate the interactive area
         GameObject interactiveArea = classificationPlacementManager.PlaceWallObject2(3);
         //TODO improve: add this object to the SmartObject collection in the scene
-        smartObjectInstance.smartObject.SetInteractiveArea(interactiveArea);
-        smartObjectInstance.interactiveArea = new InstanceTransform(interactiveArea.transform);
+        //smartObjectInstance.smartObject.SetInteractiveArea(interactiveArea);
+        // Final scale as second argument
+        smartObjectInstance.interactiveArea = new InstanceTransform(interactiveArea.transform, classificationPlacementManager.reticle.GetSmartAreaScale());
 
         // Move button to the floor objects UI
         button.transform.SetParent(floorObjectsUI.transform, false);
@@ -149,8 +150,9 @@ public class SmartObjectInstantiator : MonoBehaviour
         // Instantiate the affected area
         GameObject affectedArea = classificationPlacementManager.PlaceFloorObject2(3);
         //TODO improve: add this object to the SmartObject collection in the scene
-        smartObjectInstance.smartObject.SetAffectedArea(affectedArea);
-        smartObjectInstance.affectedArea = new InstanceTransform(affectedArea.transform);
+        //smartObjectInstance.smartObject.SetAffectedArea(affectedArea);
+        // Final scale as second argument
+        smartObjectInstance.affectedArea = new InstanceTransform(affectedArea.transform, classificationPlacementManager.reticle.GetSmartAreaScale());
 
         // Schedule the tasks, TODO improve
         EventManager.PointableSOInstantiated(smartObjectInstance.smartObject);

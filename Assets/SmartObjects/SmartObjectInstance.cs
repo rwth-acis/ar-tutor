@@ -47,6 +47,15 @@ public class InstanceTransform
             this.localScale = transform.localScale;
     }
 
+    // For the case when DOScale is being used on the prefab
+    public InstanceTransform(Transform transform, Vector3 finalScale)
+    {
+        this.localPosition = transform.localPosition;
+        this.localRotation = transform.localRotation;
+        this.localEulerAngles = transform.localEulerAngles;
+        this.localScale = finalScale;
+    }
+
     public void ApplyTransformTo(Transform transform)
     {
         transform.localPosition = this.localPosition;
