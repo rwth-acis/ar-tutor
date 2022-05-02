@@ -29,8 +29,9 @@ public class SmartEnvironmentInstantiator : MonoBehaviour
         }
         //TODO rename "smartEnvironment" to "objectCollection"
         //TODO move the activation method to a SmartObjectInstanceTools class
-        foreach (SmartObjectInstance smartObjectInstance in SmartEnvironment.Instance.smartEnvironment)
-        {
+        //foreach (SmartObjectInstance smartObjectInstance in SmartEnvironment.Instance.smartEnvironment)
+        foreach (SmartObjectInstance smartObjectInstance in SmartEnvironment.Instance.GetSmartObjectInstances())
+            {
             //Instantiate(smartObjectInstance.physicalManifestation, smartEnvironmentTransform);
             smartObjectInstance.physicalManifestation.transform.parent = smartEnvironmentTransform;
             smartObjectInstance.physicalManifestation.SetActive(true);

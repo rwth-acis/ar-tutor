@@ -20,7 +20,8 @@ public static class SaveLoadManager
             SmartEnvironment.InitializeFromDefault();
         }
         Debug.Log("Loaded:\n" + JsonUtility.ToJson(SmartEnvironment.Instance));
-        Debug.Log("Loaded:\n" + JsonUtility.ToJson(SmartEnvironment.Instance.GetSmartObjectInstances()));
+        //Debug.Log("Loaded:\n" + JsonUtility.ToJson(SmartEnvironment.Instance.GetSmartObjectInstances()));
+        Debug.Log("Loaded:\n" + SmartEnvironment.Instance.smartEnvironmentAsJson);
     }
 
     public static void SaveSmartEnvironment()
@@ -28,7 +29,8 @@ public static class SaveLoadManager
         SmartEnvironment.Instance.SaveToJSON(Path.Combine(
             Application.persistentDataPath, "SmartEnvironment.json"));
         Debug.Log("Saved:\n" + JsonUtility.ToJson(SmartEnvironment.Instance));
-        Debug.Log("Saved:\n" + JsonUtility.ToJson(SmartEnvironment.Instance.smartEnvironment));
+        //Debug.Log("Saved:\n" + JsonUtility.ToJson(SmartEnvironment.Instance.smartEnvironment));
+        Debug.Log("Saved:\n" + SmartEnvironment.Instance.smartEnvironmentAsJson);
     }
 
 

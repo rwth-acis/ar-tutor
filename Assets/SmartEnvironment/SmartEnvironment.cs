@@ -43,35 +43,38 @@ public class SmartEnvironment : ScriptableObject
         if (_instance) DestroyImmediate(_instance);
         _instance = ScriptableObject.CreateInstance<SmartEnvironment>();
         JsonUtility.FromJsonOverwrite(System.IO.File.ReadAllText(path), _instance);
+        _instance.smartEnvironment = JsonUtility.FromJson<JSONListWrapper<SmartObjectInstance>>(_instance.smartEnvironmentAsJson).list;
         _instance.hideFlags = HideFlags.HideAndDontSave;
     }
 
     public void SaveToJSON(string path)
     {
+        smartEnvironmentAsJson = JsonUtility.ToJson(new JSONListWrapper<SmartObjectInstance>(smartEnvironment));
         Debug.LogFormat("Saving smart environment to {0}", path);
         System.IO.File.WriteAllText(path, JsonUtility.ToJson(this, true));
     }
 
     /* Inventory START */
     public List<SmartObjectInstance> smartEnvironment;
+    public string smartEnvironmentAsJson;
 
     // Remove an item at an index
     public void RemoveSmartObject(int index)
     {
-        smartEnvironment.RemoveAt(index);
+        _instance.smartEnvironment.RemoveAt(index);
     }
 
     // Insert a smart object, return the index where it was inserted
     public int InsertSmartObject(SmartObjectInstance smartObjectInstance)
     {
-        smartEnvironment.Add(smartObjectInstance);
-        return smartEnvironment.IndexOf(smartObjectInstance);
+        _instance.smartEnvironment.Add(smartObjectInstance);
+        return _instance.smartEnvironment.IndexOf(smartObjectInstance);
     }
 
     // Get a smart object instance if it exists.
     public SmartObjectInstance GetSmartObjectInstance(int index)
     {
-        return smartEnvironment[index];
+        return _instance.smartEnvironment[index];
     }
 
     // Save the state of smart environment.
@@ -94,6 +97,14 @@ public class SmartEnvironment : ScriptableObject
 
     public List<SmartObjectInstance> GetSmartObjectInstances()
     {
-        return smartEnvironment;
+        return _instance.smartEnvironment;
     }
+}
+
+
+[System.Serializable]
+public class JSONListWrapper<T>
+{
+    public List<T> list;
+    public JSONListWrapper(List<T> list) => this.list = list;
 }
