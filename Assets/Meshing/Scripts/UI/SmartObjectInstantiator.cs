@@ -107,7 +107,7 @@ public class SmartObjectInstantiator : MonoBehaviour
     //TODO separate this to a logic script
     void CreateSmartObjectInstance(SmartObject smartObject)
     {
-        int smartObjectIndex = SmartEnvironment.Instance.InsertSmartObject(new SmartObjectInstance(smartObject: smartObject, physicalManifestation: null, interactiveArea: null, affectedArea: null));
+        int smartObjectIndex = SmartEnvironment.Instance.InsertSmartObject(new SmartObjectInstance(smartObject));
         EventManager.InstantiateSmartObject(smartObjectIndex);
     }
 
@@ -116,8 +116,8 @@ public class SmartObjectInstantiator : MonoBehaviour
         Button buttonComponent = button.GetComponent<Button>();
         // Instantiate the embodiment
         GameObject physicalManifestation = classificationPlacementManager.PlaceWallObject(smartObjectInstance.smartObject.physicalManifestation);
-        // Save the embodiment in the SO-instance object
-        smartObjectInstance.physicalManifestation = physicalManifestation;
+        // Save the transform of the embodiment in the SO-instance object
+        smartObjectInstance.physicalManifestation = new InstanceTransform(physicalManifestation.transform);
         // Adjust the button's image
         button.transform.GetChild(0).GetComponent<Image>().sprite = interactiveAreaSprite;
         // Add a different listener
@@ -132,7 +132,7 @@ public class SmartObjectInstantiator : MonoBehaviour
         GameObject interactiveArea = classificationPlacementManager.PlaceWallObject2(3);
         //TODO improve: add this object to the SmartObject collection in the scene
         smartObjectInstance.smartObject.SetInteractiveArea(interactiveArea);
-        smartObjectInstance.interactiveArea = interactiveArea;
+        smartObjectInstance.interactiveArea = new InstanceTransform(interactiveArea.transform);
 
         // Move button to the floor objects UI
         button.transform.SetParent(floorObjectsUI.transform, false);
@@ -150,11 +150,11 @@ public class SmartObjectInstantiator : MonoBehaviour
         GameObject affectedArea = classificationPlacementManager.PlaceFloorObject2(3);
         //TODO improve: add this object to the SmartObject collection in the scene
         smartObjectInstance.smartObject.SetAffectedArea(affectedArea);
-        smartObjectInstance.affectedArea = affectedArea;
+        smartObjectInstance.affectedArea = new InstanceTransform(affectedArea.transform);
 
         // Schedule the tasks, TODO improve
         EventManager.PointableSOInstantiated(smartObjectInstance.smartObject);
-        //TODO EventManager.SmartObjectInstantiated(smartObject);
+        EventManager.SmartObjectInstantiated(SmartEnvironment.Instance.GetSmartObjectInstanceIndex(smartObjectInstance));
         Debug.Log("Smart object placement is finished!");
         // Disable the button
         button.gameObject.SetActive(false);

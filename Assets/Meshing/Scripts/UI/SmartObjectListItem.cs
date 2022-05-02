@@ -14,6 +14,7 @@ public class SmartObjectListItem : MonoBehaviour
 
     void OnEnable()
     {
+        //TODO This does not work with an event
         EventManager.OnInstantiateSmartObject += InstantiateSmartObject;
         EventManager.OnSmartObjectInstantiated += SmartObjectInstantiated;
     }

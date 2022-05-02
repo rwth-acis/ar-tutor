@@ -99,6 +99,11 @@ public class SmartEnvironment : ScriptableObject
     {
         return _instance.smartEnvironment;
     }
+
+    public int GetSmartObjectInstanceIndex(SmartObjectInstance smartObjectInstance)
+    {
+        return _instance.smartEnvironment.IndexOf(smartObjectInstance);
+    }
 }
 
 

@@ -3,7 +3,13 @@ guid: deb3543a0e2b54e67af2a33dd205081d
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - physicalManifestation: {instanceID: 0}
+  - objectIconUI: {instanceID: 0}
+  - interactiveArea: {fileID: 2162902216330978506, guid: 1a65f9a66d74745b5bb1a4e70967564a,
+      type: 3}
+  - affectedArea: {fileID: 2162902216330978506, guid: 1a65f9a66d74745b5bb1a4e70967564a,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
