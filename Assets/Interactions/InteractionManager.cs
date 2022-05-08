@@ -7,15 +7,19 @@ public static class InteractionManager
 {
     public static void AttemptInteraction (Agent agent, AgentAbilities abilities, Interaction interaction, SmartObject smartObject)
     {
+        Debug.Log("Interaction stage 1");
         if (agent != null && interaction != null && smartObject != null)
         {
+            Debug.Log("Interaction stage 2");
             // Checks whether the agent has matching abilities. Potentially returns respective interaction interfaces (capacities) of the agent
             //TODO Pluralize
             var abilitySatisfied = abilities.CheckAbility(interaction.requiredAbility.flag);
             var affordanceSatisfied = CheckAffordance(smartObject, interaction);
             if (abilitySatisfied && affordanceSatisfied)
             {
+                Debug.Log("Interaction stage 3");
                 interaction.Perform(agent, smartObject);
+                Debug.Log("Interaction stage 4");
             }
         }
     }

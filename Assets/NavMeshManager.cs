@@ -70,6 +70,7 @@ public class NavMeshManager : MonoBehaviour
         // Make sure the NavMesh is built
         navMeshSurface.BuildNavMesh();
         // Try to perform a walk interaction
+        Debug.Log("WalkLabel got instantiated.");
         InteractionManager.AttemptInteraction(agent, abilities, walkingInteraction, smartDestinationObject);
 
         /*  WITHOUT ABILITY SYSTEM

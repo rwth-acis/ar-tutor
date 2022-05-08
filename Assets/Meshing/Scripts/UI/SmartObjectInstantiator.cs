@@ -127,14 +127,24 @@ public class SmartObjectInstantiator : MonoBehaviour
 
     void InstantiateInteractiveArea(SmartObjectInstance smartObjectInstance, Button button)
     {
+        // If interactiveArea is a part of physicalManifestation
+        if (smartObjectInstance.smartObject.physicalManifestation == smartObjectInstance.smartObject.interactiveArea)
+        {
+            Debug.Log("interactiveArea is a part of physicalManifestation");
+            // Fetch that object from the SmartAreas component
+            smartObjectInstance.interactiveArea = new InstanceTransform(smartObjectInstance.smartObject.physicalManifestation.GetComponent<SmartAreas>().interactiveArea.transform);
+        }
+        else
+        {
+            Debug.Log("interactiveArea is NOT a part of physicalManifestation");
+            // Instantiate the interactive area
+            GameObject interactiveArea = classificationPlacementManager.PlaceWallObject2(3);
+            //TODO improve: add this object to the SmartObject collection in the scene
+            //smartObjectInstance.smartObject.SetInteractiveArea(interactiveArea);
+            // Final scale as second argument
+            smartObjectInstance.interactiveArea = new InstanceTransform(interactiveArea.transform, classificationPlacementManager.reticle.GetSmartAreaScale());
+        }
         Button buttonComponent = button.GetComponent<Button>();
-        // Instantiate the interactive area
-        GameObject interactiveArea = classificationPlacementManager.PlaceWallObject2(3);
-        //TODO improve: add this object to the SmartObject collection in the scene
-        //smartObjectInstance.smartObject.SetInteractiveArea(interactiveArea);
-        // Final scale as second argument
-        smartObjectInstance.interactiveArea = new InstanceTransform(interactiveArea.transform, classificationPlacementManager.reticle.GetSmartAreaScale());
-
         // Move button to the floor objects UI
         button.transform.SetParent(floorObjectsUI.transform, false);
         // Adjust the button's image
@@ -142,6 +152,7 @@ public class SmartObjectInstantiator : MonoBehaviour
         // Add a different listener
         buttonComponent.onClick.RemoveAllListeners();
         buttonComponent.onClick.AddListener(delegate {InstantiateAffectedArea(smartObjectInstance, buttonComponent); });
+        Debug.Log("interactiveArea got instantiated");
     }
 
     void InstantiateAffectedArea(SmartObjectInstance smartObjectInstance, Button button)
