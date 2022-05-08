@@ -33,7 +33,6 @@ public static class SaveLoadManager
         Debug.Log("Saved:\n" + SmartEnvironment.Instance.smartEnvironmentAsJson);
     }
 
-
     // Load from the default, for situations where we just want to reset.
     public static void LoadFromTemplate()
     {

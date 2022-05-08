@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: SmartEnvironmentTemplate
   m_EditorClassIdentifier: 
   smartEnvironment: []
+  smartEnvironmentAsJson: 

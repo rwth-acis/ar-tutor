@@ -49,7 +49,7 @@ public class SmartEnvironment : ScriptableObject
 
     public void SaveToJSON(string path)
     {
-        smartEnvironmentAsJson = JsonUtility.ToJson(new JSONListWrapper<SmartObjectInstance>(smartEnvironment));
+        _instance.smartEnvironmentAsJson = JsonUtility.ToJson(new JSONListWrapper<SmartObjectInstance>(_instance.smartEnvironment));
         Debug.LogFormat("Saving smart environment to {0}", path);
         System.IO.File.WriteAllText(path, JsonUtility.ToJson(this, true));
     }
@@ -93,6 +93,7 @@ public class SmartEnvironment : ScriptableObject
     public void Reset()
     {
         SaveLoadManager.LoadFromTemplate();
+        _instance.Empty();
     }
 
     public List<SmartObjectInstance> GetSmartObjectInstances()
@@ -103,6 +104,12 @@ public class SmartEnvironment : ScriptableObject
     public int GetSmartObjectInstanceIndex(SmartObjectInstance smartObjectInstance)
     {
         return _instance.smartEnvironment.IndexOf(smartObjectInstance);
+    }
+
+    public void Empty()
+    {
+        _instance.smartEnvironment.Clear();
+        _instance.smartEnvironmentAsJson = "";
     }
 }
 
