@@ -13,11 +13,13 @@ public class SmartObjectInstantiator : MonoBehaviour
     void OnEnable()
     {
         EventManager.OnInstantiateSmartObject += InstantiateSmartObject;
+        EventManager.OnRestoreSmartObject += RestoreSmartObject;
     }
 
     void OnDisable()
     {
         EventManager.OnInstantiateSmartObject -= InstantiateSmartObject;
+        EventManager.OnRestoreSmartObject -= RestoreSmartObject;
     }
 
     // Start is called before the first frame update
@@ -30,11 +32,6 @@ public class SmartObjectInstantiator : MonoBehaviour
     void Update()
     {
         
-    }
-
-    void ReviveSmartObject(int index)
-    {
-
     }
 
     void InstantiateSmartObject(int index)
@@ -59,19 +56,74 @@ public class SmartObjectInstantiator : MonoBehaviour
         }  
     }
 
+    void RestoreSmartObject(int index, Transform smartEnvironmentTransform)
+    {
+        var smartObjectInstance = SmartEnvironment.Instance.GetSmartObjectInstance(index);
+
+        // Is this a virtual object?
+        if (smartObjectInstance.smartObject.physicalManifestation != null)
+        {
+            // Physical manifestation needs to be instantiated
+            GameObject restoredPhysicalManifestation = Instantiate(smartObjectInstance.smartObject.physicalManifestation, smartEnvironmentTransform);
+            smartObjectInstance.physicalManifestation.ApplyTransformTo(restoredPhysicalManifestation.transform);
+            smartObjectInstance.physicalManifestationGameObject = restoredPhysicalManifestation;
+
+            // Is interactive area the same as physical manifestation?
+            if (smartObjectInstance.smartObject.physicalManifestation == smartObjectInstance.smartObject.interactiveArea)
+            {
+                // Then the interactive area is a part of the physical manifestation -> fetch that object from the SmartAreas component
+                smartObjectInstance.interactiveArea = new InstanceTransform(restoredPhysicalManifestation.GetComponent<SmartAreas>().interactiveArea.transform);
+                smartObjectInstance.interactiveAreaGameObject = restoredPhysicalManifestation.GetComponent<SmartAreas>().interactiveArea;
+                // Affected area still needs to be instantiated using smart areas
+                GameObject restoredAffectedArea = Instantiate(smartObjectInstance.smartObject.affectedArea, smartEnvironmentTransform);
+                smartObjectInstance.affectedArea.ApplyTransformTo(restoredAffectedArea.transform);
+                smartObjectInstance.affectedAreaGameObject = restoredAffectedArea;
+            }
+            else
+            {
+                // Interactive and affected areas need to be instantiated using smart areas
+                GameObject restoredInteractiveArea = Instantiate(smartObjectInstance.smartObject.interactiveArea, smartEnvironmentTransform);
+                smartObjectInstance.interactiveArea.ApplyTransformTo(restoredInteractiveArea.transform);
+                smartObjectInstance.interactiveAreaGameObject = restoredInteractiveArea;
+
+                GameObject restoredAffectedArea = Instantiate(smartObjectInstance.smartObject.affectedArea, smartEnvironmentTransform);
+                smartObjectInstance.affectedArea.ApplyTransformTo(restoredAffectedArea.transform);
+                smartObjectInstance.affectedAreaGameObject = restoredAffectedArea;
+            }
+        }
+        // Is this a real object?
+        else
+        {
+            // Physical manifestation does not need to be instantiated
+            // Interactive and affected areas need to be instantiated using smart areas
+            GameObject restoredInteractiveArea = Instantiate(smartObjectInstance.smartObject.interactiveArea, smartEnvironmentTransform);
+            smartObjectInstance.interactiveArea.ApplyTransformTo(restoredInteractiveArea.transform);
+            smartObjectInstance.interactiveAreaGameObject = restoredInteractiveArea;
+
+            GameObject restoredAffectedArea = Instantiate(smartObjectInstance.smartObject.affectedArea, smartEnvironmentTransform);
+            smartObjectInstance.affectedArea.ApplyTransformTo(restoredAffectedArea.transform);
+            smartObjectInstance.affectedAreaGameObject = restoredAffectedArea;
+        }
+
+        //TODO plan the behavioral sequence!!!
+    }
+
     public void InstantiatePhysicalManifestation(SmartObjectInstance smartObjectInstance)
     {
         // Instantiate the physical manifestation
         GameObject physicalManifestation = classificationPlacementManager.PlaceWallObject(smartObjectInstance.smartObject.physicalManifestation);
         // Save the transform of the embodiment in the SO-instance object
         smartObjectInstance.physicalManifestation = new InstanceTransform(physicalManifestation.transform);
+        smartObjectInstance.physicalManifestationGameObject = physicalManifestation;
         // Is interactive area the same as physical manifestation?
         if (smartObjectInstance.smartObject.physicalManifestation == smartObjectInstance.smartObject.interactiveArea)
         {
             // Then the physical manifestation contains the interactive area and has to be searched for it
             Debug.Log("interactiveArea is a part of physicalManifestation");
             // Fetch that object from the SmartAreas component
-            smartObjectInstance.interactiveArea = new InstanceTransform(smartObjectInstance.smartObject.physicalManifestation.GetComponent<SmartAreas>().interactiveArea.transform);
+            //smartObjectInstance.interactiveArea = new InstanceTransform(smartObjectInstance.smartObject.physicalManifestation.GetComponent<SmartAreas>().interactiveArea.transform);
+            smartObjectInstance.interactiveArea = new InstanceTransform(physicalManifestation.GetComponent<SmartAreas>().interactiveArea.transform);
+            smartObjectInstance.interactiveAreaGameObject = physicalManifestation.GetComponent<SmartAreas>().interactiveArea;
             // Affected area still needs to be instantiated using smart areas
             // Set up the next step in UI
             smartObjectInstantiatorUI.SetUpObjectButton(smartObjectInstance, InstantiateAffectedArea, 3);
@@ -93,6 +145,7 @@ public class SmartObjectInstantiator : MonoBehaviour
         //smartObjectInstance.smartObject.SetInteractiveArea(interactiveArea);
         // Final scale as second argument
         smartObjectInstance.interactiveArea = new InstanceTransform(interactiveArea.transform, classificationPlacementManager.reticle.GetSmartAreaScale());
+        smartObjectInstance.interactiveAreaGameObject = interactiveArea;
 
         // Set up next step in UI
         smartObjectInstantiatorUI.SetUpObjectButton(smartObjectInstance, InstantiateAffectedArea, 3);
@@ -108,10 +161,11 @@ public class SmartObjectInstantiator : MonoBehaviour
         //smartObjectInstance.smartObject.SetAffectedArea(affectedArea);
         // Final scale as second argument
         smartObjectInstance.affectedArea = new InstanceTransform(affectedArea.transform, classificationPlacementManager.reticle.GetSmartAreaScale());
+        smartObjectInstance.affectedAreaGameObject = affectedArea;
 
         smartObjectInstance.instantiated = true;
         // Schedule the tasks, TODO improve
-        EventManager.PointableSOInstantiated(smartObjectInstance.smartObject);
+        EventManager.PointableSOInstantiated(smartObjectInstance);
         EventManager.SmartObjectInstantiated(SmartEnvironment.Instance.GetSmartObjectInstanceIndex(smartObjectInstance));
 
         // Set up next step in UI
