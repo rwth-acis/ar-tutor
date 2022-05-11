@@ -9,10 +9,12 @@ using TMPro;
 public class SmartObjectList : MonoBehaviour
 {
     [SerializeField] GameObject panelPrefab;
+    private List<GameObject> panelList;
 
     void OnEnable()
     {
-        EventManager.OnSmartEnvironmentParsed += CreateObjectPanels;
+        //EventManager.OnSmartEnvironmentParsed += CreateObjectPanels;
+        EventManager.OnSmartObjectParsed += CreateObjectPanel;
     }
 
     // Start is called before the first frame update
@@ -23,7 +25,8 @@ public class SmartObjectList : MonoBehaviour
 
     void OnDisable()
     {
-        EventManager.OnSmartEnvironmentParsed -= CreateObjectPanels;
+        //EventManager.OnSmartEnvironmentParsed -= CreateObjectPanels;
+        EventManager.OnSmartObjectParsed -= CreateObjectPanel;
     }
 
     // Update is called once per frame
@@ -32,7 +35,7 @@ public class SmartObjectList : MonoBehaviour
         
     }
 
-    void CreateObjectPanels(SmartObject[] smartObjects)
+    /*void CreateObjectPanels(SmartObject[] smartObjects)
     {
         Debug.Log("UI: Entered smart object list creation!");
         foreach (SmartObject smartObject in smartObjects)
@@ -47,10 +50,31 @@ public class SmartObjectList : MonoBehaviour
             TMP_Text1.text = smartObject.nameSource;
             TMP_Text2.text = smartObject.nameTarget;
             // Adjust the instantiation button
-            panel.transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate { EventManager.SmartObjectParsed(smartObject); });
+            //TODO panel.transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate { EventManager.InstantiateSmartObject(index); });
             // Place the panel
             panel.transform.SetParent(gameObject.transform, false);
             Debug.Log("UI: Smart object panel got placed!");
         }
+    }*/
+
+    void CreateObjectPanel(int index)
+    {
+        var smartObjectInstance = SmartEnvironment.Instance.GetSmartObjectInstance(index);
+        // Create a panel for the object
+        GameObject panel = Instantiate(panelPrefab);
+        // Adjust the icon on the panel
+        panel.transform.GetChild(0).GetComponent<Image>().sprite = smartObjectInstance.smartObject.objectIconUI;
+        // Asjust the text label on the panel
+        TextMeshProUGUI TMP_Text1 = panel.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI TMP_Text2 = panel.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        TMP_Text1.text = smartObjectInstance.smartObject.nameSource;
+        TMP_Text2.text = smartObjectInstance.smartObject.nameTarget;
+        // Adjust the instantiation button
+        panel.transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate { EventManager.InstantiateSmartObject(index); });
+        Debug.Log("Set up object instantiation");
+        // Place the panel
+        panel.transform.SetParent(gameObject.transform, false);
+        // Set the index of the smart object instance
+        panel.GetComponent<SmartObjectListItem>().InstantiateSmartObject(index);
     }
 }

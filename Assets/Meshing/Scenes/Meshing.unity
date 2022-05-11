@@ -3052,7 +3052,6 @@ MonoBehaviour:
   wallObjectsUI: {fileID: 856040692}
   floorObjectsUI: {fileID: 1600074329}
   tableObjectsUI: {fileID: 831576359}
-  classificationPlacementManager: {fileID: 1173076851}
   interactiveAreaSprite: {fileID: 21300000, guid: c428005216e394008bcc87f789e4040f,
     type: 3}
   affectedAreaSprite: {fileID: 21300000, guid: 5e3267c855f48471499d3bc87edb898b, type: 3}
@@ -9864,6 +9863,7 @@ GameObject:
   - component: {fileID: 1698386874}
   - component: {fileID: 1698386873}
   - component: {fileID: 1698386875}
+  - component: {fileID: 1698386876}
   m_Layer: 0
   m_Name: SmartEnvironment
   m_TagString: Untagged
@@ -9917,6 +9917,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smartEnvironmentTransform: {fileID: 1698386874}
   agentPlacementButton: {fileID: 119843669}
+--- !u!114 &1698386876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698386872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bf3705298e3c45aa8be12449c4dc878, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  classificationPlacementManager: {fileID: 1173076851}
+  smartObjectInstantiatorUI: {fileID: 495813760}
 --- !u!1 &1704252895
 GameObject:
   m_ObjectHideFlags: 0

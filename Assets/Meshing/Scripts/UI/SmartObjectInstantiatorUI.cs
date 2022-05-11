@@ -2,44 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
-public class SmartObjectInstantiator : MonoBehaviour
+public class SmartObjectInstantiatorUI : MonoBehaviour
 {
     [SerializeField] Button buttonPrefab;
     [SerializeField] GameObject wallObjectsUI;
     [SerializeField] GameObject floorObjectsUI;
     [SerializeField] GameObject tableObjectsUI;
 
-    [SerializeField] ClassificationPlacementManager classificationPlacementManager;
-
-    Sprite smartObjectSprite;
+    //SerializeField] Sprite smartObjectSprite;
     [SerializeField] Sprite interactiveAreaSprite;
     [SerializeField] Sprite affectedAreaSprite;
 
     SmartObject[] smartObjects;
 
-    void OnEnable()
-    {
-        EventManager.OnSmartEnvironmentParsed += SmartEnvironmentParsed;
-
-        EventManager.OnSmartObjectParsed += CreateSmartObjectInstance;
-
-        EventManager.OnInstantiateSmartObject += CreateObjectButton;
-    }
-
     // Start is called before the first frame update
     void Start()
     {
         
-    }
-
-    void OnDisable()
-    {
-        EventManager.OnSmartEnvironmentParsed -= SmartEnvironmentParsed;
-
-        EventManager.OnSmartObjectParsed -= CreateSmartObjectInstance;
-
-        EventManager.OnInstantiateSmartObject -= CreateObjectButton;
     }
 
     // Update is called once per frame
@@ -48,70 +29,59 @@ public class SmartObjectInstantiator : MonoBehaviour
 
     }
 
-    // Move this to a more persistent data model
-    void SmartEnvironmentParsed(SmartObject[] smartObjects)
+    public void CreateObjectButton(SmartObjectInstance smartObjectInstance)
     {
-        this.smartObjects = smartObjects;
+        // Create a button for the object
+        //TODO??? Was Button button previously
+        Button button = Instantiate(buttonPrefab);
+        // Attach the button to the SOI object
+        smartObjectInstance.button = button.gameObject;
     }
 
-    /*void CreateObjectButtons(SmartObject[] smartObjects)
+    public void SetUpObjectButton(SmartObjectInstance smartObjectInstance, Action<SmartObjectInstance> action, int step)
     {
-        Debug.Log("Entered wall button creation!");
-        foreach(SmartObject smartObject in smartObjects)
-        {
-            CreateObjectButton(smartObject);
-        }
-    }*/
+        var buttonComponent = smartObjectInstance.button.GetComponent<Button>();
 
-    //TODO separate this to a UI script
-    void CreateObjectButton(int index)
-    {
-        var smartObjectInstance = SmartEnvironment.Instance.GetSmartObjectInstance(index);
-        // Create a button for the object
-        Button button = Instantiate(buttonPrefab); //, new Vector3(350,350,0), Quaternion.identity
-                                                   // Add delegates with parameters to the button
-        if (smartObjectInstance.smartObject.physicalManifestation != null) // Only instantiate the physical manifestation for virtual objects
-        {
-            // Instantiate the physical manifestation
-            button.GetComponent<Button>().onClick.AddListener(delegate { InstantiatePhysicalManifestation(smartObjectInstance, button); });
-            // Adjust the button's image
-            smartObjectSprite = button.transform.GetChild(0).GetComponent<Image>().sprite;
-            button.transform.GetChild(0).GetComponent<Image>().sprite = smartObjectInstance.smartObject.objectIconUI;
-        }
+        buttonComponent.onClick.RemoveAllListeners();
+
+        buttonComponent.onClick.AddListener(delegate { action(smartObjectInstance); });
+        if (step == 1)
+            buttonComponent.transform.GetChild(0).GetComponent<Image>().sprite = smartObjectInstance.smartObject.objectIconUI;
+        else if (step == 2)
+            buttonComponent.transform.GetChild(0).GetComponent<Image>().sprite = interactiveAreaSprite;
+        else if (step == 3)
+            buttonComponent.transform.GetChild(0).GetComponent<Image>().sprite = affectedAreaSprite;
+
+        // Place the button on the right panel according to the classification
+        if (step == 3)
+            smartObjectInstance.button.transform.SetParent(floorObjectsUI.transform, false);
         else
         {
-            // Instantiate the interactive area
-            button.GetComponent<Button>().onClick.AddListener(delegate { InstantiateInteractiveArea(smartObjectInstance, button.GetComponent<Button>()); });
-            // Adjust the button's image
-            button.transform.GetChild(0).GetComponent<Image>().sprite = interactiveAreaSprite;
-        }
-        // Place the button on the right panel according to the classification
-        switch (smartObjectInstance.smartObject.canBePlacedOn)
-        {
-            case SmartObject.Placing.Wall:
-                button.transform.SetParent(wallObjectsUI.transform, false);
-                Debug.Log("Wall button got placed!");
-                break;
-            case SmartObject.Placing.Floor:
-                button.transform.SetParent(floorObjectsUI.transform, false);
-                break;
-            case SmartObject.Placing.Table:
-                button.transform.SetParent(tableObjectsUI.transform, false);
-                break;
-            default:
-                //TODO place on none/all in case of a physical object
-                break;
+            switch (smartObjectInstance.smartObject.canBePlacedOn)
+            {
+                case SmartObject.Placing.Wall:
+                    smartObjectInstance.button.transform.SetParent(wallObjectsUI.transform, false);
+                    Debug.Log("Wall button got placed!");
+                    break;
+                case SmartObject.Placing.Floor:
+                    smartObjectInstance.button.transform.SetParent(floorObjectsUI.transform, false);
+                    break;
+                case SmartObject.Placing.Table:
+                    smartObjectInstance.button.transform.SetParent(tableObjectsUI.transform, false);
+                    break;
+                default:
+                    //TODO place on none/all in case of a physical object, add a boolean to check that?
+                    break;
+            }
         }
     }
 
-    //TODO separate this to a logic script
-    void CreateSmartObjectInstance(SmartObject smartObject)
+    public void ObjectButtonChangeState(SmartObjectInstance smartObjectInstance, bool state)
     {
-        int smartObjectIndex = SmartEnvironment.Instance.InsertSmartObject(new SmartObjectInstance(smartObject));
-        EventManager.InstantiateSmartObject(smartObjectIndex);
+        smartObjectInstance.button.SetActive(state);
     }
 
-    void InstantiatePhysicalManifestation(SmartObjectInstance smartObjectInstance, Button button)
+    /*void InstantiatePhysicalManifestation(SmartObjectInstance smartObjectInstance, Button button)
     {
         Button buttonComponent = button.GetComponent<Button>();
         // Instantiate the embodiment
@@ -171,5 +141,5 @@ public class SmartObjectInstantiator : MonoBehaviour
         Debug.Log("Smart object placement is finished!");
         // Disable the button
         button.gameObject.SetActive(false);
-    }
+    }*/
 }

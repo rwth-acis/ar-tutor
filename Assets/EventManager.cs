@@ -52,14 +52,14 @@ public class EventManager : MonoBehaviour
 
     // ***SmartObject events***
 
-    public delegate void SmartObjectParsedDelegate(SmartObject smartObject);
+    public delegate void SmartObjectParsedDelegate(int index);
 
     public static event SmartObjectParsedDelegate OnSmartObjectParsed;
 
-    // Tells all the components that a SmartObject has been parsed and can be instantiated
-    public static void SmartObjectParsed(SmartObject smartObject)
+    // Tells all the components that a SmartObject has been parsed (an instance object was created) and can be instantiated
+    public static void SmartObjectParsed(int index)
     {
-        OnSmartObjectParsed?.Invoke(smartObject);
+        OnSmartObjectParsed?.Invoke(index);
     }
 
     //TODO make this method universal

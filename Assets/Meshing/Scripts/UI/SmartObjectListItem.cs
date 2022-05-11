@@ -14,8 +14,6 @@ public class SmartObjectListItem : MonoBehaviour
 
     void OnEnable()
     {
-        //TODO This does not work with an event
-        EventManager.OnInstantiateSmartObject += InstantiateSmartObject;
         EventManager.OnSmartObjectInstantiated += SmartObjectInstantiated;
     }
 
@@ -27,7 +25,6 @@ public class SmartObjectListItem : MonoBehaviour
 
     void OnDisable()
     {
-        EventManager.OnInstantiateSmartObject -= InstantiateSmartObject;
         EventManager.OnSmartObjectInstantiated -= SmartObjectInstantiated;
     }
 
@@ -37,7 +34,7 @@ public class SmartObjectListItem : MonoBehaviour
         
     }
 
-    void InstantiateSmartObject(int index)
+    public void InstantiateSmartObject(int index)
     {
         // Attach the corresponding smart object's instance to the panel
         smartObjectInstanceIndex = index;

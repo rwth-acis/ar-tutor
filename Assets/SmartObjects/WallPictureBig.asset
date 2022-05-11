@@ -18,6 +18,8 @@ MonoBehaviour:
     type: 3}
   canBePlacedOn: 0
   objectIconUI: {fileID: 21300000, guid: 70671dc4d62854b82b623b8860dcf6d7, type: 3}
-  interactiveArea: {fileID: 0}
-  affectedArea: {fileID: 0}
+  interactiveArea: {fileID: 2162902216330978506, guid: 1a65f9a66d74745b5bb1a4e70967564a,
+    type: 3}
+  affectedArea: {fileID: 2162902216330978506, guid: 1a65f9a66d74745b5bb1a4e70967564a,
+    type: 3}
   affordance: Pointing

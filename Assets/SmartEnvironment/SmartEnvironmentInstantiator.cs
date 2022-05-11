@@ -19,12 +19,14 @@ public class SmartEnvironmentInstantiator : MonoBehaviour
     private void OnEnable()
     {
         // Register to event manager events
+        EventManager.OnSmartEnvironmentParsed += SmartEnvironmentParsed;
         EventManager.OnAgentInstantiated += AgentInstantiated;
     }
 
     private void OnDisable()
     {
         // Unregister from event manager events
+        EventManager.OnSmartEnvironmentParsed -= SmartEnvironmentParsed;
         EventManager.OnAgentInstantiated -= AgentInstantiated;
     }
 
@@ -59,6 +61,16 @@ public class SmartEnvironmentInstantiator : MonoBehaviour
         agentPlacementButton.interactable = true;
     }
 
+    //TODO rename: instantiate smart environment or create so instances
+    void SmartEnvironmentParsed(SmartObject[] smartObjects)
+    {
+        foreach (var smartObject in smartObjects)
+        {
+            int smartObjectIndex = SmartEnvironment.Instance.InsertSmartObject(new SmartObjectInstance(smartObject));
+            EventManager.SmartObjectParsed(smartObjectIndex);
+        }
+    }
+
     public void Instantiate()
     {
         // First, remove all the existing GameObjects
@@ -69,6 +81,10 @@ public class SmartEnvironmentInstantiator : MonoBehaviour
         //foreach (SmartObjectInstance smartObjectInstance in SmartEnvironment.Instance.smartEnvironment)
         foreach (SmartObjectInstance smartObjectInstance in SmartEnvironment.Instance.GetSmartObjectInstances())
         {
+            // Skip instantiating objects that have not been properly set up
+            if (smartObjectInstance.instantiated == false)
+                continue;
+
             GameObject restoredPhysicalManifestation = Instantiate(smartObjectInstance.smartObject.physicalManifestation, smartEnvironmentTransform);
             smartObjectInstance.physicalManifestation.ApplyTransformTo(restoredPhysicalManifestation.transform);
 

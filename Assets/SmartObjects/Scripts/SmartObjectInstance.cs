@@ -13,6 +13,8 @@ public class SmartObjectInstance
     public InstanceTransform physicalManifestation = null;
     public InstanceTransform interactiveArea = null;
     public InstanceTransform affectedArea = null;
+    public GameObject button = null;
+    public bool instantiated = false;
     // Object-ID?
 
     public SmartObjectInstance(SmartObject smartObject, Transform physicalManifestation, Transform interactiveArea, Transform affectedArea)
