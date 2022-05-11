@@ -94,6 +94,7 @@ public class SmartEnvironment : ScriptableObject
     {
         SaveLoadManager.LoadFromTemplate();
         _instance.Empty();
+        Save();
     }
 
     public List<SmartObjectInstance> GetSmartObjectInstances()
