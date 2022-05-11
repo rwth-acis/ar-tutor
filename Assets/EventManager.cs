@@ -63,14 +63,14 @@ public class EventManager : MonoBehaviour
     }
 
     //TODO make this method universal
-    public delegate void PointableSOInstantiatedDelegate(SmartObject pointableSO);
+    public delegate void PointableSOInstantiatedDelegate(SmartObjectInstance pointableSOI);
 
     public static event PointableSOInstantiatedDelegate OnPointableSOInstantiated;
 
     // Tells all the components when a pointable Smart Object got instantiated
-    public static void PointableSOInstantiated(SmartObject pointableSO)
+    public static void PointableSOInstantiated(SmartObjectInstance pointableSOI)
     {
-        OnPointableSOInstantiated?.Invoke(pointableSO);
+        OnPointableSOInstantiated?.Invoke(pointableSOI);
     }
 
 
@@ -95,4 +95,13 @@ public class EventManager : MonoBehaviour
         OnSmartObjectInstantiated?.Invoke(index);
     }
 
+    public delegate void RestoreSmartObjectDelegate(int index, Transform smartEnvironmentTransform);
+
+    public static event RestoreSmartObjectDelegate OnRestoreSmartObject;
+
+    // Tells all the relevant components that a SmartObject instance with index "index" should be retrieved
+    public static void RestoreSmartObject(int index, Transform smartEnvironmentTransform)
+    {
+        OnRestoreSmartObject?.Invoke(index, smartEnvironmentTransform);
+    }
 }

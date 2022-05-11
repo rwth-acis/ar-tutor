@@ -93,8 +93,8 @@ public class SmartEnvironment : ScriptableObject
     public void Reset()
     {
         SaveLoadManager.LoadFromTemplate();
+        //TODO soft empty, where just the instantiated objects' properties get cleared
         _instance.Empty();
-        Save();
     }
 
     public List<SmartObjectInstance> GetSmartObjectInstances()

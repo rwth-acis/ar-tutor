@@ -15,25 +15,25 @@ public class PointingInteraction : Interaction
         base.sentenceTarget = "See on ***.";
     }
 
-    public override void Perform (Agent agent, SmartObject pointableSmartObject)
+    public override void Perform (Agent agent, SmartObjectInstance pointableSmartObjectInstance)
     {
         //TODO Implement these as subinteractions or something or at least check the list of required affordances and abilities
-        string temp1 = sentenceSource.Replace("***", pointableSmartObject.nameSource);
-        string temp2 = sentenceTarget.Replace("***", pointableSmartObject.nameTarget);
+        string temp1 = sentenceSource.Replace("***", pointableSmartObjectInstance.smartObject.nameSource);
+        string temp2 = sentenceTarget.Replace("***", pointableSmartObjectInstance.smartObject.nameTarget);
         string sentence = temp2 + "\n" + "(" + temp1 + ")";
         agent.Communicate(sentence);
 
         //TODO Implement these as subinteractions or something or at least check the list of required affordances and abilities
         // Walk to the marker
-        agent.WalkTo(pointableSmartObject.affectedArea);
+        agent.WalkTo(pointableSmartObjectInstance.affectedAreaGameObject);
         // Rotate towards the camera
         //GameObject camera = GameObject.FindGameObjectsWithTag("MainCamera")[0];
         //agent.RotateTowards(camera.transform.position);
         // Rotate to be right from interactive area
-        agent.RotateRelative(pointableSmartObject.interactiveArea.transform.position, true);
+        agent.RotateRelative(pointableSmartObjectInstance.interactiveAreaGameObject.transform.position, true);
         // Point
-        Debug.Log("Current interactive area: " + pointableSmartObject.interactiveArea);
-        agent.PointTo(pointableSmartObject.interactiveArea);
+        Debug.Log("Current interactive area: " + pointableSmartObjectInstance.interactiveArea);
+        agent.PointTo(pointableSmartObjectInstance.interactiveAreaGameObject);
         //agent.PlayAnimation("Pointing");
 
         agent.Communicate("");

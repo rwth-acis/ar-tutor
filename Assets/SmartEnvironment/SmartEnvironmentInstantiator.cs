@@ -85,22 +85,16 @@ public class SmartEnvironmentInstantiator : MonoBehaviour
             if (smartObjectInstance.instantiated == false)
                 continue;
 
-            GameObject restoredPhysicalManifestation = Instantiate(smartObjectInstance.smartObject.physicalManifestation, smartEnvironmentTransform);
+            EventManager.RestoreSmartObject(SmartEnvironment.Instance.GetSmartObjectInstanceIndex(smartObjectInstance), smartEnvironmentTransform);
+            /*GameObject restoredPhysicalManifestation = Instantiate(smartObjectInstance.smartObject.physicalManifestation, smartEnvironmentTransform);
             smartObjectInstance.physicalManifestation.ApplyTransformTo(restoredPhysicalManifestation.transform);
 
             GameObject restoredInteractiveArea = Instantiate(smartObjectInstance.smartObject.interactiveArea, smartEnvironmentTransform);
             smartObjectInstance.interactiveArea.ApplyTransformTo(restoredInteractiveArea.transform);
 
             GameObject restoredAffectedArea = Instantiate(smartObjectInstance.smartObject.affectedArea, smartEnvironmentTransform);
-            smartObjectInstance.affectedArea.ApplyTransformTo(restoredAffectedArea.transform);
-            /*smartObjectInstance.physicalManifestation.transform.parent = smartEnvironmentTransform;
-            smartObjectInstance.physicalManifestation.SetActive(true);
-            //Instantiate(smartObjectInstance.interactiveArea, smartEnvironmentTransform);
-            smartObjectInstance.interactiveArea.transform.parent = smartEnvironmentTransform;
-            smartObjectInstance.interactiveArea.SetActive(true);
-            //Instantiate(smartObjectInstance.affectedArea, smartEnvironmentTransform);
-            smartObjectInstance.affectedArea.transform.parent = smartEnvironmentTransform;
-            smartObjectInstance.affectedArea.SetActive(true);*/
+            smartObjectInstance.affectedArea.ApplyTransformTo(restoredAffectedArea.transform);*/
+
             Debug.Log("Restored a smart object instance");
         }
     }

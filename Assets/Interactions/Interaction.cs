@@ -15,7 +15,7 @@ public abstract class Interaction : ScriptableObject
 
     public string requiredAffordance;
 
-    public abstract void Perform(Agent agent, SmartObject smartObject);
+    public abstract void Perform(Agent agent, SmartObjectInstance smartObjectInstance);
 
     /*public void Check(Agent agent, SmartObject smartObject)
     {

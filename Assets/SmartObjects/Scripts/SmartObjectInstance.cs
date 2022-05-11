@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 // A class that holds a real instance of a ScriptableObject smart object in the scene.
 // Enables multiple smart object copies with mutable data.
-[System.Serializable]
+[Serializable]
 public class SmartObjectInstance
 {
     // Reference to the scriptable object "template"
@@ -15,6 +16,10 @@ public class SmartObjectInstance
     public InstanceTransform affectedArea = null;
     public GameObject button = null;
     public bool instantiated = false;
+    // Objects for referencing during the same app run
+    public GameObject physicalManifestationGameObject { get; set; }
+    public GameObject interactiveAreaGameObject { get; set; }
+    public GameObject affectedAreaGameObject { get; set; }
     // Object-ID?
 
     public SmartObjectInstance(SmartObject smartObject, Transform physicalManifestation, Transform interactiveArea, Transform affectedArea)
@@ -32,7 +37,7 @@ public class SmartObjectInstance
     }
 }
 
-[System.Serializable]
+[Serializable]
 public class InstanceTransform
 {
     public Vector3 localPosition = Vector3.zero;

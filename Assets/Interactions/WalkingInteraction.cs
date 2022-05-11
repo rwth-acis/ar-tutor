@@ -11,8 +11,8 @@ public class WalkingInteraction : Interaction
         base.flag = "Walking";
     }
 
-    public override void Perform (Agent agent, SmartObject smartObject)
+    public override void Perform (Agent agent, SmartObjectInstance smartObjectInstance)
     {
-        agent.WalkTo(smartObject.interactiveArea);
+        agent.WalkTo(smartObjectInstance.interactiveAreaGameObject);
     }
 }

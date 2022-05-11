@@ -24,7 +24,7 @@ public class NavMeshManager : MonoBehaviour
         // Register to event manager events
         EventManager.OnFloorInstantiated += FloorInstantiated;
         EventManager.OnAgentInstantiated += AgentInstantiated;
-        EventManager.OnWalkLabelInstantiated += WalkLabelInstantiated;
+        //EventManager.OnWalkLabelInstantiated += WalkLabelInstantiated;
         EventManager.OnPointableSOInstantiated += PointableSOInstantiated;
         //EventManager.OnSmartObjectInstantiated += SmartObjectInstantiated;
     }
@@ -34,7 +34,7 @@ public class NavMeshManager : MonoBehaviour
         // Unregister from event manager events
         EventManager.OnFloorInstantiated -= FloorInstantiated;
         EventManager.OnAgentInstantiated -= AgentInstantiated;
-        EventManager.OnWalkLabelInstantiated -= WalkLabelInstantiated;
+        //EventManager.OnWalkLabelInstantiated -= WalkLabelInstantiated;
         EventManager.OnPointableSOInstantiated -= PointableSOInstantiated;
         //EventManager.OnSmartObjectInstantiated -= SmartObjectInstantiated;
     }
@@ -64,7 +64,8 @@ public class NavMeshManager : MonoBehaviour
     }
 
     // Called from event manager
-    private void WalkLabelInstantiated(SmartObject smartDestinationObject)
+    //TODO make work with SOIs
+    /*private void WalkLabelInstantiated(SmartObject smartDestinationObject)
     {
         // WITH ABILITY SYSTEM
         // Make sure the NavMesh is built
@@ -73,7 +74,7 @@ public class NavMeshManager : MonoBehaviour
         Debug.Log("WalkLabel got instantiated.");
         InteractionManager.AttemptInteraction(agent, abilities, walkingInteraction, smartDestinationObject);
 
-        /*  WITHOUT ABILITY SYSTEM
+        WITHOUT ABILITY SYSTEM (commented out)
         // Queue walking to the destination for the agent
         if (agent != null)
         {
@@ -81,16 +82,16 @@ public class NavMeshManager : MonoBehaviour
             //navMeshAgent.SetDestination(destination.transform.position);
             Debug.Log("WalkLabel got instantiated.");
         }
-        */
-    }
+        
+    }*/
 
     // Called from event manager
-    private void PointableSOInstantiated(SmartObject pointableSmartObject)
+    private void PointableSOInstantiated(SmartObjectInstance pointableSmartObjectInstance)
     {
         // Make sure the NavMesh is built
         navMeshSurface.BuildNavMesh();
         // Try to perform a point interaction
-        InteractionManager.AttemptInteraction(agent, abilities, pointingInteraction, pointableSmartObject);
+        InteractionManager.AttemptInteraction(agent, abilities, pointingInteraction, pointableSmartObjectInstance);
     }
 
     public void PlayAgentTasks()
