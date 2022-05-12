@@ -61,6 +61,7 @@ public class NavMeshManager : MonoBehaviour
         this.agent = agent.GetComponent<Agent>();
         this.abilities = abilities;
         Debug.Log("Agent got instantiated.");
+        ScheduleInteractions();
     }
 
     // Called from event manager
@@ -86,12 +87,29 @@ public class NavMeshManager : MonoBehaviour
     }*/
 
     // Called from event manager
-    private void PointableSOInstantiated(SmartObjectInstance pointableSmartObjectInstance)
+    private void ScheduleInteractions()
+    {
+        // Make sure the NavMesh is built
+        navMeshSurface.BuildNavMesh();
+
+        foreach (SmartObjectInstance smartObjectInstance in SmartEnvironment.Instance.GetSmartObjectInstances())
+        {
+            // Skip scheduling interactions for objects that have not been properly set up
+            if (smartObjectInstance.instantiated == false)
+                continue;
+            // Try to perform a point interaction
+            InteractionManager.AttemptInteraction(agent, abilities, pointingInteraction, smartObjectInstance);
+        }
+    }
+
+    // Called from event manager
+    public void PointableSOInstantiated(SmartObjectInstance pointableSmartObjectInstance)
     {
         // Make sure the NavMesh is built
         navMeshSurface.BuildNavMesh();
         // Try to perform a point interaction
-        InteractionManager.AttemptInteraction(agent, abilities, pointingInteraction, pointableSmartObjectInstance);
+        //TODO add object to interaction sequence planner?
+		//InteractionManager.AttemptInteraction(agent, abilities, pointingInteraction, pointableSmartObjectInstance);
     }
 
     public void PlayAgentTasks()
@@ -106,8 +124,10 @@ public class NavMeshManager : MonoBehaviour
         agent.SetAgentState(Agent.State.inactive);
         // Reset agent
         agent.SetQueue(tempQueue);
-        agent.gameObject.transform.position = tempAgentTransform.position;
-        agent.gameObject.transform.rotation = tempAgentTransform.rotation;
+
+        //TODO Reposition the agent
+        //agent.gameObject.transform.position = tempAgentTransform.position;
+        //agent.gameObject.transform.rotation = tempAgentTransform.rotation;
         //agent.gameObject.transform.scale = tempAgentTransform.scale;
     }
 
