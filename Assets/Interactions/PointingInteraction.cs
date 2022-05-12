@@ -6,6 +6,9 @@ using VirtualAgentsFramework;
 [CreateAssetMenu(fileName = "Pointing", menuName = "Interactions/Pointing")]
 public class PointingInteraction : Interaction
 {
+    public string walkingSentenceSource = "I am walking towards ***.";
+    public string walkingSentenceTarget = "Kõnnin ***a/i poole.";
+
     void OnEnable ()
     {
         base.flag = "Pointing";
@@ -18,8 +21,8 @@ public class PointingInteraction : Interaction
     public override void Perform (Agent agent, SmartObjectInstance pointableSmartObjectInstance)
     {
         //TODO Implement these as subinteractions or something or at least check the list of required affordances and abilities
-        string temp1 = sentenceSource.Replace("***", pointableSmartObjectInstance.smartObject.nameSource);
-        string temp2 = sentenceTarget.Replace("***", pointableSmartObjectInstance.smartObject.nameTarget);
+        string temp1 = walkingSentenceSource.Replace("***", pointableSmartObjectInstance.smartObject.nameSource);
+        string temp2 = walkingSentenceTarget.Replace("***", pointableSmartObjectInstance.smartObject.nameTarget);
         string sentence = temp2 + "\n" + "(" + temp1 + ")";
         agent.Communicate(sentence);
 
@@ -32,6 +35,10 @@ public class PointingInteraction : Interaction
         // Rotate to be right from interactive area
         agent.RotateRelative(pointableSmartObjectInstance.interactiveAreaGameObject.transform.position, true);
         // Point
+        temp1 = sentenceSource.Replace("***", pointableSmartObjectInstance.smartObject.nameSource);
+        temp2 = sentenceTarget.Replace("***", pointableSmartObjectInstance.smartObject.nameTarget);
+        sentence = temp2 + "\n" + "(" + temp1 + ")";
+        agent.Communicate(sentence);
         Debug.Log("Current interactive area: " + pointableSmartObjectInstance.interactiveArea);
         agent.PointTo(pointableSmartObjectInstance.interactiveAreaGameObject);
         //agent.PlayAnimation("Pointing");
