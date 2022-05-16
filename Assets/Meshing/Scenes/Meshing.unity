@@ -12729,6 +12729,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1378092833}
     m_Modifications:
+    - target: {fileID: 2994115616224696693, guid: 7827ebd6030414eb5a54d389b6452055,
+        type: 3}
+      propertyPath: m_text
+      value: '1. Place the physical manifestation
+
+        2. Place the interactive
+        area (if available)
+
+        3. Place the affected area on the floor'
+      objectReference: {fileID: 0}
     - target: {fileID: 4238063052388959390, guid: 7827ebd6030414eb5a54d389b6452055,
         type: 3}
       propertyPath: m_Pivot.x
