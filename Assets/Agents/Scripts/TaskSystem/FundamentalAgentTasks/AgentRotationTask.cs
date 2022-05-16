@@ -68,7 +68,7 @@ namespace VirtualAgentsFramework
 
                 if (this.checkLeftRight == true)
                 {
-                    Vector3 delta = (from - agent.gameObject.transform.position).normalized;
+                    Vector3 delta = (this.from - agent.gameObject.transform.position).normalized;
                     Vector3 cross = -Vector3.Cross(delta, agent.gameObject.transform.forward); // - because of the Unity's left-handed coordinate system
 
                     if (cross == Vector3.zero)
@@ -96,7 +96,7 @@ namespace VirtualAgentsFramework
                         Debug.Log("cross right: " + cross.ToString());
                     }
 
-                    this.rotation = cross * 5; // Magnification needed for the current rotation task implementation to function properly
+                    this.rotation = cross * 10; // Magnification needed for the current rotation task implementation to function properly
                 }
             }
 

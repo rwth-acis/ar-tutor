@@ -33,7 +33,8 @@ public class PointingInteraction : Interaction
         //GameObject camera = GameObject.FindGameObjectsWithTag("MainCamera")[0];
         //agent.RotateTowards(camera.transform.position);
         // Rotate to be right from interactive area
-        agent.RotateRelative(pointableSmartObjectInstance.interactiveAreaGameObject.transform.position, true);
+        //agent.RotateRelative(pointableSmartObjectInstance.interactiveAreaGameObject.transform.position, true);
+        agent.RotateTowards(pointableSmartObjectInstance.interactiveAreaGameObject.transform.position);
         // Point
         temp1 = sentenceSource.Replace("***", pointableSmartObjectInstance.smartObject.nameSource);
         temp2 = sentenceTarget.Replace("***", pointableSmartObjectInstance.smartObject.nameTarget);
