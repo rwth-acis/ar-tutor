@@ -29,4 +29,12 @@ public class PlayStopHandler : MonoBehaviour
         m_UI.SetActive(!m_UI.activeSelf);
         play = !play;
     }
+
+    public void StopAgent()
+    {
+        if (play == true)
+        {
+            TogglePlayStop();
+        }
+    }
 }
