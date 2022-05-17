@@ -61,7 +61,7 @@ public class NavMeshManager : MonoBehaviour
         this.agent = agent.GetComponent<Agent>();
         this.abilities = abilities;
         Debug.Log("Agent got instantiated.");
-        ScheduleInteractions();
+        //ScheduleInteractions();
     }
 
     // Called from event manager
@@ -114,6 +114,7 @@ public class NavMeshManager : MonoBehaviour
 
     public void PlayAgentTasks()
     {
+        ScheduleInteractions();
         tempQueue = agent.GetQueue();
         tempAgentTransform = agent.gameObject.transform;
         agent.SetAgentState(Agent.State.idle);
