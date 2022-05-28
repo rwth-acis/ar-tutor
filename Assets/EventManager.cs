@@ -104,4 +104,14 @@ public class EventManager : MonoBehaviour
     {
         OnRestoreSmartObject?.Invoke(index, smartEnvironmentTransform);
     }
+
+    public delegate void PostStatementDelegate(string agent, string verb, string obj);
+
+    public static event PostStatementDelegate OnPostStatement;
+
+    // Tells the xAPI module to post a statement
+    public static void PostStatement(string agent, string verb, string obj)
+    {
+        OnPostStatement?.Invoke(agent, verb, obj);
+    }
 }

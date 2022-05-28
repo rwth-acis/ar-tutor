@@ -84,6 +84,7 @@ namespace VirtualAgentsFramework
             //BA Communication test
             Communicate("I am alive!");
             EventManager.AgentInstantiated(this, abilities);
+            EventManager.PostStatement("Environment", "instantiated", "agent");
         }
 
         /// <summary>

@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.i5.toolkit.core": {
+      "version": "1.8.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.textmeshpro": "2.0.1"
+      },
+      "url": "https://package.openupm.com"
+    },
     "com.kyrylokuzyk.arfoundationremote": {
       "version": "file:../Assets/Plugins/ARFoundationRemoteInstaller/com.kyrylokuzyk.arfoundationremote.tgz",
       "depth": 0,
