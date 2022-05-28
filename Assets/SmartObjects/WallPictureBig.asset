@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WallPictureBig
   m_EditorClassIdentifier: 
   nameSource: a painting
-  nameTarget: maal
+  nameTarget: una pintura
   physicalManifestation: {fileID: 6628677466659711502, guid: 6858dc9dbd949ee40819eda756452574,
     type: 3}
   canBePlacedOn: 0
