@@ -82,7 +82,7 @@ namespace VirtualAgentsFramework
         {
             yield return new WaitForSeconds(waitingTime);
             //BA Communication test
-            Communicate("I am alive!");
+            //Communicate("I am alive!");
             EventManager.AgentInstantiated(this, abilities);
             EventManager.PostStatement("Environment", "instantiated", "agent");
         }
@@ -268,10 +268,10 @@ namespace VirtualAgentsFramework
         /// </summary>
         /// <param name="message">Message that should be communicated</param>
         /// <param name="asap">true if the task should be executed as soon as possible, false if the task should be scheduled</param>
-        public void Communicate(string message, bool asap = false)
+        public void Communicate(string target, string source, bool done = false, bool asap = false)
         {
-            AgentCommunicationTask task = new AgentCommunicationTask(communicationTableau, message);
-            Debug.Log("Scheduled a communication task on " + communicationTableau.ToString() + ", with message: " + message);
+            AgentCommunicationTask task = new AgentCommunicationTask(communicationTableau, target, source, done);
+            Debug.Log("Scheduled a communication task on " + communicationTableau.ToString() + ", with message: " + source);
             ScheduleOrForce(task, asap);
         }
 
