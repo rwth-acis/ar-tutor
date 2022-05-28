@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayStopHandler : MonoBehaviour
 {
@@ -6,6 +7,12 @@ public class PlayStopHandler : MonoBehaviour
 
     [SerializeField]
     GameObject m_UI;
+
+    [SerializeField]
+    Sprite m_PlaySprite;
+
+    [SerializeField]
+    Sprite m_StopSprite;
 
     [SerializeField]
     NavMeshManager navMeshManager;
@@ -16,17 +23,31 @@ public class PlayStopHandler : MonoBehaviour
         set => m_UI = value;
     }
 
+    public Sprite playSprite
+    {
+        get => m_PlaySprite;
+        set => m_PlaySprite = value;
+    }
+
+    public Sprite stopSprite
+    {
+        get => m_StopSprite;
+        set => m_StopSprite = value;
+    }
+
     public void TogglePlayStop()
     {
         if (play == true)
         {
             navMeshManager.PlayAgentTasks();
+            m_UI.GetComponent<Image>().sprite = stopSprite;
         }
         else
         {
             navMeshManager.StopAgentTasks();
+            m_UI.GetComponent<Image>().sprite = playSprite;
         }
-        m_UI.SetActive(!m_UI.activeSelf);
+        //m_UI.SetActive(!m_UI.activeSelf);
         play = !play;
     }
 
