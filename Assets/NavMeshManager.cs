@@ -17,7 +17,7 @@ public class NavMeshManager : MonoBehaviour
     bool floorTracking;
 
     AgentTaskManager tempQueue;
-    Transform tempAgentTransform;
+    InstanceTransform tempAgentTransform;
 
     private void OnEnable()
     {
@@ -116,7 +116,7 @@ public class NavMeshManager : MonoBehaviour
     {
         ScheduleInteractions();
         tempQueue = agent.GetQueue();
-        tempAgentTransform = agent.gameObject.transform;
+        tempAgentTransform = new InstanceTransform(agent.gameObject.transform);
         agent.SetAgentState(Agent.State.idle);
     }
 
@@ -125,6 +125,8 @@ public class NavMeshManager : MonoBehaviour
         agent.SetAgentState(Agent.State.inactive);
         // Reset agent
         agent.SetQueue(tempQueue);
+        // agent.Communicate("", "");
+        tempAgentTransform.ApplyTransformTo(agent.gameObject.transform);
 
         //TODO Reposition the agent
         //agent.gameObject.transform.position = tempAgentTransform.position;
