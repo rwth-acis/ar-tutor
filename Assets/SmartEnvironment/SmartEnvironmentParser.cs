@@ -11,12 +11,17 @@ public class SmartEnvironmentParser : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EventManager.SmartEnvironmentParsed(smartObjects);
+        ParseSmartEnvironment();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void ParseSmartEnvironment()
+    {
+        EventManager.SmartEnvironmentParsed(smartObjects);
     }
 }
