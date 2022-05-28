@@ -80,21 +80,37 @@ public class SmartEnvironment : ScriptableObject
     // Save the state of smart environment.
     public void Save()
     {
+        //StressTest();
         SaveLoadManager.SaveSmartEnvironment();
+        Debug.Log("There are currently " + _instance.smartEnvironment.Count + " Smart Objects in the Smart Environment.");
+    }
+
+    void StressTest()
+    {
+        List<SmartObjectInstance> tempSmartEnvironment = new List<SmartObjectInstance>();
+        foreach (SmartObjectInstance smartObjectInstance in _instance.smartEnvironment)
+        {
+            for (int i = 0; i < 100; i++)
+                tempSmartEnvironment.Add(smartObjectInstance);
+        }
+        _instance.smartEnvironment = tempSmartEnvironment;
     }
 
     // Load smart environment from the saved state or template.
     public void Load()
     {
         SaveLoadManager.LoadOrInitializeSmartEnvironment();
+        Debug.Log("There are currently " + _instance.smartEnvironment.Count + " Smart Objects in the Smart Environment.");
     }
 
     // Reset smart environment from the template.
     public void Reset()
     {
+        Debug.Log("Pre-reset: There are currently " + _instance.smartEnvironment.Count + " Smart Objects in the Smart Environment.");
         SaveLoadManager.LoadFromTemplate();
         //TODO soft empty, where just the instantiated objects' properties get cleared
         _instance.Empty();
+        Debug.Log("Post-reset: There are currently " + _instance.smartEnvironment.Count + " Smart Objects in the Smart Environment.");
     }
 
     public List<SmartObjectInstance> GetSmartObjectInstances()
