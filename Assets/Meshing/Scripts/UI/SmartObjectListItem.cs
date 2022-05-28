@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+// TextMeshPro
+using TMPro;
 
 public class SmartObjectListItem : MonoBehaviour
 {
     public GameObject panel;
     public GameObject placementButton;
     public GameObject instructionLabel;
+    private string virtualSOInstructionText = "1. Place the interactive area on a *** \n2. Place the affected area on the floor";
+    private string physicalSOInstructionText = "1. Place the physical manifestation on a *** \n3. Place the affected area on the floor";
 
     // Instance ID (index) of a smart object attached to the button
     private int smartObjectInstanceIndex;
@@ -38,6 +42,22 @@ public class SmartObjectListItem : MonoBehaviour
     {
         // Attach the corresponding smart object's instance to the panel
         smartObjectInstanceIndex = index;
+
+        var smartObjectInstance = SmartEnvironment.Instance.GetSmartObjectInstance(index);
+
+        if (smartObjectInstance.smartObject.IsVirtual())
+        {
+            if (smartObjectInstance.smartObject.ContainsInteractiveArea())
+            {
+                instructionLabel.GetComponent<TextMeshProUGUI>().text = virtualSOInstructionText;
+            }
+        }
+        else
+        {
+            instructionLabel.GetComponent<TextMeshProUGUI>().text = physicalSOInstructionText;
+        }
+
+        instructionLabel.GetComponent<TextMeshProUGUI>().text = instructionLabel.GetComponent<TextMeshProUGUI>().text.Replace("***", smartObjectInstance.smartObject.canBePlacedOn.ToString().ToLower());
     }
 
     void SmartObjectInstantiated(int index)

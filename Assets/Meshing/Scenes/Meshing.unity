@@ -5312,7 +5312,7 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
-  m_ReverseArrangement: 1
+  m_ReverseArrangement: 0
 --- !u!1 &845512322
 GameObject:
   m_ObjectHideFlags: 0
@@ -5515,7 +5515,7 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
-  m_ReverseArrangement: 1
+  m_ReverseArrangement: 0
 --- !u!1 &856709621
 GameObject:
   m_ObjectHideFlags: 0
@@ -9897,7 +9897,7 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
-  m_ReverseArrangement: 1
+  m_ReverseArrangement: 0
 --- !u!1 &1622736304
 GameObject:
   m_ObjectHideFlags: 0
@@ -13350,10 +13350,10 @@ PrefabInstance:
     - target: {fileID: 2994115616224696693, guid: 7827ebd6030414eb5a54d389b6452055,
         type: 3}
       propertyPath: m_text
-      value: '1. Place the physical manifestation
+      value: '1. Place the physical manifestation on a ***
 
-        2. Place the interactive
-        area (if available)
+        2. Place the
+        interactive area on a ***
 
         3. Place the affected area on the floor'
       objectReference: {fileID: 0}

@@ -61,7 +61,7 @@ public class SmartObjectInstantiator : MonoBehaviour
         var smartObjectInstance = SmartEnvironment.Instance.GetSmartObjectInstance(index);
 
         // Is this a virtual object?
-        if (smartObjectInstance.smartObject.physicalManifestation != null)
+        if (smartObjectInstance.smartObject.IsVirtual())
         {
             // Physical manifestation needs to be instantiated
             GameObject restoredPhysicalManifestation = Instantiate(smartObjectInstance.smartObject.physicalManifestation, smartEnvironmentTransform);
@@ -69,7 +69,7 @@ public class SmartObjectInstantiator : MonoBehaviour
             smartObjectInstance.physicalManifestationGameObject = restoredPhysicalManifestation;
 
             // Is interactive area the same as physical manifestation?
-            if (smartObjectInstance.smartObject.physicalManifestation == smartObjectInstance.smartObject.interactiveArea)
+            if (smartObjectInstance.smartObject.ContainsInteractiveArea())
             {
                 // Then the interactive area is a part of the physical manifestation -> fetch that object from the SmartAreas component
                 smartObjectInstance.interactiveArea = new InstanceTransform(restoredPhysicalManifestation.GetComponent<SmartAreas>().interactiveArea.transform);

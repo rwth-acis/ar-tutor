@@ -56,4 +56,16 @@ public class SmartObject : ScriptableObject
     {
         this.affectedArea = affectedArea;
     }
+
+    // Returns true iff the smart object is virtual
+    public bool IsVirtual()
+    {
+        return this.physicalManifestation != null;
+    }
+
+    // Returns true iff the smart object is virtual
+    public bool ContainsInteractiveArea()
+    {
+        return this.physicalManifestation == this.interactiveArea;
+    }
 }
