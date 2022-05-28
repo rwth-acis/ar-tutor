@@ -204,7 +204,10 @@ public class ClassificationPlacementManager : MonoBehaviour
         m_SpawnedObject.transform.LookAt(m_ARCameraTransform, Vector3.up);
         m_SpawnedObject.transform.rotation = Quaternion.Euler(0, m_SpawnedObject.transform.eulerAngles.y, 0);
 
-        if(indexToPlace != 3)
+        // Agent's scale
+        if (indexToPlace == 0)
+            m_SpawnedObject.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), k_TweenTime).SetEase(m_TweenEase);
+        else if(indexToPlace != 3)
             m_SpawnedObject.transform.DOScale(Vector3.one, k_TweenTime).SetEase(m_TweenEase);
         else
             // Scale the prefab according to the slider input
