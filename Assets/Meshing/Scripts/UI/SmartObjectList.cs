@@ -65,12 +65,13 @@ public class SmartObjectList : MonoBehaviour
         // Adjust the icon on the panel
         panel.transform.GetChild(0).GetComponent<Image>().sprite = smartObjectInstance.smartObject.objectIconUI;
         // Asjust the text label on the panel
-        TextMeshProUGUI TMP_Text1 = panel.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI TMP_Text2 = panel.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
-        TMP_Text1.text = smartObjectInstance.smartObject.nameSource;
-        TMP_Text2.text = smartObjectInstance.smartObject.nameTarget;
+        TextMeshProUGUI TMP_NameTarget = panel.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI TMP_NameSource = panel.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        TMP_NameTarget.text = "(" + smartObjectInstance.smartObject.nameTarget + ")";
+        TMP_NameSource.text = "(" + smartObjectInstance.smartObject.nameSource + ")";
         // Adjust the instantiation button
         panel.transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate { EventManager.InstantiateSmartObject(index); });
+        panel.transform.GetChild(3).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text += (" " + smartObjectInstance.smartObject.canBePlacedOn.ToString());
         Debug.Log("Set up object instantiation");
         // Place the panel
         panel.transform.SetParent(gameObject.transform, false);

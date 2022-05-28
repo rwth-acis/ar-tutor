@@ -46,6 +46,7 @@ namespace VirtualAgentsFramework
                 TextMeshProUGUI TMP_target = tableau.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>();
                 TextMeshProUGUI TMP_source = tableau.transform.GetChild(0).transform.GetChild(1).GetComponent<TextMeshProUGUI>();
                 GameObject button = tableau.transform.GetChild(0).transform.GetChild(2).gameObject;
+                GameObject hint = tableau.transform.GetChild(0).transform.GetChild(3).gameObject;
 
                 TMP_target.text = target;
                 TMP_source.text = source;
@@ -64,19 +65,14 @@ namespace VirtualAgentsFramework
                 if (done == true)
                 {
                     button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Done";
+                    hint.GetComponent<TextMeshProUGUI>().text = "Repeat the phrase:";
                 }
                 else
                 {
                     button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Show me";
+                    hint.GetComponent<TextMeshProUGUI>().text = "Learn a new phrase:";
                 }
-                button.GetComponent<Button>().onClick.AddListener(delegate { FinishTask(); });
-            }
-
-            private void FinishTask()
-            {
-                tableau.transform.GetChild(0).gameObject.SetActive(false);
-                // Trigger the TaskFinished event
-                OnTaskFinished();
+                button.GetComponent<Button>().onClick.AddListener(delegate { agent.StartCoroutine(FinishTaskCoroutine(0.1f)); });
             }
 
             public void Update() { }

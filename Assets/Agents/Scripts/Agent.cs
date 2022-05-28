@@ -185,6 +185,14 @@ namespace VirtualAgentsFramework
             return queue;
         }
 
+        /// <summary>
+        /// Returns agent's queue size
+        /// </summary>
+        public int GetQueueSize()
+        {
+            return queue.GetSize();
+        }
+
         public void SetQueue(AgentTaskManager queue)
         {
             this.queue = queue;

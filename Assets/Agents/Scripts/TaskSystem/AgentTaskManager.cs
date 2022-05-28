@@ -74,6 +74,15 @@ namespace VirtualAgentsFramework
                 }
                 taskQueue = tempQueue;
             }
+
+            /// <summary>
+            /// Get the size of the queue
+            /// </summary>
+            /// <returns>Size of the queue</returns>
+            public int GetSize()
+            {
+                return taskQueue.Count;
+            }
         }
     }
 }
