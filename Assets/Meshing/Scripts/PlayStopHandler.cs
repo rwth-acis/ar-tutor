@@ -37,6 +37,9 @@ public class PlayStopHandler : MonoBehaviour
 
     public void TogglePlayStop()
     {
+        if (!navMeshManager.IsAgentSet())
+            return;
+
         if (play == true)
         {
             navMeshManager.PlayAgentTasks();
@@ -53,6 +56,9 @@ public class PlayStopHandler : MonoBehaviour
 
     public void StopAgent()
     {
+        if (!navMeshManager.IsAgentSet())
+            return;
+
         if (play == true)
         {
             TogglePlayStop();

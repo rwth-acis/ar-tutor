@@ -78,4 +78,12 @@ public class SmartObjectList : MonoBehaviour
         // Set the index of the smart object instance
         panel.GetComponent<SmartObjectListItem>().InstantiateSmartObject(index);
     }
+
+    public void RemoveObjectPanels()
+    {
+        foreach (Transform eachObject in gameObject.transform)
+        {
+            Destroy(eachObject.gameObject);
+        }
+    }
 }

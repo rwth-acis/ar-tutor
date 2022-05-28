@@ -107,6 +107,10 @@ public class SmartEnvironment : ScriptableObject
     public void Reset()
     {
         Debug.Log("Pre-reset: There are currently " + _instance.smartEnvironment.Count + " Smart Objects in the Smart Environment.");
+        foreach (SmartObjectInstance smartObjectInstance in _instance.smartEnvironment)
+        {
+            Debug.Log(smartObjectInstance.smartObject.nameSource);
+        }
         SaveLoadManager.LoadFromTemplate();
         //TODO soft empty, where just the instantiated objects' properties get cleared
         _instance.Empty();

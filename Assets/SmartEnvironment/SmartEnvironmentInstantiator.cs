@@ -39,7 +39,7 @@ public class SmartEnvironmentInstantiator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log(SmartEnvironment.Instance.smartEnvironment.Count + " objects");
     }
 
     public void AgentInstantiated(Agent agent, AgentAbilities abilities)

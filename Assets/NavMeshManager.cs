@@ -14,7 +14,7 @@ public class NavMeshManager : MonoBehaviour
     [SerializeField] Interaction walkingInteraction;
     [SerializeField] Interaction pointingInteraction;
     AgentAbilities abilities;
-    bool floorTracking;
+    //bool floorTracking;
 
     AgentTaskManager tempQueue;
     InstanceTransform tempAgentTransform;
@@ -41,7 +41,8 @@ public class NavMeshManager : MonoBehaviour
 
     private void Start()
     {
-        floorTracking = false;
+        agent = null;
+        //floorTracking = false;
     }
 
     // Called from event manager
@@ -132,6 +133,14 @@ public class NavMeshManager : MonoBehaviour
         //agent.gameObject.transform.position = tempAgentTransform.position;
         //agent.gameObject.transform.rotation = tempAgentTransform.rotation;
         //agent.gameObject.transform.scale = tempAgentTransform.scale;
+    }
+
+    public bool IsAgentSet()
+    {
+        if (agent != null)
+            return true;
+        else
+            return false;
     }
 
     // Update is called once per frame
