@@ -206,7 +206,7 @@ public class ClassificationPlacementManager : MonoBehaviour
 
         // Agent's scale
         if (indexToPlace == 0)
-            m_SpawnedObject.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), k_TweenTime).SetEase(m_TweenEase);
+            m_SpawnedObject.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), k_TweenTime).SetEase(m_TweenEase);
         else if(indexToPlace != 3)
             m_SpawnedObject.transform.DOScale(Vector3.one, k_TweenTime).SetEase(m_TweenEase);
         else
