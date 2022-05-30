@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deb3543a0e2b54e67af2a33dd205081d, type: 3}
+  m_Name: RealDeskLamp
+  m_EditorClassIdentifier: 
+  nameSource: a desk lamp
+  nameTarget: "una l\xE1mpara de escritorio"
+  physicalManifestation: {fileID: 0}
+  canBePlacedOn: 2
+  objectIconUI: {fileID: 21300000, guid: 95cef470333f648d0a2d0e51b26e7664, type: 3}
+  interactiveArea: {fileID: 2162902216330978506, guid: 1a65f9a66d74745b5bb1a4e70967564a,
+    type: 3}
+  affectedArea: {fileID: 2162902216330978506, guid: 1a65f9a66d74745b5bb1a4e70967564a,
+    type: 3}
+  affordance: Pointing
