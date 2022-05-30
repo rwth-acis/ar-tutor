@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Clock
   m_EditorClassIdentifier: 
   nameSource: a clock
-  nameTarget: un reloj
+  nameTarget: kell
+  nameTarget_TowardsCase: kella
+  nameTarget_AtCase: kellale
   physicalManifestation: {fileID: 7879484340486797226, guid: ad35b2aa1e9454a4a8e4d1ed47f72cd4,
     type: 3}
   canBePlacedOn: 0

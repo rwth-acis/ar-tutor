@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: AlarmClock
   m_EditorClassIdentifier: 
   nameSource: an alarm clock
-  nameTarget: un despertador
+  nameTarget: "\xE4ratuskell"
+  nameTarget_TowardsCase: "\xE4ratuskella"
+  nameTarget_AtCase: "\xE4ratuskellale"
   physicalManifestation: {fileID: 1755920568167950399, guid: 6790a59fefef46943901cf9664057768,
     type: 3}
   canBePlacedOn: 2

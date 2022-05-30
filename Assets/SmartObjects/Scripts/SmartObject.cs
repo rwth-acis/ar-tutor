@@ -8,6 +8,8 @@ public class SmartObject : ScriptableObject
 {
     public string nameSource;
     public string nameTarget;
+    public string nameTarget_TowardsCase;
+    public string nameTarget_AtCase;
 
     public GameObject physicalManifestation;
     public enum Placing { //TODO What is with vitual objects, etc? Maybe have one menu and just grey out objects that can not be placed upon certain classification at all.

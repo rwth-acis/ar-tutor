@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: RealDeskLamp
   m_EditorClassIdentifier: 
   nameSource: a desk lamp
-  nameTarget: "una l\xE1mpara de escritorio"
+  nameTarget: laualamp
+  nameTarget_TowardsCase: laualambi
+  nameTarget_AtCase: laualambile
   physicalManifestation: {fileID: 0}
   canBePlacedOn: 2
   objectIconUI: {fileID: 21300000, guid: 95cef470333f648d0a2d0e51b26e7664, type: 3}
