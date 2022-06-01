@@ -16,6 +16,7 @@ public class SmartEnvironment : ScriptableObject
             if (!_instance)
             {
                 SmartEnvironment[] tmp = Resources.FindObjectsOfTypeAll<SmartEnvironment>();
+                Debug.Log("tmp.Length: " + tmp.Length.ToString());
                 if (tmp.Length > 0)
                 {
                     _instance = tmp[0];
@@ -133,7 +134,10 @@ public class SmartEnvironment : ScriptableObject
 
     public void Empty()
     {
+        // Clear the environment
         _instance.smartEnvironment.Clear();
+        // Save the environment in JSON
+        SaveLoadManager.SaveSmartEnvironment();
         //_instance.smartEnvironmentAsJson = "";
     }
 }
