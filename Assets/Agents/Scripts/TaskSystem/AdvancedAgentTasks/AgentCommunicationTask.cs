@@ -72,7 +72,8 @@ namespace VirtualAgentsFramework
                     button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Show me";
                     hint.GetComponent<TextMeshProUGUI>().text = "Learn a new phrase:";
                 }
-                button.GetComponent<Button>().onClick.AddListener(delegate { agent.StartCoroutine(FinishTaskCoroutine(0.1f)); });
+                if (agent != null)
+                    button.GetComponent<Button>().onClick.AddListener(delegate { agent.StartCoroutine(FinishTaskCoroutine(0.1f)); });
             }
 
             public void Update() { }

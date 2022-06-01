@@ -123,7 +123,12 @@ public class NavMeshManager : MonoBehaviour
 
     public void StopAgentTasks()
     {
-        agent.SetAgentState(Agent.State.inactive);
+        if (!IsAgentSet())
+            return;
+
+        //agent.SetAgentState(Agent.State.inactive);
+        agent.Deactivate();
+
         // Reset agent
         agent.SetQueue(tempQueue);
         // agent.Communicate("", "");

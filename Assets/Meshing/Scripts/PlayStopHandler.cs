@@ -37,6 +37,16 @@ public class PlayStopHandler : MonoBehaviour
 
     public void TogglePlayStop()
     {
+        // If the agent is not there while interactions are being played
+        if (!navMeshManager.IsAgentSet() && play == false)
+        {
+            play = true;
+            m_UI.GetComponent<Image>().sprite = playSprite;
+            EventManager.PostStatement("system", "pressed", "stop");
+            return;
+        }
+
+        // If the agent is not there, tasks can not be controlled
         if (!navMeshManager.IsAgentSet())
             return;
 
@@ -44,24 +54,15 @@ public class PlayStopHandler : MonoBehaviour
         {
             navMeshManager.PlayAgentTasks();
             m_UI.GetComponent<Image>().sprite = stopSprite;
+            EventManager.PostStatement("user", "pressed", "play");
         }
         else
         {
             navMeshManager.StopAgentTasks();
             m_UI.GetComponent<Image>().sprite = playSprite;
+            EventManager.PostStatement("user", "pressed", "stop");
         }
         //m_UI.SetActive(!m_UI.activeSelf);
         play = !play;
-    }
-
-    public void StopAgent()
-    {
-        if (!navMeshManager.IsAgentSet())
-            return;
-
-        if (play == true)
-        {
-            TogglePlayStop();
-        }
     }
 }

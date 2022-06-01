@@ -40,9 +40,9 @@ namespace i5.Toolkit.Core.Examples.ExperienceAPI
             };
 
             // create the statement that you want to send
-            //Statement statement = new Statement(agent, verb, obj);
+            Statement statement = new Statement("mailto:" + agent, "http://www.example.org/" + verb, "http://www.example.org/" + obj);
             //Statement statement = new Statement("mailto:danylo.bekhter@rwth-aachen.de", verb, obj);
-            Statement statement = new Statement("mailto:danylo.bekhter@rwth-aachen.de", "http://www.example.org/test", "http://www.example.org/xApiClient");
+            //Statement statement = new Statement("mailto:danylo.bekhter@rwth-aachen.de", "http://www.example.org/test", "http://www.example.org/xApiClient");
 
             // send the statement
             WebResponse<string> resp = await client.SendStatementAsync(statement);

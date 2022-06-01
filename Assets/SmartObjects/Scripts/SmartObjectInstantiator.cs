@@ -127,6 +127,7 @@ public class SmartObjectInstantiator : MonoBehaviour
             // Affected area still needs to be instantiated using smart areas
             // Set up the next step in UI
             smartObjectInstantiatorUI.SetUpObjectButton(smartObjectInstance, InstantiateAffectedArea, 3);
+            EventManager.PostStatement("system", "instantiated", "interactive_area" + SmartEnvironment.Instance.GetSmartObjectInstanceIndex(smartObjectInstance).ToString());
         }
         else
         {
@@ -134,6 +135,7 @@ public class SmartObjectInstantiator : MonoBehaviour
             // Set up the next step in UI
             smartObjectInstantiatorUI.SetUpObjectButton(smartObjectInstance, InstantiateInteractiveArea, 2);
         }
+        EventManager.PostStatement("user", "instantiated", "physical_manifestation" + SmartEnvironment.Instance.GetSmartObjectInstanceIndex(smartObjectInstance).ToString());
     }
 
     public void InstantiateInteractiveArea(SmartObjectInstance smartObjectInstance)
@@ -151,6 +153,7 @@ public class SmartObjectInstantiator : MonoBehaviour
         smartObjectInstantiatorUI.SetUpObjectButton(smartObjectInstance, InstantiateAffectedArea, 3);
 
         Debug.Log("interactiveArea got instantiated");
+        EventManager.PostStatement("user", "instantiated", "interactive_area" + SmartEnvironment.Instance.GetSmartObjectInstanceIndex(smartObjectInstance).ToString());
     }
 
     public void InstantiateAffectedArea(SmartObjectInstance smartObjectInstance)
@@ -167,6 +170,7 @@ public class SmartObjectInstantiator : MonoBehaviour
         // Schedule the tasks, TODO improve
         EventManager.PointableSOInstantiated(smartObjectInstance);
         EventManager.SmartObjectInstantiated(SmartEnvironment.Instance.GetSmartObjectInstanceIndex(smartObjectInstance));
+        EventManager.PostStatement("user", "instantiated", "affected_area" + SmartEnvironment.Instance.GetSmartObjectInstanceIndex(smartObjectInstance).ToString());
 
         // Set up next step in UI
         // Deactivate the button GameObject

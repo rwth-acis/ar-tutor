@@ -21,7 +21,7 @@ public static class SaveLoadManager
         }
         Debug.Log("Loaded:\n" + JsonUtility.ToJson(SmartEnvironment.Instance));
         //Debug.Log("Loaded:\n" + JsonUtility.ToJson(SmartEnvironment.Instance.GetSmartObjectInstances()));
-        Debug.Log("Loaded:\n" + SmartEnvironment.Instance.smartEnvironmentAsJson);
+        //Debug.Log("Loaded:\n" + SmartEnvironment.Instance.smartEnvironmentAsJson);
     }
 
     public static void SaveSmartEnvironment()
@@ -30,7 +30,7 @@ public static class SaveLoadManager
             Application.persistentDataPath, "SmartEnvironment.json"));
         Debug.Log("Saved:\n" + JsonUtility.ToJson(SmartEnvironment.Instance));
         //Debug.Log("Saved:\n" + JsonUtility.ToJson(SmartEnvironment.Instance.smartEnvironment));
-        Debug.Log("Saved:\n" + SmartEnvironment.Instance.smartEnvironmentAsJson);
+        //Debug.Log("Saved:\n" + SmartEnvironment.Instance.smartEnvironmentAsJson);
     }
 
     // Load from the default, for situations where we just want to reset.

@@ -13,6 +13,9 @@ using System;
 // Rigs
 using UnityEngine.Animations.Rigging;
 
+//TODO remove: Button
+using UnityEngine.UI;
+
 namespace VirtualAgentsFramework
 {
     /// <summary>
@@ -84,7 +87,7 @@ namespace VirtualAgentsFramework
             //BA Communication test
             //Communicate("I am alive!");
             EventManager.AgentInstantiated(this, abilities);
-            EventManager.PostStatement("Environment", "instantiated", "agent");
+            EventManager.PostStatement("user", "instantiated", "agent");
         }
 
         /// <summary>
@@ -113,6 +116,18 @@ namespace VirtualAgentsFramework
         {
             AgentAnimationTask currentAnimationTask = (AgentAnimationTask)currentTask;
             currentAnimationTask.ReturnToIdle();
+        }
+
+        /// <summary>
+        /// Deactivate the agent by stopping whatever they are doing and removing traces of their functions
+        /// </summary>
+        public void Deactivate()
+        {
+            currentState = State.inactive;
+            queue = new AgentTaskManager();
+            // Reset the communication tableau
+            communicationTableau.transform.GetChild(0).transform.GetChild(2).gameObject.GetComponent<Button>().onClick.RemoveAllListeners();
+            communicationTableau.transform.GetChild(0).gameObject.SetActive(false);
         }
 
         /// <summary>

@@ -13,7 +13,7 @@ public class SmartEnvironmentInstantiator : MonoBehaviour
 
     [SerializeField]
     private Button agentPlacementButton;
-    //private GameObject agentPrefab;
+    private Agent agent = null;
     private InstanceTransform agentTransform;
 
     private void OnEnable()
@@ -39,17 +39,26 @@ public class SmartEnvironmentInstantiator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(SmartEnvironment.Instance.smartEnvironment.Count + " objects");
+        //Debug.Log(SmartEnvironment.Instance.smartEnvironment.Count + " objects");
     }
 
     public void AgentInstantiated(Agent agent, AgentAbilities abilities)
     {
+        this.agent = agent;
         // Move the agent onto the SE transform
         agent.gameObject.transform.SetParent(smartEnvironmentTransform);
         // Save the agent's transform
         agentTransform = new InstanceTransform(agent.gameObject.transform);
     }
 
+    public void Reset()
+    {
+        if (agent != null)
+            DeactivateAgent();
+        RemoveObjectInstances();
+    }
+
+    //TODO make private?
     public void RemoveObjectInstances()
     {
         foreach (Transform eachObject in smartEnvironmentTransform)
@@ -59,6 +68,11 @@ public class SmartEnvironmentInstantiator : MonoBehaviour
         }
         // Activate the agent placement button
         agentPlacementButton.interactable = true;
+    }
+
+    void DeactivateAgent()
+    {
+        agent.Deactivate();
     }
 
     //TODO rename: instantiate smart environment or create so instances
