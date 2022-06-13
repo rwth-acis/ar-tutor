@@ -160,6 +160,6 @@ public class MeshClassificationManager : MonoBehaviour
     TrackableId ExtractTrackableId(string meshFilterName)
     {
         string[] nameSplit = meshFilterName.Split(' ');
-        return new TrackableId(nameSplit[1]);
+        return new TrackableId(nameSplit[0]);
     }
 }
