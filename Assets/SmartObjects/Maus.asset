@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deb3543a0e2b54e67af2a33dd205081d, type: 3}
+  m_Name: Maus
+  m_EditorClassIdentifier: 
+  nameSource: 
+  nameTarget: 
+  nameTarget_TowardsCase: 
+  nameTarget_AtCase: 
+  physicalManifestation: {fileID: 0}
+  canBePlacedOn: 0
+  objectIconUI: {fileID: 0}
+  interactiveArea: {fileID: 2162902216330978506, guid: 1a65f9a66d74745b5bb1a4e70967564a,
+    type: 3}
+  affectedArea: {fileID: 2162902216330978506, guid: 1a65f9a66d74745b5bb1a4e70967564a,
+    type: 3}
+  affordance: 
