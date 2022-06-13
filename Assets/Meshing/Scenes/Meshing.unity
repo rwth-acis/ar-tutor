@@ -11037,7 +11037,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: d6fba6891307243a7bb1f4bc8d0da319, type: 2}
         m_TargetAssemblyTypeName: SmartEnvironment, Assembly-CSharp
-        m_MethodName: InitializeFromDefault
+        m_MethodName: EmptySE
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
