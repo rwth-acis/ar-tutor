@@ -73,7 +73,11 @@ public class MeshClassificationManager : MonoBehaviour
         if (Physics.Raycast(m_MainCamera.ScreenPointToRay(CenterScreenHelper.Instance.GetCenterScreen()), out m_Hit))
         {
 #if UNITY_IOS
-            SetCurrentClassification(ExtractTrackableId(m_Hit.transform.name), m_Hit.triangleIndex);
+            try
+            {
+                SetCurrentClassification(ExtractTrackableId(m_Hit.transform.name), m_Hit.triangleIndex);
+            }
+            catch {}
             m_CurrentClassificationLabel.text = GetClassificationName(m_CurrentClassification);
 #endif
         }
@@ -160,6 +164,6 @@ public class MeshClassificationManager : MonoBehaviour
     TrackableId ExtractTrackableId(string meshFilterName)
     {
         string[] nameSplit = meshFilterName.Split(' ');
-        return new TrackableId(nameSplit[0]);
+        return new TrackableId(nameSplit[1]);
     }
 }
