@@ -9,14 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36d83aa63d58247e595ca5b5062c79d9, type: 3}
+  m_Script: {fileID: 0}
   m_Name: Destination
   m_EditorClassIdentifier: 
   nameSource: 
   nameTarget: 
+  nameTarget_TowardsCase: 
+  nameTarget_AtCase: 
   physicalManifestation: {fileID: 0}
   canBePlacedOn: 1
   objectIconUI: {fileID: 0}
   interactiveArea: {fileID: 0}
   affectedArea: {fileID: 0}
+  inUse: 0
   affordance: Walking

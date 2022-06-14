@@ -14,6 +14,7 @@ public class SmartObjectInstance
     public InstanceTransform physicalManifestation = null;
     public InstanceTransform interactiveArea = null;
     public InstanceTransform affectedArea = null;
+    public bool busy = false;
     public GameObject button = null;
     public bool instantiated = false;
     // Objects for referencing during the same app run
@@ -35,6 +36,25 @@ public class SmartObjectInstance
     {
         this.smartObject = smartObject;
     }
+
+    // Checks whether the smart object affords what is required by the interaction
+    // Considers provided interfaces of the smart object as well as the state its instance is in
+    public bool CheckAffordances(List<Affordance> requiredAffordances)
+    {
+        if (busy == false && smartObject.CheckAffordances(requiredAffordances))
+            return true;
+        else
+            return false;
+
+        /*if (busy == true) 
+            return false; //TODO throw exception
+        else if (smartObject.CheckAffordances(interaction.requiredAffordances))
+            return true;
+        else
+            return false;*/
+    }
+
+
 }
 
 [Serializable]

@@ -35,18 +35,22 @@ public class SmartObject : ScriptableObject
 
     private bool inUse = false;
 
-    public string affordance;
+    public List<Affordance> affordances;
 
-    // False means the object is NOT in use
-    public bool CheckAffordance(string flag)
+    public bool CheckAffordances(List<Affordance> requiredAffordances)
     {
-        return affordance == flag;
-    }
-
-    // False means the object is NOT in use
-    public bool CheckState()
-    {
-        return inUse;
+        // Return true...
+        bool result = true;
+        foreach (Affordance requiredAffordance in requiredAffordances)
+        {
+            // ...unless at least one of the required affordances is not provided
+            if (affordances.Find(affordance => affordance.flag == requiredAffordance.flag) == null)
+            {
+                result = false;
+                //TODO throw an exception
+            }
+        }
+        return result;
     }
 
     public void SetInteractiveArea(GameObject interactiveArea)

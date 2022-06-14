@@ -24,4 +24,6 @@ MonoBehaviour:
     type: 3}
   affectedArea: {fileID: 2162902216330978506, guid: 1a65f9a66d74745b5bb1a4e70967564a,
     type: 3}
-  affordance: Pointing
+  affordances:
+  - {fileID: 11400000, guid: 988f32c6cdc6b4f9fb5df85b97f764a3, type: 2}
+  - {fileID: 11400000, guid: 08f664cb4449b43b3a71bc6539ec04b4, type: 2}

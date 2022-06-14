@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 593b747f02bb54ce18ae48ccfad0609b, type: 3}
+  m_Name: TPR_Interaction
+  m_EditorClassIdentifier: 
+  flag: TPR
+  sentenceSource: In front of me is ***.
+  sentenceTarget: Minu ees on ***
+  requiredAbilities:
+  - {fileID: 11400000, guid: 121db93c7bfe24970be8d038364bfd27, type: 2}
+  - {fileID: 11400000, guid: f5b368c7260fe48d4adc62036053a1df, type: 2}
+  - {fileID: 11400000, guid: 10404af39a23b45869531d40a8d954bc, type: 2}
+  requiredAffordances:
+  - {fileID: 11400000, guid: 08f664cb4449b43b3a71bc6539ec04b4, type: 2}
+  - {fileID: 11400000, guid: 988f32c6cdc6b4f9fb5df85b97f764a3, type: 2}
+  walkingSentenceSource: I am walking towards ***.
+  walkingSentenceTarget: "K\xF5nnin *** poole."
+  rotatingSentenceSource: I am turning towards ***.
+  rotatingSentenceTarget: Keeran *** poole.
+  pointingSentenceSource: I am pointing at ***.
+  pointingSentenceTarget: Osutan ***.

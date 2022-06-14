@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using VirtualAgentsFramework;
 
-[CreateAssetMenu(fileName = "Pointing", menuName = "Interactions/Pointing")]
-public class PointingInteraction : Interaction
+[CreateAssetMenu(fileName = "TPR Interaction", menuName = "Interactions/TPR Interaction")]
+public class TPRInteraction : Interaction
 {
     public string walkingSentenceSource = "I am walking towards ***.";
     public string walkingSentenceTarget = "Kõnnin *** poole."; // maali, kella, äratuskella, laualambi
@@ -17,7 +17,7 @@ public class PointingInteraction : Interaction
 
     void OnEnable ()
     {
-        base.flag = "Pointing";
+        base.flag = "TPR";
 
         // "***" are placeholders for the smart object's name
         base.sentenceSource = "In front of me is ***.";
@@ -82,7 +82,6 @@ public class PointingInteraction : Interaction
         agent.Communicate(temp1, temp2, true);
         //agent.Communicate("");
 
-        Debug.Log("Performed pointing interaction.");
-
+        Debug.Log("Performed TPR interaction.");
     }
 }

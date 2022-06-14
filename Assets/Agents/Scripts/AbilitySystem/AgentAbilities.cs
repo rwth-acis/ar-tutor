@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class AgentAbilities : MonoBehaviour
 {
-    public Ability[] abilities;
+    public List<Ability> abilities;
 
-    public bool CheckAbility(string flag)
+    public bool CheckAbilities(List<Ability> requiredAbilities)
     {
-        bool result = false;
-        foreach (Ability ability in abilities)
+        // Return true...
+        bool result = true;
+        foreach (Ability requiredAbility in requiredAbilities)
         {
-            if (ability.flag == flag)
-                result = true;
+            // ...unless at least one of the required abilities is not provided
+            if (abilities.Find(ability => ability.flag == requiredAbility.flag) == null)
+            {
+                result = false;
+                //TODO throw exception
+            }
         }
         return result;
     }

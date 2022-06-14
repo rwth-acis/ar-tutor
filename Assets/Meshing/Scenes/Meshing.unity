@@ -6946,7 +6946,6 @@ GameObject:
   - component: {fileID: 1173076848}
   - component: {fileID: 1173076849}
   - component: {fileID: 1173076850}
-  - component: {fileID: 1173076852}
   - component: {fileID: 1173076851}
   m_Layer: 0
   m_Name: MeshManager
@@ -7070,35 +7069,6 @@ MonoBehaviour:
   m_ARCameraTransform: {fileID: 1823173801}
   m_SubmenuActive: 0
   m_SmartEnvironmentTransform: {fileID: 1698386874}
---- !u!114 &1173076852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1173076846}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da925190b254d4794bcbdff6257dcc67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MeshManager: {fileID: 1173076848}
-  m_NoneMeshPrefab: {fileID: 1461448870524360583, guid: 8e1c7927000fe4cc1bd77fec288e2162,
-    type: 3}
-  m_WallMeshPrefab: {fileID: 1461448870524360583, guid: e6f5d14572c584f3090d269ea8db4a99,
-    type: 3}
-  m_FloorMeshPrefab: {fileID: 1461448870524360583, guid: 1e3dd6678c808421aa745d3b81c8be36,
-    type: 3}
-  m_CeilingMeshPrefab: {fileID: 1461448870524360583, guid: df78a0193875f40ffbb985c1c48a64cb,
-    type: 3}
-  m_TableMeshPrefab: {fileID: 1461448870524360583, guid: 3210f25659e104ac59b34a2ec3fd83c7,
-    type: 3}
-  m_SeatMeshPrefab: {fileID: 1461448870524360583, guid: b6bcddc2fa20648518ece1453f266be6,
-    type: 3}
-  m_WindowMeshPrefab: {fileID: 1461448870524360583, guid: 2d1b3d791cb2545218a1c3dd60d23352,
-    type: 3}
-  m_DoorMeshPrefab: {fileID: 1461448870524360583, guid: a9e86f72655d942cd88f730ac45ccca9,
-    type: 3}
 --- !u!1 &1175737990
 GameObject:
   m_ObjectHideFlags: 0

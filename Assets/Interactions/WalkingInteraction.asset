@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 593b747f02bb54ce18ae48ccfad0609b, type: 3}
-  m_Name: Pointing
+  m_Script: {fileID: 11500000, guid: fd1d39dbdbd4d47058bcd18199fd10bd, type: 3}
+  m_Name: WalkingInteraction
   m_EditorClassIdentifier: 
-  flag: Pointing
-  sentenceSource: This is ***.
-  sentenceTarget: See on ***.
-  requiredAbility: {fileID: 11400000, guid: 10404af39a23b45869531d40a8d954bc, type: 2}
-  requiredAffordance: Pointing
+  flag: Walking
+  requiredAbility: {fileID: 11400000, guid: 121db93c7bfe24970be8d038364bfd27, type: 2}
+  requiredAffordance: Walking

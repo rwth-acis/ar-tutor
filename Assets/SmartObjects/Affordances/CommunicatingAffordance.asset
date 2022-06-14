@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd1d39dbdbd4d47058bcd18199fd10bd, type: 3}
-  m_Name: Walking
+  m_Script: {fileID: 11500000, guid: 933a721769bf143dd873ea2f1ce6c50d, type: 3}
+  m_Name: CommunicatingAffordance
   m_EditorClassIdentifier: 
-  flag: Walking
-  requiredAbility: {fileID: 11400000, guid: 121db93c7bfe24970be8d038364bfd27, type: 2}
-  requiredAffordance: Walking
+  flag: Communicating

@@ -11,10 +11,12 @@ public static class InteractionManager
         if (agent != null && interaction != null && smartObjectInstance != null)
         {
             Debug.Log("Interaction stage 2");
-            // Checks whether the agent has matching abilities. Potentially returns respective interaction interfaces (capacities) of the agent
-            //TODO Pluralize
-            var abilitySatisfied = abilities.CheckAbility(interaction.requiredAbility.flag);
-            var affordanceSatisfied = CheckAffordance(smartObjectInstance.smartObject, interaction);
+            // Checks whether the agent has matching abilities.
+			// TODO potentially, this method should return respective interaction interfaces (capacities) of the agent
+            var abilitySatisfied = abilities.CheckAbilities(interaction.requiredAbilities);
+            // Checks whether the Smart Object instance has matching affordances.
+			// TODO potentially, this method should return respective interaction interfaces (capacities) of the Smart Object instance
+            var affordanceSatisfied = smartObjectInstance.CheckAffordances(interaction.requiredAffordances);
             if (abilitySatisfied && affordanceSatisfied)
             {
                 Debug.Log("Interaction stage 3");
@@ -22,17 +24,5 @@ public static class InteractionManager
                 Debug.Log("Interaction stage 4");
             }
         }
-    }
-
-    // Checks whether the smart object affords what is required by the interaction
-    // Considers provided interfaces of the smart object as well as the state it is in
-    public static bool CheckAffordance (SmartObject smartObject, Interaction interaction)
-    {
-        if(smartObject.CheckState())
-            return false;
-        else if(smartObject.CheckAffordance(interaction.requiredAffordance))
-            return true;
-        else
-        return false;
     }
 }
