@@ -10762,7 +10762,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e387dd8b40b64e3fa6942ac85cbc7bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  despription: A smart environment showcasing possible interactions with smart objects.
+  despription: A smart environment showcasing several possible interactions with
+    smart objects.
   smartObjects:
   - {fileID: 11400000, guid: dd382e687895d4c7f88d9b75af407a8e, type: 2}
   - {fileID: 11400000, guid: 32a33084826bf430aae373bbbf921fca, type: 2}
