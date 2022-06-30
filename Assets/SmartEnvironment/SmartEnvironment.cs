@@ -62,20 +62,20 @@ public class SmartEnvironment : ScriptableObject
     // Remove an item at an index
     public void RemoveSmartObject(int index)
     {
-        _instance.smartEnvironment.RemoveAt(index);
+        smartEnvironment.RemoveAt(index);
     }
 
     // Insert a smart object, return the index where it was inserted
     public int InsertSmartObject(SmartObjectInstance smartObjectInstance)
     {
-        _instance.smartEnvironment.Add(smartObjectInstance);
-        return _instance.smartEnvironment.IndexOf(smartObjectInstance);
+        smartEnvironment.Add(smartObjectInstance);
+        return smartEnvironment.IndexOf(smartObjectInstance);
     }
 
     // Get a smart object instance if it exists.
     public SmartObjectInstance GetSmartObjectInstance(int index)
     {
-        return _instance.smartEnvironment[index];
+        return smartEnvironment[index];
     }
 
     // Save the state of smart environment.
@@ -83,33 +83,33 @@ public class SmartEnvironment : ScriptableObject
     {
         //StressTest();
         SaveLoadManager.SaveSmartEnvironment();
-        Debug.Log("There are currently " + _instance.smartEnvironment.Count + " Smart Objects in the Smart Environment.");
+        Debug.Log("There are currently " + smartEnvironment.Count + " Smart Objects in the Smart Environment.");
         EventManager.PostStatement("user", "saved", "SE");
     }
 
     void StressTest()
     {
         List<SmartObjectInstance> tempSmartEnvironment = new List<SmartObjectInstance>();
-        foreach (SmartObjectInstance smartObjectInstance in _instance.smartEnvironment)
+        foreach (SmartObjectInstance smartObjectInstance in smartEnvironment)
         {
             for (int i = 0; i < 100; i++)
                 tempSmartEnvironment.Add(smartObjectInstance);
         }
-        _instance.smartEnvironment = tempSmartEnvironment;
+        smartEnvironment = tempSmartEnvironment;
     }
 
     // Load smart environment from the saved state or template.
     public void Load()
     {
         SaveLoadManager.LoadOrInitializeSmartEnvironment();
-        Debug.Log("There are currently " + _instance.smartEnvironment.Count + " Smart Objects in the Smart Environment.");
+        Debug.Log("There are currently " + smartEnvironment.Count + " Smart Objects in the Smart Environment.");
         EventManager.PostStatement("user", "loaded", "SE");
     }
 
     // Reset smart environment from the template.
     public void Reset()
     {
-        Debug.Log("Pre-reset: There are currently " + _instance.smartEnvironment.Count + " Smart Objects in the Smart Environment.");
+        Debug.Log("Pre-reset: There are currently " + smartEnvironment.Count + " Smart Objects in the Smart Environment.");
         //TODO caused errors...
         /*foreach (SmartObjectInstance smartObjectInstance in _instance.smartEnvironment)
         {
@@ -117,25 +117,25 @@ public class SmartEnvironment : ScriptableObject
         }*/
         SaveLoadManager.LoadFromTemplate();
         //TODO soft empty, where just the instantiated objects' properties get cleared
-        _instance.Empty();
-        Debug.Log("Post-reset: There are currently " + _instance.smartEnvironment.Count + " Smart Objects in the Smart Environment.");
+        //Empty();
+        Debug.Log("Post-reset: There are currently " + smartEnvironment.Count + " Smart Objects in the Smart Environment.");
         EventManager.PostStatement("user", "reset", "SE");
     }
 
     public List<SmartObjectInstance> GetSmartObjectInstances()
     {
-        return _instance.smartEnvironment;
+        return smartEnvironment;
     }
 
     public int GetSmartObjectInstanceIndex(SmartObjectInstance smartObjectInstance)
     {
-        return _instance.smartEnvironment.IndexOf(smartObjectInstance);
+        return smartEnvironment.IndexOf(smartObjectInstance);
     }
 
     public void Empty()
     {
         // Clear the environment
-        _instance.smartEnvironment.Clear();
+        smartEnvironment.Clear();
         // Save the environment in JSON
         SaveLoadManager.SaveSmartEnvironment();
         //_instance.smartEnvironmentAsJson = "";
@@ -145,12 +145,17 @@ public class SmartEnvironment : ScriptableObject
     {
         SmartEnvironment[] tmp = Resources.FindObjectsOfTypeAll<SmartEnvironment>();
         Debug.Log("Number of smart environments: " + tmp.Length.ToString());
-        while (tmp.Length > 0)
+        /*while (tmp.Length > 0)
         {
             DestroyImmediate(tmp[0]);
-        }
+        }*/
+
+        if (_instance) DestroyImmediate(_instance);
         _instance = null;
 
+        smartEnvironment.Clear();
+
+        Empty();
         EmptyTemplate();
 
         SaveLoadManager.SaveSmartEnvironment();
