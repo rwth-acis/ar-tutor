@@ -114,4 +114,14 @@ public class EventManager : MonoBehaviour
     {
         OnPostStatement?.Invoke(agent, verb, obj);
     }
+
+    public delegate void SXStatusChangedDelegate(bool play);
+
+    public static event SXStatusChangedDelegate OnSXStatusChanged;
+
+    // Tells all the components that the status of the smart experience (SX) has changed allow playing, iff play == true
+    public static void SXStatusChanged(bool play)
+    {
+        OnSXStatusChanged?.Invoke(play);
+    }
 }

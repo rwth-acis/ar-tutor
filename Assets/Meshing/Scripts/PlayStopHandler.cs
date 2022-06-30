@@ -41,6 +41,7 @@ public class PlayStopHandler : MonoBehaviour
         if (!navMeshManager.IsAgentSet() && play == false)
         {
             play = true;
+            EventManager.SXStatusChanged(play);
             m_UI.GetComponent<Image>().sprite = playSprite;
             EventManager.PostStatement("system", "pressed", "stop");
             return;
@@ -64,5 +65,6 @@ public class PlayStopHandler : MonoBehaviour
         }
         //m_UI.SetActive(!m_UI.activeSelf);
         play = !play;
+        EventManager.SXStatusChanged(play);
     }
 }

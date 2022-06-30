@@ -143,6 +143,25 @@ public class ClassificationPlacementManager : MonoBehaviour
         set => m_SmartEnvironmentTransform = value;
     }
 
+    bool UI_Visibility = true;
+
+    private void OnEnable()
+    {
+        // Register to event manager events
+        EventManager.OnSXStatusChanged += ChangeUIVisibility;
+    }
+
+    private void OnDisable()
+    {
+        // Unregister from event manager events
+        EventManager.OnSXStatusChanged -= ChangeUIVisibility;
+    }
+
+    private void ChangeUIVisibility(bool play)
+    {
+        UI_Visibility = play;
+    }
+
     void Update()
     {
 #if UNITY_IOS
@@ -151,32 +170,39 @@ public class ClassificationPlacementManager : MonoBehaviour
             m_ClassificationManager.currentClassification == ARMeshClassification.Wall) && m_SubmenuActive == false) // If the submenu is not active
         {
             m_WallSubmenu.SetActive(false);
+
+            if(!UI_Visibility)
+                    {
+                        m_FloorScrollableUI.SetActive(false);
+                        m_FloorUI.SetActive(false);
+                        return;
+                    }
+
             switch (m_ClassificationManager.currentClassification)
             {
                 case ARMeshClassification.Floor:
-                m_FloorScrollableUI.SetActive(true);
-                m_FloorUI.SetActive(true);
-                m_WallScrollableUI.SetActive(false);
-                m_WallUI.SetActive(false);
-                m_TableUI.SetActive(false);
-                break;
+                    m_FloorScrollableUI.SetActive(true);
+                    m_FloorUI.SetActive(true);
+                    m_WallScrollableUI.SetActive(false);
+                    m_WallUI.SetActive(false);
+                    m_TableUI.SetActive(false);
+                    break;
 
                 case ARMeshClassification.Wall:
-
-                m_WallScrollableUI.SetActive(true);
-                m_WallUI.SetActive(true);
-                m_FloorScrollableUI.SetActive(false);
-                m_FloorUI.SetActive(false);
-                m_TableUI.SetActive(false);
-                break;
+                    m_WallScrollableUI.SetActive(true);
+                    m_WallUI.SetActive(true);
+                    m_FloorScrollableUI.SetActive(false);
+                    m_FloorUI.SetActive(false);
+                    m_TableUI.SetActive(false);
+                    break;
 
                 case ARMeshClassification.Table:
-                m_TableUI.SetActive(true);
-                m_FloorScrollableUI.SetActive(false);
-                m_FloorUI.SetActive(false);
-                m_WallScrollableUI.SetActive(false);
-                m_WallUI.SetActive(false);
-                break;
+                    m_TableUI.SetActive(true);
+                    m_FloorScrollableUI.SetActive(false);
+                    m_FloorUI.SetActive(false);
+                    m_WallScrollableUI.SetActive(false);
+                    m_WallUI.SetActive(false);
+                    break;
             }
         }
         else

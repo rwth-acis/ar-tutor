@@ -80,6 +80,18 @@ public class PlacementReticle : MonoBehaviour
     const float k_MaxScaleDistance = 1.0f;
     const float k_ScaleMod = 1.0f;
 
+    private void OnEnable()
+    {
+        // Register to event manager events
+        EventManager.OnSXStatusChanged += ChangeReticleVisibility;
+    }
+
+    private void OnDisable()
+    {
+        // Unregister from event manager events
+        EventManager.OnSXStatusChanged -= ChangeReticleVisibility;
+    }
+
     void Start()
     {
         m_CenterScreen = CenterScreenHelper.Instance;
@@ -137,5 +149,13 @@ public class PlacementReticle : MonoBehaviour
     public void ChangeInteractableAreaLabelLength()
     {
         m_SpawnedInteractiveAreaLabel.transform.localScale = new Vector3(0.01f * lengthSlider.value, m_SpawnedInteractiveAreaLabel.transform.localScale.y, m_SpawnedInteractiveAreaLabel.transform.localScale.z);
+    }
+
+    public void ChangeReticleVisibility(bool play)
+    {
+        m_SpawnedReticle.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = play;
+        m_SpawnedReticle.transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().enabled = play;
+
+        m_SpawnedInteractiveAreaLabel.GetComponent<MeshRenderer>().enabled = play;
     }
 }
