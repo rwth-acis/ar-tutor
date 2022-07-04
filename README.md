@@ -14,7 +14,7 @@ The Unity project is compatible with Unity 2020.3.27f1+. The Xcode build is comp
 
 ### Creating an iOS build
 
-A ready-made build is included on the `release` branch of the project. Unless you would like to create your own build, you can skip this part of the instruction.
+A ready-made build is included as a release in the repository. Unless you would like to create your own build, you can skip this part of the instruction.
 
 1. If you installed the [Remote Plugin](https://assetstore.unity.com/packages/tools/utilities/ar-foundation-remote-2-0-201106), set it up according to the instructions provided by its developer.
 1. In the project settings, select ARKit and ARCode as plug-in providers for iOS and Android respectively under XR Plug-in Management.
@@ -24,7 +24,7 @@ A ready-made build is included on the `release` branch of the project. Unless yo
 
 ### Running an iOS build
 
-1. Open the project in Xcode and adjust your General and Signing & Capabilities settings to match your bundle identifier, team, etc. Besides, select the Automatically manage signing option.
+1. Open the build in Xcode and adjust your General and Signing & Capabilities settings to match your bundle identifier, team, etc. Besides, select the Automatically manage signing option.
 1. Connect an iPad and select is as a target device in Xcode.
 1. Run the build.
 
