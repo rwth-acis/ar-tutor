@@ -53,9 +53,32 @@ public class SmartEnvironmentInstantiator : MonoBehaviour
 
     public void Reset()
     {
+        SmartEnvironment.Instance.Reset();
+
         if (agent != null)
+        {
             DeactivateAgent();
+            EventManager.DeactivateAgent();
+        }
+            
         RemoveObjectInstances();
+
+        gameObject.GetComponent<SmartEnvironmentParser>().ParseSmartEnvironment();
+    }
+
+    public void Save()
+    {
+        SmartEnvironment.Instance.Save();
+    }
+
+    public void Load()
+    {
+        SmartEnvironment.Instance.Load();
+    }
+
+    public void Empty()
+    {
+        SmartEnvironment.Instance.EmptySE();
     }
 
     //TODO make private?
@@ -87,6 +110,8 @@ public class SmartEnvironmentInstantiator : MonoBehaviour
 
     public void Instantiate()
     {
+        SmartEnvironment.Instance.Load();
+
         // First, remove all the existing GameObjects
         RemoveObjectInstances();
 

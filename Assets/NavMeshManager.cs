@@ -27,6 +27,7 @@ public class NavMeshManager : MonoBehaviour
         //EventManager.OnWalkLabelInstantiated += WalkLabelInstantiated;
         EventManager.OnPointableSOInstantiated += PointableSOInstantiated;
         //EventManager.OnSmartObjectInstantiated += SmartObjectInstantiated;
+        EventManager.OnDeactivateAgent += DeactivateAgent;
     }
 
     private void OnDisable()
@@ -37,6 +38,7 @@ public class NavMeshManager : MonoBehaviour
         //EventManager.OnWalkLabelInstantiated -= WalkLabelInstantiated;
         EventManager.OnPointableSOInstantiated -= PointableSOInstantiated;
         //EventManager.OnSmartObjectInstantiated -= SmartObjectInstantiated;
+        EventManager.OnDeactivateAgent -= DeactivateAgent;
     }
 
     private void Start()
@@ -63,6 +65,12 @@ public class NavMeshManager : MonoBehaviour
         this.abilities = abilities;
         Debug.Log("Agent got instantiated.");
         //ScheduleInteractions();
+    }
+
+    private void DeactivateAgent()
+    {
+        agent = null;
+        abilities = null;
     }
 
     // Called from event manager

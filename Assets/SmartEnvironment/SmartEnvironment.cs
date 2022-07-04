@@ -55,6 +55,12 @@ public class SmartEnvironment : ScriptableObject
         System.IO.File.WriteAllText(path, JsonUtility.ToJson(this, true));
     }
 
+    public void SaveEmptyToJSON(string path)
+    {
+        Debug.LogFormat("Saving smart environment to {0}", path);
+        System.IO.File.WriteAllText(path, "{\"smartEnvironment\":[]}");
+    }
+
     /* Inventory START */
     public List<SmartObjectInstance> smartEnvironment;
     //public string smartEnvironmentAsJson;
@@ -132,16 +138,17 @@ public class SmartEnvironment : ScriptableObject
         return smartEnvironment.IndexOf(smartObjectInstance);
     }
 
-    public void Empty()
+    public void EmptySE()
     {
         // Clear the environment
         smartEnvironment.Clear();
         // Save the environment in JSON
+        //SaveLoadManager.LoadFromTemplate();
         SaveLoadManager.SaveSmartEnvironment();
         //_instance.smartEnvironmentAsJson = "";
     }
 
-    public void EmptySE()
+    /*public void EmptySE()
     {
         SmartEnvironment[] tmp = Resources.FindObjectsOfTypeAll<SmartEnvironment>();
         Debug.Log("Number of smart environments: " + tmp.Length.ToString());
@@ -150,16 +157,19 @@ public class SmartEnvironment : ScriptableObject
             DestroyImmediate(tmp[0]);
         }*/
 
-        if (_instance) DestroyImmediate(_instance);
+/*        if (_instance) DestroyImmediate(_instance);
         _instance = null;
 
+        //Empty();
         smartEnvironment.Clear();
+        //_instance.smartEnvironment.Clear();
+        //Instance.smartEnvironment.Clear();
 
-        Empty();
         EmptyTemplate();
 
-        SaveLoadManager.SaveSmartEnvironment();
-    }
+        //SaveLoadManager.SaveSmartEnvironment();
+        SaveLoadManager.EmptySmartEnvironment();
+    }*/
 
     private void EmptyTemplate()
     {

@@ -33,6 +33,13 @@ public static class SaveLoadManager
         //Debug.Log("Saved:\n" + SmartEnvironment.Instance.smartEnvironmentAsJson);
     }
 
+    public static void EmptySmartEnvironment()
+    {
+        SmartEnvironment.Instance.SaveEmptyToJSON(Path.Combine(
+            Application.persistentDataPath, "SmartEnvironment.json"));
+        Debug.Log("Saved empty:\n" + JsonUtility.ToJson(SmartEnvironment.Instance));
+    }
+
     // Load from the default, for situations where we just want to reset.
     public static void LoadFromTemplate()
     {

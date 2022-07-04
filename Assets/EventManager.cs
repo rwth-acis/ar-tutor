@@ -28,6 +28,16 @@ public class EventManager : MonoBehaviour
         OnAgentInstantiated?.Invoke(agent, abilities);
     }
 
+    public delegate void DeactivateAgentDelegate();
+
+    public static event DeactivateAgentDelegate OnDeactivateAgent;
+
+    // Tells relevant components to deactivate the agent
+    public static void DeactivateAgent()
+    {
+        OnDeactivateAgent?.Invoke();
+    }
+
     public delegate void WalkLabelInstantiatedDelegate(SmartObject smartDestinationObject);
 
     public static event WalkLabelInstantiatedDelegate OnWalkLabelInstantiated;

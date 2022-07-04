@@ -49,7 +49,9 @@ public class PlayStopHandler : MonoBehaviour
 
         // If the agent is not there, tasks can not be controlled
         if (!navMeshManager.IsAgentSet())
+        {
             return;
+        }
 
         if (play == true)
         {

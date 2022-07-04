@@ -543,8 +543,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: d6fba6891307243a7bb1f4bc8d0da319, type: 2}
-        m_TargetAssemblyTypeName: SmartEnvironment, Assembly-CSharp
+      - m_Target: {fileID: 1698386875}
+        m_TargetAssemblyTypeName: SmartEnvironmentInstantiator, Assembly-CSharp
         m_MethodName: Save
         m_Mode: 1
         m_Arguments:
@@ -3216,21 +3216,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: d6fba6891307243a7bb1f4bc8d0da319, type: 2}
-        m_TargetAssemblyTypeName: SmartEnvironment, Assembly-CSharp
-        m_MethodName: Reset
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1698386875}
-        m_TargetAssemblyTypeName: SmartEnvironmentInstantiator, Assembly-CSharp
-        m_MethodName: Reset
+      - m_Target: {fileID: 1378092834}
+        m_TargetAssemblyTypeName: SmartObjectList, Assembly-CSharp
+        m_MethodName: RemoveObjectPanels
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3265,9 +3253,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1378092834}
-        m_TargetAssemblyTypeName: SmartObjectList, Assembly-CSharp
-        m_MethodName: RemoveObjectPanels
+      - m_Target: {fileID: 1698386875}
+        m_TargetAssemblyTypeName: SmartEnvironmentInstantiator, Assembly-CSharp
+        m_MethodName: Reset
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3280,18 +3268,6 @@ MonoBehaviour:
       - m_Target: {fileID: 2061694695}
         m_TargetAssemblyTypeName: PlayStopHandler, Assembly-CSharp
         m_MethodName: TogglePlayStop
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1698386873}
-        m_TargetAssemblyTypeName: SmartEnvironmentParser, Assembly-CSharp
-        m_MethodName: ParseSmartEnvironment
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7540,18 +7516,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: d6fba6891307243a7bb1f4bc8d0da319, type: 2}
-        m_TargetAssemblyTypeName: SmartEnvironment, Assembly-CSharp
-        m_MethodName: Load
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1698386875}
         m_TargetAssemblyTypeName: SmartEnvironmentInstantiator, Assembly-CSharp
         m_MethodName: Instantiate
@@ -11162,9 +11126,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: d6fba6891307243a7bb1f4bc8d0da319, type: 2}
-        m_TargetAssemblyTypeName: SmartEnvironment, Assembly-CSharp
-        m_MethodName: EmptySE
+      - m_Target: {fileID: 1698386875}
+        m_TargetAssemblyTypeName: SmartEnvironmentInstantiator, Assembly-CSharp
+        m_MethodName: Empty
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
