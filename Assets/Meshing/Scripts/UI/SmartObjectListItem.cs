@@ -5,6 +5,9 @@ using UnityEngine.UI;
 // TextMeshPro
 using TMPro;
 
+/// <summary>
+/// Class representing items on the menu corresponding to Smart Object instances.
+/// </summary>
 public class SmartObjectListItem : MonoBehaviour
 {
     public GameObject panel;
@@ -13,7 +16,9 @@ public class SmartObjectListItem : MonoBehaviour
     private string virtualSOInstructionText = "1. Place the physical manifestation on a *** \n3. Place the affected area on the floor";
     private string physicalSOInstructionText = "1. Place the interactive area on a *** \n2. Place the affected area on the floor";
 
-    // Instance ID (index) of a smart object attached to the button
+    /// <summary>
+    /// Index of the Smart Object instance attached to this UI item.
+    /// </summary>
     private int smartObjectInstanceIndex;
 
     void OnEnable()
@@ -38,6 +43,10 @@ public class SmartObjectListItem : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Show in the UI how the Smart Object instance must be created.
+    /// </summary>
+	/// <param name="index">Index of the corresponding Smart Object instance.</param>
     public void InstantiateSmartObject(int index)
     {
         // Attach the corresponding smart object's instance to the panel
@@ -60,6 +69,10 @@ public class SmartObjectListItem : MonoBehaviour
         instructionLabel.GetComponent<TextMeshProUGUI>().text = instructionLabel.GetComponent<TextMeshProUGUI>().text.Replace("***", smartObjectInstance.smartObject.canBePlacedOn.ToString().ToLower());
     }
 
+    /// <summary>
+    /// Show in the UI that the Smart Object instance is complete.
+    /// </summary>
+	/// <param name="index">Index of the corresponding Smart Object instance.</param>
     void SmartObjectInstantiated(int index)
     {
         if (this.smartObjectInstanceIndex != index)
@@ -68,13 +81,5 @@ public class SmartObjectListItem : MonoBehaviour
         instructionLabel.SetActive(false);
         // Change panel color
         panel.GetComponent<Image>().color = new Color32(155, 255, 105, 100);
-
-        // Adjust the button to enable smart object destruction
-        //placementButton.GetComponent<Button>().onClick.{ RemoveAllListeners();
-        //                                                 AddListener(delegate { RemoveSmartObjectInstance(smartObject); });
-        //                                               };
-
-        //placementButton.GetComponent<Button>().onClick.RemoveAllListeners();
-        //placementButton.GetComponent<Button>().onClick.AddListener(delegate { RemoveSmartObjectInstance(smartObject); });
     }
 }

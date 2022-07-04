@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Smart Object prototype.
+/// </summary>
 [System.Serializable]
 [CreateAssetMenu(fileName = "Generic", menuName = "Smart Objects/Generic")]
 public class SmartObject : ScriptableObject
@@ -12,31 +15,24 @@ public class SmartObject : ScriptableObject
     public string nameTarget_AtCase;
 
     public GameObject physicalManifestation;
-    public enum Placing { //TODO What is with vitual objects, etc? Maybe have one menu and just grey out objects that can not be placed upon certain classification at all.
+    public enum Placing { 
         Wall, Floor, Table
     }
     public Placing canBePlacedOn;
-    public Sprite objectIconUI; //TODO Set standard as a placeholder image
-
-    // public ISmartObjectInstantiatable instantiatorScript; // Script that gets appended to the smart object's physical
-                                                             // manifestation in the scene and sets up the affected and interactive areas at according positions.
-                                                             // It would be easiest though to be able to assign everything in the inspector... But do I provide
-                                                             // the positions there then or just parts of the prefab or what?
+    public Sprite objectIconUI; 
 
     public GameObject interactiveArea = null;
     public GameObject affectedArea = null;
-
-    /*
-    public float interactiveAreaWidth = -1f;
-    public float interactiveAreaLength = -1f;
-    public float affectedAreaWidth = -1f;
-    public float affectedAreaLength = -1f;
-    */
 
     private bool inUse = false;
 
     public List<Affordance> affordances;
 
+    /// <summary>
+    /// Check whether the affordances required for the interaction are provided.
+    /// </summary>
+	/// <param name="requiredAffordances">List of affordances required by the interaction.</param>
+    /// <returns>True unless at least one of the required affordances is not provided.</returns>
     public bool CheckAffordances(List<Affordance> requiredAffordances)
     {
         // Return true...
@@ -47,7 +43,6 @@ public class SmartObject : ScriptableObject
             if (affordances.Find(affordance => affordance.flag == requiredAffordance.flag) == null)
             {
                 result = false;
-                //TODO throw an exception
             }
         }
         return result;
@@ -63,13 +58,19 @@ public class SmartObject : ScriptableObject
         this.affectedArea = affectedArea;
     }
 
-    // Returns true iff the smart object is virtual
+    /// <summary>
+    /// Check whether the Smart Object is virtual or physical. 
+    /// </summary>
+    /// <returns>True iff the Smart Object is virtual.</returns>
     public bool IsVirtual()
     {
         return this.physicalManifestation != null;
     }
 
-    // Returns true iff the smart object is virtual
+    /// <summary>
+    /// Check whether the virtual Smart Object contains the interactiveArea in its physical manifestation. 
+    /// </summary>
+    /// <returns>True iff the smart object contains the interactiveArea in its physical manifestation.</returns>
     public bool ContainsInteractiveArea()
     {
         return this.physicalManifestation == this.interactiveArea;

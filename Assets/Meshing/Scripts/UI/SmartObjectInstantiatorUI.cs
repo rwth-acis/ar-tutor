@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
+/// <summary>
+/// Create and manage placement buttons for components of the Smart Objects.
+/// </summary>
 public class SmartObjectInstantiatorUI : MonoBehaviour
 {
     [SerializeField] Button buttonPrefab;
@@ -11,7 +14,6 @@ public class SmartObjectInstantiatorUI : MonoBehaviour
     [SerializeField] GameObject floorObjectsUI;
     [SerializeField] GameObject tableObjectsUI;
 
-    //SerializeField] Sprite smartObjectSprite;
     [SerializeField] Sprite interactiveAreaSprite;
     [SerializeField] Sprite affectedAreaSprite;
 
@@ -29,15 +31,24 @@ public class SmartObjectInstantiatorUI : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Create a placement button for the Smart Object instance.
+    /// </summary>
+	/// <param name="smartObjectInstance">Smart Object instance for which the button must be created.</param>
     public void CreateObjectButton(SmartObjectInstance smartObjectInstance)
     {
         // Create a button for the object
-        //TODO??? Was Button button previously
         Button button = Instantiate(buttonPrefab);
         // Attach the button to the SOI object
         smartObjectInstance.button = button.gameObject;
     }
 
+    /// <summary>
+    /// Adjust the placement button for the Smart Object instance.
+    /// </summary>
+	/// <param name="smartObjectInstance">Smart Object instance for which the button must be adjusted.</param>
+	/// <param name="action">Action that will get triggered by pressing the button.</param>
+	/// <param name="step">Step in the Smart Object instantiation process.</param>
     public void SetUpObjectButton(SmartObjectInstance smartObjectInstance, Action<SmartObjectInstance> action, int step)
     {
         var buttonComponent = smartObjectInstance.button.GetComponent<Button>();
@@ -70,76 +81,18 @@ public class SmartObjectInstantiatorUI : MonoBehaviour
                     smartObjectInstance.button.transform.SetParent(tableObjectsUI.transform, false);
                     break;
                 default:
-                    //TODO place on none/all in case of a physical object, add a boolean to check that?
                     break;
             }
         }
     }
 
+    /// <summary>
+    /// Set the button active or inactive.
+    /// </summary>
+	/// <param name="smartObjectInstance">Smart Object instance for which the button's state must be changed.</param>
+	/// <param name="state">New state of the button.</param>
     public void ObjectButtonChangeState(SmartObjectInstance smartObjectInstance, bool state)
     {
         smartObjectInstance.button.SetActive(state);
     }
-
-    /*void InstantiatePhysicalManifestation(SmartObjectInstance smartObjectInstance, Button button)
-    {
-        Button buttonComponent = button.GetComponent<Button>();
-        // Instantiate the embodiment
-        GameObject physicalManifestation = classificationPlacementManager.PlaceWallObject(smartObjectInstance.smartObject.physicalManifestation);
-        // Save the transform of the embodiment in the SO-instance object
-        smartObjectInstance.physicalManifestation = new InstanceTransform(physicalManifestation.transform);
-        // Adjust the button's image
-        button.transform.GetChild(0).GetComponent<Image>().sprite = interactiveAreaSprite;
-        // Add a different listener
-        buttonComponent.onClick.RemoveAllListeners();
-        buttonComponent.onClick.AddListener(delegate {InstantiateInteractiveArea(smartObjectInstance, buttonComponent); });
-    }
-
-    void InstantiateInteractiveArea(SmartObjectInstance smartObjectInstance, Button button)
-    {
-        // If interactiveArea is a part of physicalManifestation
-        if (smartObjectInstance.smartObject.physicalManifestation == smartObjectInstance.smartObject.interactiveArea)
-        {
-            Debug.Log("interactiveArea is a part of physicalManifestation");
-            // Fetch that object from the SmartAreas component
-            smartObjectInstance.interactiveArea = new InstanceTransform(smartObjectInstance.smartObject.physicalManifestation.GetComponent<SmartAreas>().interactiveArea.transform);
-        }
-        else
-        {
-            Debug.Log("interactiveArea is NOT a part of physicalManifestation");
-            // Instantiate the interactive area
-            GameObject interactiveArea = classificationPlacementManager.PlaceWallObject2(3);
-            //TODO improve: add this object to the SmartObject collection in the scene
-            //smartObjectInstance.smartObject.SetInteractiveArea(interactiveArea);
-            // Final scale as second argument
-            smartObjectInstance.interactiveArea = new InstanceTransform(interactiveArea.transform, classificationPlacementManager.reticle.GetSmartAreaScale());
-        }
-        Button buttonComponent = button.GetComponent<Button>();
-        // Move button to the floor objects UI
-        button.transform.SetParent(floorObjectsUI.transform, false);
-        // Adjust the button's image
-        button.transform.GetChild(0).GetComponent<Image>().sprite = affectedAreaSprite;
-        // Add a different listener
-        buttonComponent.onClick.RemoveAllListeners();
-        buttonComponent.onClick.AddListener(delegate {InstantiateAffectedArea(smartObjectInstance, buttonComponent); });
-        Debug.Log("interactiveArea got instantiated");
-    }
-
-    void InstantiateAffectedArea(SmartObjectInstance smartObjectInstance, Button button)
-    {
-        Button buttonComponent = button.GetComponent<Button>();
-        // Instantiate the affected area
-        GameObject affectedArea = classificationPlacementManager.PlaceFloorObject2(3);
-        //TODO improve: add this object to the SmartObject collection in the scene
-        //smartObjectInstance.smartObject.SetAffectedArea(affectedArea);
-        // Final scale as second argument
-        smartObjectInstance.affectedArea = new InstanceTransform(affectedArea.transform, classificationPlacementManager.reticle.GetSmartAreaScale());
-
-        // Schedule the tasks, TODO improve
-        EventManager.PointableSOInstantiated(smartObjectInstance.smartObject);
-        EventManager.SmartObjectInstantiated(SmartEnvironment.Instance.GetSmartObjectInstanceIndex(smartObjectInstance));
-        Debug.Log("Smart object placement is finished!");
-        // Disable the button
-        button.gameObject.SetActive(false);
-    }*/
 }

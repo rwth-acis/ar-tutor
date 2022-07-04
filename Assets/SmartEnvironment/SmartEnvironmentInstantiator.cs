@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 using VirtualAgentsFramework;
 
+/// <summary>
+/// Script that creates and manages a Smart Environment instance.
+/// It also serves as a proxy for saving, loading, and resetting Smart Environments from the UI.
+/// </summary>
 public class SmartEnvironmentInstantiator : MonoBehaviour
 {
     [SerializeField]
@@ -39,7 +43,7 @@ public class SmartEnvironmentInstantiator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(SmartEnvironment.Instance.smartEnvironment.Count + " objects");
+        
     }
 
     public void AgentInstantiated(Agent agent, AgentAbilities abilities)
@@ -81,13 +85,14 @@ public class SmartEnvironmentInstantiator : MonoBehaviour
         SmartEnvironment.Instance.EmptySE();
     }
 
-    //TODO make private?
+    /// <summary>
+    /// Remove all the GameObjects in the scene related to Smart Objects.
+    /// </summary>
     public void RemoveObjectInstances()
     {
         foreach (Transform eachObject in smartEnvironmentTransform)
         {
             Destroy(eachObject.gameObject);
-            //eachObject.gameObject.SetActive(false);
         }
         // Activate the agent placement button
         agentPlacementButton.interactable = true;
@@ -98,7 +103,11 @@ public class SmartEnvironmentInstantiator : MonoBehaviour
         agent.Deactivate();
     }
 
-    //TODO rename: instantiate smart environment or create so instances
+    /// <summary>
+    /// Create Smart Object instances in the Smart Environment.
+	/// Called from the EventManager.
+    /// </summary>
+    /// <param name="smartObjects">List of Smart Objects to be instantiated.</param>
     void SmartEnvironmentParsed(SmartObject[] smartObjects)
     {
         foreach (var smartObject in smartObjects)
@@ -108,6 +117,10 @@ public class SmartEnvironmentInstantiator : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Create GameObjects in the scene for every Smart Object instance from the Smart Environment.
+	/// Called from the "Load" button.
+    /// </summary>
     public void Instantiate()
     {
         SmartEnvironment.Instance.Load();
@@ -115,9 +128,6 @@ public class SmartEnvironmentInstantiator : MonoBehaviour
         // First, remove all the existing GameObjects
         RemoveObjectInstances();
 
-        //TODO rename "smartEnvironment" to "objectCollection"
-        //TODO move the activation method to a SmartObjectInstanceTools class
-        //foreach (SmartObjectInstance smartObjectInstance in SmartEnvironment.Instance.smartEnvironment)
         foreach (SmartObjectInstance smartObjectInstance in SmartEnvironment.Instance.GetSmartObjectInstances())
         {
             // Skip instantiating objects that have not been properly set up
@@ -125,15 +135,6 @@ public class SmartEnvironmentInstantiator : MonoBehaviour
                 continue;
 
             EventManager.RestoreSmartObject(SmartEnvironment.Instance.GetSmartObjectInstanceIndex(smartObjectInstance), smartEnvironmentTransform);
-            /*GameObject restoredPhysicalManifestation = Instantiate(smartObjectInstance.smartObject.physicalManifestation, smartEnvironmentTransform);
-            smartObjectInstance.physicalManifestation.ApplyTransformTo(restoredPhysicalManifestation.transform);
-
-            GameObject restoredInteractiveArea = Instantiate(smartObjectInstance.smartObject.interactiveArea, smartEnvironmentTransform);
-            smartObjectInstance.interactiveArea.ApplyTransformTo(restoredInteractiveArea.transform);
-
-            GameObject restoredAffectedArea = Instantiate(smartObjectInstance.smartObject.affectedArea, smartEnvironmentTransform);
-            smartObjectInstance.affectedArea.ApplyTransformTo(restoredAffectedArea.transform);*/
-
             Debug.Log("Restored a smart object instance");
         }
     }

@@ -7,6 +7,10 @@ using UnityEngine.AI;
 using VirtualAgentsFramework;
 using VirtualAgentsFramework.AgentTasks;
 
+/// <summary>
+/// Manage the NavMesh navigation and hold an instance of the virtual agent. 
+/// Schedule interaction attempts for the agent. 
+/// </summary>
 public class NavMeshManager : MonoBehaviour
 {
     Agent agent;
@@ -14,88 +18,92 @@ public class NavMeshManager : MonoBehaviour
     [SerializeField] Interaction walkingInteraction;
     [SerializeField] Interaction pointingInteraction;
     AgentAbilities abilities;
-    //bool floorTracking;
 
     AgentTaskManager tempQueue;
     InstanceTransform tempAgentTransform;
 
     private void OnEnable()
     {
-        // Register to event manager events
+        // Register to event manager events. 
         EventManager.OnFloorInstantiated += FloorInstantiated;
         EventManager.OnAgentInstantiated += AgentInstantiated;
-        //EventManager.OnWalkLabelInstantiated += WalkLabelInstantiated;
         EventManager.OnPointableSOInstantiated += PointableSOInstantiated;
-        //EventManager.OnSmartObjectInstantiated += SmartObjectInstantiated;
         EventManager.OnDeactivateAgent += DeactivateAgent;
     }
 
     private void OnDisable()
     {
-        // Unregister from event manager events
+        // Unregister from event manager events. 
         EventManager.OnFloorInstantiated -= FloorInstantiated;
         EventManager.OnAgentInstantiated -= AgentInstantiated;
-        //EventManager.OnWalkLabelInstantiated -= WalkLabelInstantiated;
         EventManager.OnPointableSOInstantiated -= PointableSOInstantiated;
-        //EventManager.OnSmartObjectInstantiated -= SmartObjectInstantiated;
         EventManager.OnDeactivateAgent -= DeactivateAgent;
     }
 
     private void Start()
     {
         agent = null;
-        //floorTracking = false;
     }
 
-    // Called from event manager
+    /// <summary>
+    /// Start tracking the floor. 
+	/// Called from event manager. 
+    /// </summary>
     private void FloorInstantiated()
     {
-        // Start tracking the floor
-        /*floorTracking = true;
-        Debug.Log("Floor got instantiated.");*/
         navMeshSurface.BuildNavMesh();
         Debug.Log("NavMesh got rebuilt.");
     }
 
-    // Called from event manager
+    /// <summary>
+    /// Start tracking the agent. 
+	/// Called from event manager. 
+    /// </summary>
+	/// <param name="agent">Reference to the agent.</param>
+	/// <param name="abilities">Reference to the agent's abilities.</param>
     private void AgentInstantiated(Agent agent, AgentAbilities abilities)
     {
-        // Start tracking the agent
         this.agent = agent.GetComponent<Agent>();
         this.abilities = abilities;
         Debug.Log("Agent got instantiated.");
-        //ScheduleInteractions();
     }
 
+    /// <summary>
+    /// Remove the agent instance. 
+	/// Called from event manager.
+    /// </summary>
     private void DeactivateAgent()
     {
         agent = null;
         abilities = null;
     }
 
-    // Called from event manager
-    //TODO make work with SOIs
-    /*private void WalkLabelInstantiated(SmartObject smartDestinationObject)
+    /// <summary>
+    /// Rebuilds the NavMesh when a pointable Smart Object is instantiated. 
+	/// Called from event manager. 
+    /// </summary>
+	/// <param name="pointableSmartObjectInstance">Reference to the pointable Smart Object instance.</param>
+    public void PointableSOInstantiated(SmartObjectInstance pointableSmartObjectInstance)
     {
-        // WITH ABILITY SYSTEM
         // Make sure the NavMesh is built
         navMeshSurface.BuildNavMesh();
-        // Try to perform a walk interaction
-        Debug.Log("WalkLabel got instantiated.");
-        InteractionManager.AttemptInteraction(agent, abilities, walkingInteraction, smartDestinationObject);
+    }
 
-        WITHOUT ABILITY SYSTEM (commented out)
-        // Queue walking to the destination for the agent
-        if (agent != null)
-        {
-            agent.WalkTo(destination);
-            //navMeshAgent.SetDestination(destination.transform.position);
-            Debug.Log("WalkLabel got instantiated.");
-        }
-        
-    }*/
+    /// <summary>
+    /// Start playing the agent tasks.
+    /// </summary>
+    public void PlayAgentTasks()
+    {
+        ScheduleInteractions();
+        tempQueue = agent.GetQueue();
+        tempAgentTransform = new InstanceTransform(agent.gameObject.transform);
+        agent.SetAgentState(Agent.State.idle);
+    }
 
-    // Called from event manager
+    /// <summary>
+    /// Create interaction attempts for the agent. 
+	/// Helper method.
+    /// </summary>
     private void ScheduleInteractions()
     {
         // Make sure the NavMesh is built
@@ -111,43 +119,24 @@ public class NavMeshManager : MonoBehaviour
         }
     }
 
-    // Called from event manager
-    public void PointableSOInstantiated(SmartObjectInstance pointableSmartObjectInstance)
-    {
-        // Make sure the NavMesh is built
-        navMeshSurface.BuildNavMesh();
-        // Try to perform a point interaction
-        //TODO add object to interaction sequence planner?
-		//InteractionManager.AttemptInteraction(agent, abilities, pointingInteraction, pointableSmartObjectInstance);
-    }
-
-    public void PlayAgentTasks()
-    {
-        ScheduleInteractions();
-        tempQueue = agent.GetQueue();
-        tempAgentTransform = new InstanceTransform(agent.gameObject.transform);
-        agent.SetAgentState(Agent.State.idle);
-    }
-
+    /// <summary>
+    /// Stop playing the agent tasks.
+    /// </summary>
     public void StopAgentTasks()
     {
         if (!IsAgentSet())
             return;
 
-        //agent.SetAgentState(Agent.State.inactive);
         agent.Deactivate();
 
         // Reset agent
         agent.SetQueue(tempQueue);
-        // agent.Communicate("", "");
         tempAgentTransform.ApplyTransformTo(agent.gameObject.transform);
-
-        //TODO Reposition the agent
-        //agent.gameObject.transform.position = tempAgentTransform.position;
-        //agent.gameObject.transform.rotation = tempAgentTransform.rotation;
-        //agent.gameObject.transform.scale = tempAgentTransform.scale;
     }
 
+    /// <summary>
+    /// Check whether the agent instance is set.
+    /// </summary>
     public bool IsAgentSet()
     {
         if (agent != null)
@@ -159,11 +148,6 @@ public class NavMeshManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Update the NavMesh in every frame after the floor got instantiated (might be an overkill)
-        /*if (floorTracking == true)
-        {
-            navMeshSurface.BuildNavMesh();
-            Debug.Log("NavMesh got rebuilt.");
-        }*/
+
     }
 }

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Parse the given Smart Environment.
+/// </summary>
 public class SmartEnvironmentParser : MonoBehaviour
 {
     [TextArea] [SerializeField] string despription;

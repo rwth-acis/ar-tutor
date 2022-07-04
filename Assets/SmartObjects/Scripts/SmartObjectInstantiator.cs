@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The logic of Smart Object instantiation.
+/// </summary>
 public class SmartObjectInstantiator : MonoBehaviour
 {
     [SerializeField]
@@ -34,6 +37,10 @@ public class SmartObjectInstantiator : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Begin the instantiation process of a newly created blank Smart Object instance.
+    /// </summary>
+	/// <param name="index">Index of the blank Smart Object instance.</param>
     void InstantiateSmartObject(int index)
     {
         var smartObjectInstance = SmartEnvironment.Instance.GetSmartObjectInstance(index);
@@ -56,6 +63,11 @@ public class SmartObjectInstantiator : MonoBehaviour
         }  
     }
 
+    /// <summary>
+    /// Begin the process of restoring a previously created Smart Object instance.
+    /// </summary>
+	/// <param name="index">Index of the Smart Object instance to restore.</param>
+	/// <param name="smartEnvironmentTransform">Transform of the parent Smart Environment GameObject for placing Smart Objects' components.</param>
     void RestoreSmartObject(int index, Transform smartEnvironmentTransform)
     {
         var smartObjectInstance = SmartEnvironment.Instance.GetSmartObjectInstance(index);
@@ -104,10 +116,12 @@ public class SmartObjectInstantiator : MonoBehaviour
             smartObjectInstance.affectedArea.ApplyTransformTo(restoredAffectedArea.transform);
             smartObjectInstance.affectedAreaGameObject = restoredAffectedArea;
         }
-
-        //TODO plan the behavioral sequence!!!
     }
 
+    /// <summary>
+    /// Perform the instantiation process of the physical manifestation from a Smart Object instance.
+    /// </summary>
+	/// <param name="smartObjectInstance">Smart Object instance whose physical manifestation must be instantiated.</param>
     public void InstantiatePhysicalManifestation(SmartObjectInstance smartObjectInstance)
     {
         // Instantiate the physical manifestation
@@ -121,7 +135,6 @@ public class SmartObjectInstantiator : MonoBehaviour
             // Then the physical manifestation contains the interactive area and has to be searched for it
             Debug.Log("interactiveArea is a part of physicalManifestation");
             // Fetch that object from the SmartAreas component
-            //smartObjectInstance.interactiveArea = new InstanceTransform(smartObjectInstance.smartObject.physicalManifestation.GetComponent<SmartAreas>().interactiveArea.transform);
             smartObjectInstance.interactiveArea = new InstanceTransform(physicalManifestation.GetComponent<SmartAreas>().interactiveArea.transform);
             smartObjectInstance.interactiveAreaGameObject = physicalManifestation.GetComponent<SmartAreas>().interactiveArea;
             // Affected area still needs to be instantiated using smart areas
@@ -138,13 +151,15 @@ public class SmartObjectInstantiator : MonoBehaviour
         EventManager.PostStatement("user", "instantiated", "physical_manifestation" + SmartEnvironment.Instance.GetSmartObjectInstanceIndex(smartObjectInstance).ToString());
     }
 
+    /// <summary>
+    /// Perform the instantiation process of the interactive area from a Smart Object instance.
+    /// </summary>
+	/// <param name="smartObjectInstance">Smart Object instance whose interactive area must be instantiated.</param>
     public void InstantiateInteractiveArea(SmartObjectInstance smartObjectInstance)
     {
         // Instantiate the interactive area
         Debug.Log("interactiveArea is NOT a part of physicalManifestation");
         GameObject interactiveArea = classificationPlacementManager.PlaceWallObject2(3);
-        //TODO improve: add this object to the SmartObject collection in the scene
-        //smartObjectInstance.smartObject.SetInteractiveArea(interactiveArea);
         // Final scale as second argument
         smartObjectInstance.interactiveArea = new InstanceTransform(interactiveArea.transform, classificationPlacementManager.reticle.GetSmartAreaScale());
         smartObjectInstance.interactiveAreaGameObject = interactiveArea;
@@ -156,18 +171,20 @@ public class SmartObjectInstantiator : MonoBehaviour
         EventManager.PostStatement("user", "instantiated", "interactive_area" + SmartEnvironment.Instance.GetSmartObjectInstanceIndex(smartObjectInstance).ToString());
     }
 
+    /// <summary>
+    /// Perform the instantiation process of the affected area from a Smart Object instance.
+    /// </summary>
+	/// <param name="smartObjectInstance">Smart Object instance whose affected area must be instantiated.</param>
     public void InstantiateAffectedArea(SmartObjectInstance smartObjectInstance)
     {
         // Instantiate the affected area
         GameObject affectedArea = classificationPlacementManager.PlaceFloorObject2(3);
-        //TODO improve: add this object to the SmartObject collection in the scene
-        //smartObjectInstance.smartObject.SetAffectedArea(affectedArea);
         // Final scale as second argument
         smartObjectInstance.affectedArea = new InstanceTransform(affectedArea.transform, classificationPlacementManager.reticle.GetSmartAreaScale());
         smartObjectInstance.affectedAreaGameObject = affectedArea;
 
         smartObjectInstance.instantiated = true;
-        // Schedule the tasks, TODO improve
+        // Schedule the tasks
         EventManager.PointableSOInstantiated(smartObjectInstance);
         EventManager.SmartObjectInstantiated(SmartEnvironment.Instance.GetSmartObjectInstanceIndex(smartObjectInstance));
         EventManager.PostStatement("user", "instantiated", "affected_area" + SmartEnvironment.Instance.GetSmartObjectInstanceIndex(smartObjectInstance).ToString());

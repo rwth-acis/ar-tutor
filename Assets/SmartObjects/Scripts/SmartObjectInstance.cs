@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// A class that holds a real instance of a ScriptableObject smart object in the scene.
-// Enables multiple smart object copies with mutable data.
+/// <summary>
+/// A class that holds a real instance of a ScriptableObject Smart Object in the scene.
+/// Enables multiple Smart Object copies with mutable data.
+/// </summary>
 [Serializable]
 public class SmartObjectInstance
 {
@@ -21,12 +23,10 @@ public class SmartObjectInstance
     public GameObject physicalManifestationGameObject { get; set; }
     public GameObject interactiveAreaGameObject { get; set; }
     public GameObject affectedAreaGameObject { get; set; }
-    // Object-ID?
 
     public SmartObjectInstance(SmartObject smartObject, Transform physicalManifestation, Transform interactiveArea, Transform affectedArea)
     {
         this.smartObject = smartObject;
-        //TODO Add actual runtime game objects for planning the behavioral sequences and stuff
         this.physicalManifestation = new InstanceTransform(physicalManifestation);
         this.interactiveArea = new InstanceTransform(interactiveArea);
         this.affectedArea = new InstanceTransform(affectedArea);
@@ -37,26 +37,23 @@ public class SmartObjectInstance
         this.smartObject = smartObject;
     }
 
-    // Checks whether the smart object affords what is required by the interaction
-    // Considers provided interfaces of the smart object as well as the state its instance is in
+    /// <summary>
+    /// Checks whether the Smart Object affords what is required by the interaction.
+	/// Considers provided interfaces of the Smart Object as well as the state its instance is in.
+    /// </summary>
+    /// <param name="requiredAffordances">List of affordances required by interaction.</param>
     public bool CheckAffordances(List<Affordance> requiredAffordances)
     {
         if (busy == false && smartObject.CheckAffordances(requiredAffordances))
             return true;
         else
             return false;
-
-        /*if (busy == true) 
-            return false; //TODO throw exception
-        else if (smartObject.CheckAffordances(interaction.requiredAffordances))
-            return true;
-        else
-            return false;*/
     }
-
-
 }
 
+/// <summary>
+/// A class that holds the transform data of the Smart Objects in a Smart Environment.
+/// </summary>
 [Serializable]
 public class InstanceTransform
 {
@@ -83,6 +80,10 @@ public class InstanceTransform
         this.localScale = finalScale;
     }
 
+    /// <summary>
+    /// Applies the data from an InstanceTransform object to a Transform object.
+    /// </summary>
+    /// <param name="transform">Transform that should be adjusted.</param>
     public void ApplyTransformTo(Transform transform)
     {
         transform.localPosition = this.localPosition;

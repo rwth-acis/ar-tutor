@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manage the process of playing agent interactions and the corresponding UI.
+/// </summary>
 public class PlayStopHandler : MonoBehaviour
 {
     bool play = true;
@@ -35,6 +38,10 @@ public class PlayStopHandler : MonoBehaviour
         set => m_StopSprite = value;
     }
 
+    /// <summary>
+    /// Change the state to and from playing agent interactions. 
+	/// Called from the UI.
+    /// </summary>
     public void TogglePlayStop()
     {
         // If the agent is not there while interactions are being played
@@ -65,7 +72,6 @@ public class PlayStopHandler : MonoBehaviour
             m_UI.GetComponent<Image>().sprite = playSprite;
             EventManager.PostStatement("user", "pressed", "stop");
         }
-        //m_UI.SetActive(!m_UI.activeSelf);
         play = !play;
         EventManager.SXStatusChanged(play);
     }
